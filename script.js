@@ -104,12 +104,7 @@ function start() {
 		check();
 	}
 
-<<<<<<< HEAD
-	var time3 = setInterval(loopCheck, 1);
-	function loopCheck() {
-=======
 	function check() {
->>>>>>> ddee6cf09cbc46fa1f3417ee86afc168f23770f9
 		if (pacman.pos_x == ghost.pos_x && pacman.pos_y == ghost.pos_y) {
 			clearInterval(time1);
 			clearInterval(time2);
