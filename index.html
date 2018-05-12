@@ -4,12 +4,9 @@
 	<title>Nam Quoc</title>
 </head>
 <body>
-	<h1>Tiêu đề 1</h1>
-	<h2>Tiêu đề 2</h2>
+	<a href="" id="quoc">Bấm vào tao</a>
 
-	<a href="https://www.google.com.vn/" id="quoc">Bấm vào tao</a>
-
-	<p id="nam" style="font-family: monospace; letter-spacing: 5px;">000000000000000000000000</p>
+	<p id="nam" style="font-family: monospace; letter-spacing: 7px;"> </p>
 
 	<button onclick="clicktao()">click me</button>
 
@@ -46,16 +43,32 @@
 
 		var output = '';
 
-		map[1][1] = 'O';
-		
-		for (var i = 0; i < 15; i++) {
-			for (var j = 0; j < 15; j++) {
-				output += map[i][j];
-			}
-			output += ' <br> ';
-		}
-		nam.innerHTML = output;
 
+
+		map[1][1] = 'O';
+		//function display(){
+			for (var i = 0; i < 15; i++) {
+				for (var j = 0; j < 15; j++) {
+					output += map[i][j];
+				}
+				output += ' <br> ';
+			}
+			nam.innerHTML = output.split('')[2];
+		//}
+		//display();
+			
+
+	
+
+		//var count = 1;
+		//setInterval(loop, 1000);
+		function loop() {
+			output = '';
+			map[1][count] = ' ';
+			count++;
+			map[1][count] = 'O';
+			display();
+		}
 
 
 	</script>
