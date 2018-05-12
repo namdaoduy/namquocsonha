@@ -38,7 +38,7 @@
 					map[i][j] = ' ';
 				}
 			}
-			map[1][1] = 'O';
+			map[1][1] = '&#8592';
 			display();
 
 			var time = setInterval(loop, 300);
@@ -49,7 +49,7 @@
 				output = '';
 				map[1][count] = ' ';
 				count++;
-				map[1][count] = 'O';
+				map[1][count] = '&harr';
 				display();
 			}
 			function display(){
@@ -65,8 +65,6 @@
 		}
 
 		running();
-
-
 
 
 	</script>
