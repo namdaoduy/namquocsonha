@@ -9,7 +9,7 @@
 
 	<a href="" id="quoc">Bấm vào tao</a>
 
-	<p id="nam" style="font-family: monospace; letter-spacing: 7px;">000000000000000000000000</p>
+	<pre id="nam" style="font-family: monospace; letter-spacing: 7px;">con nhau nhau</pre>
 
 	<button onclick="clicktao()">click me</button>
 
@@ -38,32 +38,39 @@
 			['#','#','#','#','#','#','#','#','#','#','#','#','#','#','#']	
 		];
 		
+
+
+		for (var i = 1; i < 14; i++) {
+				for (var j = 1; j < 14; j++) {
+					map[i][j] = ' ';
+				}
+			}
 		map[1][1] = 'O';
-		var output = '';
+
+
+		function loop() {
+			var time = setInterval(loop, 1000);
+			if (count == 14){
+				clearInterval(time);
+			}
+			output = '';
+			map[1][count] = ' ';
+			count++;
+			map[1][count] = 'O';
+			display();
+		}
 		function display(){
+			var output = '';
 			for (var i = 0; i < 15; i++) {
 				for (var j = 0; j < 15; j++) {
 					output += map[i][j];
 				}
-				output += ' <br> ';
+				output += '<br>';
 			}	
 			nam.innerHTML = output;
 		}
-		function loop() {
-			output = '';
-			map[1][count] = ' ';
-			count++;
-			output = '';
-			map[1][count] = 'O';
-			display();
-		}
 
-
-		
-		
 		display();
-
-		setInterval(loop, 1000);
 
 
 
