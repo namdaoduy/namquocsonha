@@ -47,14 +47,15 @@
 			}
 		map[1][1] = 'O';
 
-		var time = setInterval(loop, 1000);
+		var time = setInterval(loop, 300);
 		function loop() {
-			if (count == 14){
+			if (count == 12){
 				clearInterval(time);
 			}
 			output = '';
 			map[1][count] = ' ';
 			count++;
+			alert(count);
 			map[1][count] = 'O';
 			display();
 		}
