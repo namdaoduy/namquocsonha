@@ -43,18 +43,19 @@
 		var snake = {
 			pos_x: 1, 
 			pos_y: 1,
-			move: function(dx,dy){
-				output = '';
+			dx: 1,
+			dy: 0,
+			move: function(){
 				map[this.pos_x][this.pos_y] = ' ';
-				this.pos_x += dx;
-				this.pos_y += dy;
+				this.pos_x += this.dx;
+				this.pos_y += this.dy;
 				map[this.pos_x][this.pos_y] = '☺';
 				display();
 			}
 		};
 
 		function display(){
-			var output = '';
+			output = '';
 			for (var i = 0; i < 15; i++) {
 				for (var j = 0; j < 15; j++) {
 					output += map[i][j];
@@ -76,19 +77,42 @@
 
 		function running(){
 			init_map();
+<<<<<<< HEAD
 			
 			nam.addEventListener("keypress", time);
 			var time = setInterval(loop, 700);
+=======
+				
+			var time = setInterval(loop, 50);
+>>>>>>> c16116ff49d7d32fc5047d1e40b017ca7353a9dc
 			function loop() {
-
-				if (brick.indexOf(map[snake.pos_x][snake.pos_y+2]) > -1){
-					clearInterval(time);
+				if (brick.indexOf(map[snake.pos_x+snake.dx][snake.pos_y+snake.dy]) < 0){
+					snake.move('right');
 				}
-				snake.move(0,1);
 			}
 
 		}
 
+		document.addEventListener("keydown", (event) => {
+		    switch (event.keyCode) {
+		    	case 39:
+		    		snake.dx = 0;
+		    		snake.dy = 1;
+		    		break;
+		    	case 37:
+		    		snake.dx = 0;
+		    		snake.dy = -1;
+		    		break;
+		    	case 38:
+		    		snake.dx = -1;
+		    		snake.dy = 0;
+		    		break;
+		    	case 40:
+		    		snake.dx = 1;
+		    		snake.dy = 0;
+		    		break;
+		    }
+		});
 
 	</script>
 
