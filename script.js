@@ -1,6 +1,8 @@
 var nam = document.getElementById("nam");
+var point = document.getElementById("point");
 
-var count = 1;
+var maxpoint = 110;
+var count = 0;
 
 var map = [
 	['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
@@ -36,6 +38,9 @@ var pacman = {
 		map[this.pos_x][this.pos_y] = ' ';
 		this.pos_x += this.dx;
 		this.pos_y += this.dy;
+		if (map[this.pos_x][this.pos_y] == '◦') {
+			count++;
+		}
 		map[this.pos_x][this.pos_y] = '☺';
 		display();
 	}
@@ -66,6 +71,7 @@ function start() {
 		if (brick.indexOf(map[pacman.pos_x + pacman.dx][pacman.pos_y + pacman.dy]) < 0){
 			pacman.move();
 		}
+		check();
 	}
 
 	// ghost move
@@ -95,17 +101,25 @@ function start() {
 		    		break;
     		}
 		}
+		check();
 	}
 
+<<<<<<< HEAD
 	var time3 = setInterval(loopCheck, 1);
 	function loopCheck() {
+=======
+	function check() {
+>>>>>>> ddee6cf09cbc46fa1f3417ee86afc168f23770f9
 		if (pacman.pos_x == ghost.pos_x && pacman.pos_y == ghost.pos_y) {
 			clearInterval(time1);
 			clearInterval(time2);
-			clearInterval(time3);
 			map[pacman.pos_x][pacman.pos_y] = '۩';
 			display();
-			
+		}
+		if (count == maxpoint) {
+			clearInterval(time1);
+			clearInterval(time2);
+			alert("YOU WIN");
 		}
 	}
 
@@ -120,6 +134,7 @@ function display() {
 		output += '<br>';
 	}	
 	nam.innerHTML = output;
+	point.innerHTML = count;
 }
 
 document.addEventListener("keydown", (event) => {
