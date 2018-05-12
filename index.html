@@ -47,9 +47,8 @@
 			}
 		map[1][1] = 'O';
 
-
+		var time = setInterval(loop, 1000);
 		function loop() {
-			var time = setInterval(loop, 1000);
 			if (count == 14){
 				clearInterval(time);
 			}
