@@ -4,18 +4,22 @@
 	<title>Nam Quoc</title>
 </head>
 <body>
+<<<<<<< HEAD
 	<a href="" id="quoc">Bấm vào tao</a>
 
 	<p id="nam" style="font-family: monospace; letter-spacing: 7px;"> </p>
 
 	<button onclick="clicktao()">click me</button>
+=======
+	<pre id="nam" style="font-family: monospace; letter-spacing: 7px;">con nhau nhau</pre>
+>>>>>>> 74b57119c3ad796513fddf015651def2d2104ec0
 
 	<script>
 		var nam = document.getElementById("nam");
 		var mang = nam.innerHTML.split('');
 
-		// var count = 0;
-		// setInterval(loop, 1000);
+		var count = 1;
+	
 
 		var map = [
 			['#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'],
@@ -35,14 +39,21 @@
 			['#','#','#','#','#','#','#','#','#','#','#','#','#','#','#']	
 		];
 		
-		// function loop() {
-		// 	mang[count] = '1';
-		// 	count++;
-		// 	nam.innerHTML = mang.join('');
-		// }
+		var snake = {pos_x: 1, pos_y: 1};
+		x = snake.pos_x; y = snake.pos_y; 
 
-		var output = '';
+		function display(){
+				var output = '';
+				for (var i = 0; i < 15; i++) {
+					for (var j = 0; j < 15; j++) {
+						output += map[i][j];
+					}
+					output += '<br>';
+				}	
+				nam.innerHTML = output;
+		}
 
+<<<<<<< HEAD
 
 
 		map[1][1] = 'O';
@@ -69,6 +80,38 @@
 			map[1][count] = 'O';
 			display();
 		}
+=======
+		function init_map(){
+			for (var i = 1; i < 14; i++) {
+				for (var j = 1; j < 14; j++) {
+					map[i][j] = ' ';
+				}
+			}
+			map[1][1] = 'O';
+			display();
+		}
+
+		function move(x, y, dx, dy){
+			output = '';
+			map[x][y] = ' ';
+			x += dx;
+			y += dy;
+			map[x][y] = 'O';
+			display();
+		}
+		function running(){
+			init_map();
+			var time = setInterval(loop, 300);
+			function loop() {
+				if (map[snake.pos_x][snake.pos_y+2] == '#'){
+					clearInterval(time);
+				}
+				move(snake.pos_x,snake.pos_y,0,1);
+			}
+		}
+
+		running();
+>>>>>>> 74b57119c3ad796513fddf015651def2d2104ec0
 
 
 	</script>
