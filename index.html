@@ -5,9 +5,8 @@
 </head>
 <meta charset="utf-8">
 <body>
-	<h1>Tiêu đề 1</h1>
-	<h2>Tiêu đề 2</h2>
 
+<<<<<<< HEAD
 	<a href="" id="quoc">Bấm vào tao</a>
 
 	<pre id="nam" style="
@@ -16,6 +15,9 @@
 		font-size: 20px;
 		">000000000000000000000000</pre>
 	<button onclick="clicktao()">click me</button>
+=======
+	<pre id="nam" style="font-family: monospace; letter-spacing: 7px;">con nhau nhau</pre>
+>>>>>>> 1ff958ec50c73580aa3dd673c7e9ba27a28426a3
 
 	<script>
 		var nam = document.getElementById("nam");
@@ -41,6 +43,7 @@
 			['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','╝']	
 		];
 		
+<<<<<<< HEAD
 		map[1][1] = '☺';
 		var output = '';
 		function display(){
@@ -59,16 +62,53 @@
 			output = '';
 			map[1][count] = '☺';
 			console.log(count);
+=======
+		var snake = {
+			pos_x: 1, 
+			pos_y: 1,
+			move: function(dx,dy){
+				output = '';
+				map[this.pos_x][this.pos_y] = ' ';
+				this.pos_x += dx;
+				this.pos_y += dy;
+				map[this.pos_x][this.pos_y] = 'O';
+				display();
+			}
+		};
+
+		function display(){
+				var output = '';
+				for (var i = 0; i < 15; i++) {
+					for (var j = 0; j < 15; j++) {
+						output += map[i][j];
+					}
+					output += '<br>';
+				}	
+				nam.innerHTML = output;
+		}
+		function init_map(){
+			for (var i = 1; i < 14; i++) {
+				for (var j = 1; j < 14; j++) {
+					map[i][j] = ' ';
+				}
+			}
+			map[1][1] = 'O';
+>>>>>>> 1ff958ec50c73580aa3dd673c7e9ba27a28426a3
 			display();
 		}
 
+		function running(){
+			init_map();
+			var time = setInterval(loop, 300);
+			function loop() {
+				if (map[snake.pos_x][snake.pos_y+2] == '#'){
+					clearInterval(time);
+				}
+				snake.move(0,1);
+			}
+		}
 
-		
-		
-		display();
-
-		setInterval(loop, 1000);
-
+		running();
 
 
 	</script>
