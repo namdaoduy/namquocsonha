@@ -6,8 +6,6 @@
 <body>
 	<pre id="nam" style="font-family: monospace; letter-spacing: 7px;">con nhau nhau</pre>
 
-	<button onclick="clicktao()">click me</button>
-
 	<script>
 		var nam = document.getElementById("nam");
 		var mang = nam.innerHTML.split('');
@@ -34,37 +32,40 @@
 		];
 		
 
-
-		for (var i = 1; i < 14; i++) {
+		function running(){
+			for (var i = 1; i < 14; i++) {
 				for (var j = 1; j < 14; j++) {
 					map[i][j] = ' ';
 				}
 			}
-		map[1][1] = 'O';
-
-		var time = setInterval(loop, 300);
-		function loop() {
-			if (map[1][count+2] == '#'){
-				clearInterval(time);
-			}
-			output = '';
-			map[1][count] = ' ';
-			count++;
-			map[1][count] = 'O';
+			map[1][1] = 'O';
 			display();
-		}
-		function display(){
-			var output = '';
-			for (var i = 0; i < 15; i++) {
-				for (var j = 0; j < 15; j++) {
-					output += map[i][j];
+
+			var time = setInterval(loop, 300);
+			function loop() {
+				if (map[1][count+2] == '#'){
+					clearInterval(time);
 				}
-				output += '<br>';
-			}	
-			nam.innerHTML = output;
+				output = '';
+				map[1][count] = ' ';
+				count++;
+				map[1][count] = 'O';
+				display();
+			}
+			function display(){
+				var output = '';
+				for (var i = 0; i < 15; i++) {
+					for (var j = 0; j < 15; j++) {
+						output += map[i][j];
+					}
+					output += '<br>';
+				}	
+				nam.innerHTML = output;
+			}
 		}
 
-		display();
+		running();
+
 
 
 
