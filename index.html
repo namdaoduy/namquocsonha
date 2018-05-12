@@ -31,28 +31,7 @@
 			['#','#','#','#','#','#','#','#','#','#','#','#','#','#','#']	
 		];
 		
-
-		function running(){
-			for (var i = 1; i < 14; i++) {
-				for (var j = 1; j < 14; j++) {
-					map[i][j] = ' ';
-				}
-			}
-			map[1][1] = '&#8596';
-			display();
-
-			var time = setInterval(loop, 300);
-			function loop() {
-				if (map[1][count+2] == '#'){
-					clearInterval(time);
-				}
-				output = '';
-				map[1][count] = ' ';
-				count++;
-				map[1][count] = '&#8596';
-				display();
-			}
-			function display(){
+		function display(){
 				var output = '';
 				for (var i = 0; i < 15; i++) {
 					for (var j = 0; j < 15; j++) {
@@ -61,6 +40,33 @@
 					output += '<br>';
 				}	
 				nam.innerHTML = output;
+		}
+
+		function init_map(){
+			for (var i = 1; i < 14; i++) {
+				for (var j = 1; j < 14; j++) {
+					map[i][j] = ' ';
+				}
+			}
+			map[1][1] = 'O';
+			display();
+		}
+
+		//function move(){
+
+		//}
+		function running(){
+			init_map();
+			var time = setInterval(loop, 300);
+			function loop() {
+				if (map[1][count+2] == '#'){
+					clearInterval(time);
+				}
+				output = '';
+				map[1][count] = ' ';
+				count++;
+				map[1][count] = 'O';
+				display();
 			}
 		}
 
