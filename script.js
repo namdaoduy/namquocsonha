@@ -114,7 +114,7 @@ function start() {
 		if (count == maxpoint) {
 			clearInterval(time1);
 			clearInterval(time2);
-			alert("YOU WIN");
+			setTimeout(function(){ alert("YOU WIN! FUCK!!!"); }, 500);
 		}
 	}
 
