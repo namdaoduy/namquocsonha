@@ -54,14 +54,14 @@
 		};
 
 		function display(){
-				var output = '';
-				for (var i = 0; i < 15; i++) {
-					for (var j = 0; j < 15; j++) {
-						output += map[i][j];
-					}
-					output += '<br>';
-				}	
-				nam.innerHTML = output;
+			var output = '';
+			for (var i = 0; i < 15; i++) {
+				for (var j = 0; j < 15; j++) {
+					output += map[i][j];
+				}
+				output += '<br>';
+			}	
+			nam.innerHTML = output;
 		}
 
 		function init_map(){
@@ -76,7 +76,8 @@
 
 		function running(){
 			init_map();
-			var time = setInterval(loop, 300);
+				
+			var time = setInterval(loop, 700);
 			function loop() {
 
 				if (brick.indexOf(map[snake.pos_x][snake.pos_y+2]) > -1){
