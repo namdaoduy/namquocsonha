@@ -35,16 +35,10 @@
 			['║','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','◦','◦','║'],
 			['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','╝']	
 		];
-		map[1][1] = '☺';
-		var output = '';
 
-		function loop() {
-			output = '';
-			map[1][count] = ' ';
-			count++;
-			map[1][count] = '☺';
-			console.log(count);
-		}
+		var brick = "╬╩╦╣╠╝╚╗╔║═";
+
+		var output = '';
 
 		var snake = {
 			pos_x: 1, 
@@ -54,7 +48,7 @@
 				map[this.pos_x][this.pos_y] = ' ';
 				this.pos_x += dx;
 				this.pos_y += dy;
-				map[this.pos_x][this.pos_y] = 'O';
+				map[this.pos_x][this.pos_y] = '☺';
 				display();
 			}
 		};
@@ -76,7 +70,7 @@
 			// 		map[i][j] = ' ';
 			// 	}
 			// }
-			map[1][1] = 'O';
+			map[1][1] = '☺';
 			display();
 		}
 
@@ -84,7 +78,8 @@
 			init_map();
 			var time = setInterval(loop, 300);
 			function loop() {
-				if (map[snake.pos_x][snake.pos_y+2] == '#'){
+
+				if (brick.indexOf(map[snake.pos_x][snake.pos_y+2]) > -1){
 					clearInterval(time);
 				}
 				snake.move(0,1);
