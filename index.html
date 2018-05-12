@@ -49,7 +49,7 @@
 
 		var time = setInterval(loop, 300);
 		function loop() {
-			if (count == 12){
+			if (map[1][count+2] == '#'){
 				clearInterval(time);
 			}
 			output = '';
