@@ -76,7 +76,8 @@
 
 		function running(){
 			init_map();
-				
+			
+			nam.addEventListener("keypress", time);
 			var time = setInterval(loop, 700);
 			function loop() {
 
@@ -85,6 +86,7 @@
 				}
 				snake.move(0,1);
 			}
+
 		}
 
 
