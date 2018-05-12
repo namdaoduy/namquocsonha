@@ -5,14 +5,13 @@
 </head>
 <meta charset="utf-8">
 <body>
-	<a href="" id="quoc">Bấm vào tao</a>
-	<button onclick="clicktao()">click me</button>
 	<pre id="nam" style="
 		font-family: monospace; 
 		letter-spacing: 7px;
 		font-size: 30px;
-		">con nhau nhau</pre>
-
+		">PACMAN GAME
+	</pre>
+	<button onclick="running()">Run</button>
 	<script>
 		var nam = document.getElementById("nam");
 		var mang = nam.innerHTML.split('');
@@ -91,8 +90,6 @@
 				snake.move(0,1);
 			}
 		}
-
-		running();
 
 
 	</script>
