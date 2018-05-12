@@ -77,14 +77,9 @@
 
 		function running(){
 			init_map();
-<<<<<<< HEAD
-			
-			nam.addEventListener("keypress", time);
-			var time = setInterval(loop, 700);
-=======
+
 				
-			var time = setInterval(loop, 50);
->>>>>>> c16116ff49d7d32fc5047d1e40b017ca7353a9dc
+			var time = setInterval(loop, 100);
 			function loop() {
 				if (brick.indexOf(map[snake.pos_x+snake.dx][snake.pos_y+snake.dy]) < 0){
 					snake.move('right');
