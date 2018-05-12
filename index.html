@@ -17,8 +17,8 @@
 		var nam = document.getElementById("nam");
 		var mang = nam.innerHTML.split('');
 
-		// var count = 0;
-		// setInterval(loop, 1000);
+		var count = 1;
+	
 
 		var map = [
 			['#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'],
@@ -38,23 +38,32 @@
 			['#','#','#','#','#','#','#','#','#','#','#','#','#','#','#']	
 		];
 		
-		// function loop() {
-		// 	mang[count] = '1';
-		// 	count++;
-		// 	nam.innerHTML = mang.join('');
-		// }
-
-		var output = '';
-
 		map[1][1] = 'O';
-		
-		for (var i = 0; i < 15; i++) {
-			for (var j = 0; j < 15; j++) {
-				output += map[i][j];
-			}
-			output += ' <br> ';
+		var output = '';
+		function display(){
+			for (var i = 0; i < 15; i++) {
+				for (var j = 0; j < 15; j++) {
+					output += map[i][j];
+				}
+				output += ' <br> ';
+			}	
+			nam.innerHTML = output;
 		}
-		nam.innerHTML = output;
+		function loop() {
+			output = '';
+			map[1][count] = 't';
+			count++;
+			output = '';
+			map[1][count] = 'O';
+			display();
+		}
+
+
+		
+		
+		display();
+
+		setInterval(loop, 1000);
 
 
 
