@@ -2,8 +2,9 @@ var nam = document.getElementById("play");
 var main = document.getElementById("main");
 var point = document.getElementById("point");
 var point_div = document.getElementById("point-div");
+var display_div = document.getElementById("display");
 
-var maxpoint = 151;
+var maxpoint = 5;
 var count;
 var map;
 var mapH = 15;
@@ -97,8 +98,8 @@ function resetGame() {
 
 function start() {
 	resetGame();
-	pacman.spawn(1,1,1,0);
-	ghost.spawn(13,13,-1,0);
+	pacman.spawn(1,1,0,-1);
+	ghost.spawn(13,1,-1,0);
 	nam.classList.toggle('hide');
 	main.classList.toggle('hide');
 	point_div.classList.toggle('hide');
@@ -150,14 +151,49 @@ function start() {
 			clearInterval(time2);
 			map[pacman.pos_x][pacman.pos_y] = '۩';
 			display();
+			blink();
+			setTimeout(function() {
+				nam.innerHTML = '\n\n\n\n\n      <strong>GAME OVER</strong>\n\n' +
+								'     Press START\n\n\n';
+			}, 1000);
 		}
 		if (count == maxpoint) {
 			clearInterval(time1);
 			clearInterval(time2);
-			setTimeout(function(){ alert("YOU WIN! FUCK!!!"); }, 500);
+			blink();
+			setTimeout(function() {
+				var text = 	"YOU WIN! IMPOSSIBLE!!! \n" 	+
+							"---------------------- \n" 	+
+							"A web game by NAMDAODUY and SPQUYT, pure javascript \n" +
+							"Check my github for my lastest project: \n" +
+							"namdaoduy: https://github.com/namdaoduy \n" +
+							"SpQuyt: https://github.com/SpQuyt \n" +
+							"---------------------- \n" +
+							"Press START to play again";
+				alert(text);
+
+			}, 1000);
+			setTimeout(function() {
+				nam.innerHTML = '\n\n\n\n\n       <strong>YOU WIN</strong>\n\n' +
+								'     Press START\n\n\n';
+			}, 1000);
 		}
 	}
 }
+
+function blink() {
+	var i = 0;
+	var time = setInterval(changeClass, 100, 5);
+	function changeClass() {
+		display_div.classList.toggle('color');
+		i++;
+		if (i == 8) {
+			clearInterval(time);
+		}
+	}
+}
+
+
 
 function display() {
 	output = '';
@@ -226,4 +262,14 @@ function tap(key) {
     	pacman.dx = _dx;
     	pacman.dy = _dy;
     }
+}
+
+function help() {
+	var howto = " HOW TO PLAY: \n" +
+				" * Desktop: use ARROW KEY on the key board to move \n" +
+				" * Mobile:  use BUTTON on screen to move \n\n" +
+				" RULE: \n" +
+				" * Eat all foods to win \n" +
+				" * Avoid Ghosts \n";
+	alert(howto);
 }

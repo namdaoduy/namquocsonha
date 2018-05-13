@@ -60,16 +60,31 @@ html, body {
 	height: 100%;
 	display: block;
 	margin: auto;
+	border-width: 6px;
+	background-color: #bfbfbf;
+	font-size: 30px;
+	color: #5e5e5e;
 }
 
 #start-button {
 	height: 60%;
 	width: 60%;
 	margin-left: 0;
+	font-size: 10px;
 }
 
 #help-button {
 	height: 60%;
 	width: 60%;
 	margin-right: 0;
+	font-size: 10px;
+}
+
+.color {
+	color: #aeecff;
+}
+
+#point-div {
+	margin: auto;
+	width: 121px;
 }
