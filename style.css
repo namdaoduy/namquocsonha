@@ -18,7 +18,7 @@ html, body {
 .display {
 	font-family: monospace; 
 	letter-spacing: 5px;
-	font-size: 18px;
+	font-size: 19px;
 	background-color: #9bbc0f;
     color: #1e4b1d;
     display: block;
@@ -27,6 +27,12 @@ html, body {
     margin: 0 auto;
     width: 305px;
     height: 357px;
+}
+
+@media (max-width: 414) {
+	.display {
+		font-size: 17px;
+	}
 }
 
 .main {
