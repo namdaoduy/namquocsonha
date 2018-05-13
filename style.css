@@ -5,7 +5,7 @@ html, body {
 	height: 100%;
 	width: 100%;
 	display: block;
-	font-family: monospace !important;
+	font-family: "Courier New", Courier, monospace !important;
 }
 
 .container {
@@ -38,12 +38,12 @@ html, body {
 
 .main {
 	letter-spacing: 0;
-    white-space: pre;
+    white-space: pre !important;
 }
 
 .play {
 	margin: 0;
-    white-space: pre;
+    white-space: pre !important;
 }
 
 .hide {
