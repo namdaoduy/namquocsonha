@@ -11,16 +11,14 @@ var mapH = 15;
 var mapW = 20;
 var brick = "╬╩╦╣╠╝╚╗╔║═";
 var output;
-var pacman_speed = 300;
-var ghost_speed = 200;
-var time1;
-var time2;
 
 function Pacman() {
 	this.pos_x, 
 	this.pos_y,
 	this.dx,
 	this.dy,
+	this.time,
+	this.speed = 300,
 	
 	this.move = function() {
 		map[this.pos_x][this.pos_y] = ' ';
@@ -39,6 +37,20 @@ function Pacman() {
 		this.dx = _dx;
 		this.dy = _dy;
 		map[this.pos_x][this.pos_y] = '☺';
+	},
+
+	this.start = function() {
+		var _this = this;
+		this.time = setInterval(function(){
+			_this.loop();
+		}, _this.speed);
+	},
+
+	this.loop = function() {
+		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
+			this.move();
+		}
+		check();
 	}
 }
 
@@ -48,6 +60,8 @@ function Ghost() {
 	this.dx,
 	this.dy,
 	this.foot,
+	this.time,
+	this.speed = 100,
 
 	this.move = function() {
 		map[this.pos_x][this.pos_y] = this.foot;
@@ -65,12 +79,55 @@ function Ghost() {
 		this.dy = _dy;
 		this.foot = '◦';
 		map[this.pos_x][this.pos_y] = '☻';
+	},
+
+	this.start = function() {
+		var _this = this;
+		this.time = setInterval(function(){
+			_this.loop();
+		}, _this.speed);
+	},
+
+	this.loop = function() {
+		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
+			this.move();
+		}
+		else {
+			var newdir = Math.floor((Math.random() * 4) + 1);
+			switch (newdir) {
+		    	case 1:
+		    		this.dx = 0;
+		    		this.dy = 1;
+		    		break;
+		    	case 2:
+		    		this.dx = 0;
+		    		this.dy = -1;
+		    		break;
+		    	case 3:
+		    		this.dx = -1;
+		    		this.dy = 0;
+		    		break;
+		    	case 4:
+		    		this.dx = 1;
+		    		this.dy = 0;
+		    		break;
+    		}
+    		this.loop();
+		}
+		check();
 	}
 }
 
 
 var pacman = new Pacman();
-var ghost = new Ghost();
+var ghost1 = new Ghost();
+var ghost2 = new Ghost();
+
+function clearTime() {
+	clearInterval(pacman.time);
+	clearInterval(ghost1.time);
+	clearInterval(ghost2.time);
+}
 
 function resetGame() {
 	count = 0;
@@ -92,102 +149,86 @@ function resetGame() {
 		['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','═','═','═','═','═','╝']	
 	];
 	output = '';
-	clearInterval(time1);
-	clearInterval(time2);
+	clearTime();
 }
 
 help();
 
 function start() {
 	resetGame();
+
 	pacman.spawn(1,1,0,-1);
-	ghost.spawn(13,1,-1,0);
+	ghost1.spawn(13,8,0,1);
+	ghost2.spawn(13,18,0,-1);
+
 	nam.classList.toggle('hide');
 	main.classList.toggle('hide');
 	point_div.classList.toggle('hide');
+
 	display();
 
-	// pacman move
-	time1 =  setInterval(loopPacman, pacman_speed);
-	function loopPacman() {
-		if (brick.indexOf(map[pacman.pos_x + pacman.dx][pacman.pos_y + pacman.dy]) < 0){
-			pacman.move();
+	pacman.start();
+	ghost1.start();
+	ghost2.start();
+}
+
+function check() {
+	function checkPos(a, b) {
+		if (a.pos_x == b.pos_x && a.pos_y == b.pos_y) {
+			return 1;
+		} else {
+			return 0;
 		}
-		check();
 	}
 
-	// ghost move
-	time2 = setInterval(loopGhost, ghost_speed);
-	function loopGhost() {
-		if (brick.indexOf(map[ghost.pos_x + ghost.dx][ghost.pos_y + ghost.dy]) < 0){
-			ghost.move();
+	if (checkPos(ghost1, ghost2)) {
+		if (ghost1.foot == '☻') {
+			ghost1.foot = ghost2.foot;
 		}
 		else {
-			newdir = Math.floor((Math.random() * 4) + 1);
-			switch (newdir) {
-		    	case 1:
-		    		ghost.dx = 0;
-		    		ghost.dy = 1;
-		    		break;
-		    	case 2:
-		    		ghost.dx = 0;
-		    		ghost.dy = -1;
-		    		break;
-		    	case 3:
-		    		ghost.dx = -1;
-		    		ghost.dy = 0;
-		    		break;
-		    	case 4:
-		    		ghost.dx = 1;
-		    		ghost.dy = 0;
-		    		break;
-    		}
-    		loopGhost();
+			ghost2.foot = ghost1.foot;
 		}
-		check();
 	}
 
-	function check() {
-		if (pacman.pos_x == ghost.pos_x && pacman.pos_y == ghost.pos_y) {
-			clearInterval(time1);
-			clearInterval(time2);
-			map[pacman.pos_x][pacman.pos_y] = '۩';
-			display();
-			blink();
-			setTimeout(function() {
-				nam.innerHTML = '\n\n\n\n\n      <strong>GAME OVER</strong>\n\n' +
-								'     Press START\n\n\n';
-			}, 1000);
-		}
-		if (count == maxpoint) {
-			clearInterval(time1);
-			clearInterval(time2);
-			blink();
-			setTimeout(function() {
-				var text = 	"YOU WIN! IMPOSSIBLE!!! \n" 	+
-							"---------------------- \n" 	+
-							"A web game by NAMDAODUY and SPQUYT, pure javascript \n" +
-							"Check my github for my lastest project: \n" +
-							"namdaoduy: https://github.com/namdaoduy \n" +
-							"SpQuyt: https://github.com/SpQuyt \n" +
-							"---------------------- \n" +
-							"Press START to play again";
-				alert(text);
+	if (checkPos(pacman, ghost1) || checkPos(pacman, ghost2)) {
+		clearTime();
+		map[pacman.pos_x][pacman.pos_y] = '۩';
+		display();
+		blink('red');
+		setTimeout(function() {
+			nam.innerHTML = '\n\n\n\n\n      <strong>GAME OVER</strong>\n\n' +
+							'     Press START\n\n\n';
+		}, 1000);
+	}
 
-			}, 1000);
-			setTimeout(function() {
-				nam.innerHTML = '\n\n\n\n\n       <strong>YOU WIN</strong>\n\n' +
-								'     Press START\n\n\n';
-			}, 1000);
-		}
+	if (count == maxpoint) {
+		clearTime();
+		blink('blue');
+		setTimeout(function() {
+			var text = 	"YOU WIN! IMPOSSIBLE!!! \n" 	+
+						"---------------------- \n" 	+
+						"A web game by NAMDAODUY and SPQUYT, pure javascript \n" +
+						"Check my github for my lastest project: \n" +
+						"namdaoduy: https://github.com/namdaoduy \n" +
+						"SpQuyt: https://github.com/SpQuyt \n" +
+						"---------------------- \n" +
+						"Press START to play again";
+			alert(text);
+
+		}, 1000);
+		setTimeout(function() {
+			nam.innerHTML = '\n\n\n\n\n       <strong>YOU WIN</strong>\n\n' +
+							'     Press START\n\n\n';
+		}, 1000);
 	}
 }
 
-function blink() {
+
+function blink(color) {
 	var i = 0;
 	var time = setInterval(changeClass, 100, 5);
 	function changeClass() {
-		display_div.classList.toggle('color');
+		display_div.classList.toggle(color);
 		i++;
 		if (i == 8) {
 			clearInterval(time);

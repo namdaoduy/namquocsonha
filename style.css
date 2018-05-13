@@ -1,9 +1,11 @@
 
+
 html, body {
 	margin: 0;
 	height: 100%;
 	width: 100%;
 	display: block;
+	font-family: "Courier New", Courier, monospace;
 }
 
 .container {
@@ -86,8 +88,12 @@ html, body {
 	font-size: 10px;
 }
 
-.color {
+.blue {
 	color: #aeecff;
+}
+
+.red {
+	color: red;
 }
 
 #point-div {
