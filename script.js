@@ -96,6 +96,8 @@ function resetGame() {
 	clearInterval(time2);
 }
 
+help();
+
 function start() {
 	resetGame();
 	pacman.spawn(1,1,0,-1);
