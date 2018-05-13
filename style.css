@@ -4,6 +4,7 @@ html, body {
 	margin: 0;
 	height: 100%;
 	width: 100%;
+	min-height: 590px;
 	display: block;
 	font-family: "Courier New", Courier, monospace !important;
 }
@@ -18,7 +19,7 @@ html, body {
 }
 
 .display {
-	letter-spacing: 5px;
+	letter-spacing: 4px;
 	font-size: 19px;
 	background-color: #9bbc0f;
     color: #1e4b1d;
@@ -30,14 +31,8 @@ html, body {
     height: 357px;
 }
 
-@media (max-width: 414px) {
-	.display {
-		font-size: 17px;
-	}
-}
-
 .main {
-	letter-spacing: 0;
+	letter-spacing: -1.3px;
     white-space: pre !important;
 }
 
@@ -100,4 +95,8 @@ html, body {
 #point-div {
 	margin: auto;
 	width: 121px;
+}
+
+pre {
+	font-family: "Courier New", Courier, monospace !important;
 }
