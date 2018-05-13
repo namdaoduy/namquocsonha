@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Nam Quoc</title>
-</head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="style.css">
+<head>
+	<title>PACMAN - SpQuyt ft. namdaoduy</title>
+</head>
 <body>
-	<pre id="nam" style="
-		font-family: monospace; 
-		letter-spacing: 7px;
-		font-size: 30px;
-		">PACMAN GAME
-	</pre>
+	<div class="container">
+		<div id="display" class="display">
+			<pre id="main" class="main">
 
-	<span>POINT:</span>
-	<span id="point">0</span> <br>
 
-	<button onclick="start()">Run</button>
+ █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █
+ ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█
+ █   █ █ ▀████ █   █ █ █ █  █
+
+      ▒▒▒▒▒    ▄████▄    
+     ▒ ▄▒ ▄▒  ███▄█▀     
+     ▒▒▒▒▒▒▒ ▐████  █  █ 
+     ▒▒▒▒▒▒▒  █████▄     
+     ▒ ▒ ▒ ▒   ▀████▀    
+
+     Press <strong>START</strong> to play
+			</pre>
+			<pre id="play" class="play hide"></pre>
+			<div id="point-div" class="hide">
+				<span>POINT:&nbsp</span><span id="point">0</span> <br>
+			</div>
+		</div>
+
+		<div class="button-container">
+			<span class="col-4"><button id="start-button" onclick="start()">START</button></span>
+			<span class="col-4"><button id="up-button" onclick="tap('up')">▲</button></span>
+			<span class="col-4"><button id="help-button" onclick="help()">HELP</button></span>
+			<span class="col-4"><button id="left-button" onclick="tap('left')">◄</button></span>
+			<span class="col-4"><button id="down-button" onclick="tap('down')">▼</button></span>
+			<span class="col-4"><button id="right-button" onclick="tap('right')">►</button></span>
+		</div>
+	</div>
+
 	<script src="script.js"></script>
 </body>
 </html>
