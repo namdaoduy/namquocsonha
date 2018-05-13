@@ -1,40 +1,27 @@
-var nam = document.getElementById("nam");
+var nam = document.getElementById("play");
+var main = document.getElementById("main");
 var point = document.getElementById("point");
+var point_div = document.getElementById("point-div");
 
-var maxpoint = 110;
-var count = 0;
-
-var map = [
-	['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
-	['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-	['║','◦','═','═','═','═','═','╗','◦','║','◦','╔','═','◦','║'],
-	['║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║','◦','◦','║'],
-	['║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║','◦','◦','║'],
-	['╠','═','═','═','═','═','═','╝','◦','║','◦','║','◦','◦','║'],
-	['║','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','◦','║'],
-	['║','◦','═','═','═','═','═','═','═','╝','◦','╚','═','◦','║'],
-	['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-	['║','◦','═','═','═','═','═','═','═','═','◦','═','═','◦','║'],
-	['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-	['║','◦','╔','═','═','═','═','═','═','═','◦','═','═','◦','║'],
-	['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-	['║','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','◦','◦','║'],
-	['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','╝']	
-];
-
-map[1][1] = '☺';
-map[13][13] = '☻';
-
+var maxpoint = 151;
+var count;
+var map;
+var mapH = 15;
+var mapW = 20;
 var brick = "╬╩╦╣╠╝╚╗╔║═";
+var output;
+var pacman_speed = 300;
+var ghost_speed = 200;
+var time1;
+var time2;
 
-var output = '';
-
-var pacman = {
-	pos_x: 1, 
-	pos_y: 1,
-	dx: 1,
-	dy: 0,
-	move: function() {
+function Pacman() {
+	this.pos_x, 
+	this.pos_y,
+	this.dx,
+	this.dy,
+	
+	this.move = function() {
 		map[this.pos_x][this.pos_y] = ' ';
 		this.pos_x += this.dx;
 		this.pos_y += this.dy;
@@ -43,30 +30,82 @@ var pacman = {
 		}
 		map[this.pos_x][this.pos_y] = '☺';
 		display();
+	},
+	
+	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
+		this.pos_x = _pos_x;
+		this.pos_y = _pos_y;
+		this.dx = _dx;
+		this.dy = _dy;
+		map[this.pos_x][this.pos_y] = '☺';
 	}
-};
+}
 
-var ghost = {
-	pos_x: 13, 
-	pos_y: 13,
-	dx: -1,
-	dy: 0,
-	foot: '◦',
-	move: function() {
+function Ghost() {
+	this.pos_x, 
+	this.pos_y,
+	this.dx,
+	this.dy,
+	this.foot,
+
+	this.move = function() {
 		map[this.pos_x][this.pos_y] = this.foot;
 		this.pos_x += this.dx;
 		this.pos_y += this.dy;
 		this.foot = map[this.pos_x][this.pos_y];
 		map[this.pos_x][this.pos_y] = '☻';
 		display();
+	},
+	
+	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
+		this.pos_x = _pos_x;
+		this.pos_y = _pos_y;
+		this.dx = _dx;
+		this.dy = _dy;
+		this.foot = '◦';
+		map[this.pos_x][this.pos_y] = '☻';
 	}
-};
+}
+
+
+var pacman = new Pacman();
+var ghost = new Ghost();
+
+function resetGame() {
+	count = 0;
+	map = [
+		['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','═','═','═','═','═','╗','◦','║','◦','╔','═','◦','◦','◦','◦','║','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║','◦','◦','═','═','═','╝','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
+		['╠','═','═','═','═','═','═','╝','◦','║','◦','║','◦','◦','═','═','═','═','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','═','═','═','═','═','═','═','╝','◦','╚','═','◦','◦','═','═','═','═','╣'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','═','═','═','═','═','═','═','═','◦','═','═','◦','╔','═','═','═','═','╣'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','║'],
+		['║','◦','╔','═','═','═','═','═','═','═','◦','═','═','◦','║','◦','◦','◦','◦','║'],
+		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','╚','═','═','═','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','═','═','═','═','═','╝']	
+	];
+	output = '';
+	clearInterval(time1);
+	clearInterval(time2);
+}
 
 function start() {
+	resetGame();
+	pacman.spawn(1,1,1,0);
+	ghost.spawn(13,13,-1,0);
+	nam.classList.toggle('hide');
+	main.classList.toggle('hide');
+	point_div.classList.toggle('hide');
 	display();
 
 	// pacman move
-	var time1 =  setInterval(loopPacman, 300);
+	time1 =  setInterval(loopPacman, pacman_speed);
 	function loopPacman() {
 		if (brick.indexOf(map[pacman.pos_x + pacman.dx][pacman.pos_y + pacman.dy]) < 0){
 			pacman.move();
@@ -75,7 +114,7 @@ function start() {
 	}
 
 	// ghost move
-	var time2 = setInterval(loopGhost, 300);
+	time2 = setInterval(loopGhost, ghost_speed);
 	function loopGhost() {
 		if (brick.indexOf(map[ghost.pos_x + ghost.dx][ghost.pos_y + ghost.dy]) < 0){
 			ghost.move();
@@ -100,6 +139,7 @@ function start() {
 		    		ghost.dy = 0;
 		    		break;
     		}
+    		loopGhost();
 		}
 		check();
 	}
@@ -117,13 +157,12 @@ function start() {
 			setTimeout(function(){ alert("YOU WIN! FUCK!!!"); }, 500);
 		}
 	}
-
 }
 
 function display() {
 	output = '';
-	for (var i = 0; i < 15; i++) {
-		for (var j = 0; j < 15; j++) {
+	for (var i = 0; i < mapH; i++) {
+		for (var j = 0; j < mapW; j++) {
 			output += map[i][j];
 		}
 		output += '<br>';
@@ -133,22 +172,58 @@ function display() {
 }
 
 document.addEventListener("keydown", (event) => {
+	var _dx;
+	var _dy;
     switch (event.keyCode) {
-    	case 39:
-    		pacman.dx = 0;
-    		pacman.dy = 1;
-    		break;
-    	case 37:
-    		pacman.dx = 0;
-    		pacman.dy = -1;
-    		break;
-    	case 38:
-    		pacman.dx = -1;
-    		pacman.dy = 0;
-    		break;
-    	case 40:
-    		pacman.dx = 1;
-    		pacman.dy = 0;
-    		break;
+      case 39:
+    	_dx = 0;
+    	_dy = 1;
+    	break;
+      case 37:
+    	_dx = 0;
+    	_dy = -1;
+    	break;
+      case 38:
+    	_dx = -1;
+    	_dy = 0;
+    	break;
+      case 40:
+    	_dx = 1;
+   		_dy = 0;
+   		break;
     }
+
+    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
+    	pacman.dx = _dx;
+    	pacman.dy = _dy;
+    }
+
 });
+
+function tap(key) {
+	var _dx;
+	var _dy;
+    switch (key) {
+      case 'right':
+    	_dx = 0;
+    	_dy = 1;
+    	break;
+      case 'left':
+    	_dx = 0;
+    	_dy = -1;
+    	break;
+      case 'up':
+    	_dx = -1;
+    	_dy = 0;
+    	break;
+      case 'down':
+    	_dx = 1;
+   		_dy = 0;
+   		break;
+    }
+
+    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
+    	pacman.dx = _dx;
+    	pacman.dy = _dy;
+    }
+}
