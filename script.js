@@ -18,7 +18,7 @@ function Pacman() {
 	this.dx,
 	this.dy,
 	this.time,
-	this.speed = 300,
+	this.speed = 200,
 	
 	this.move = function() {
 		map[this.pos_x][this.pos_y] = ' ';
