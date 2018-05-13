@@ -29,7 +29,7 @@ html, body {
     height: 357px;
 }
 
-@media (max-width: 414) {
+@media (max-width: 414px) {
 	.display {
 		font-size: 17px;
 	}
