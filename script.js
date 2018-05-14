@@ -4,13 +4,16 @@ var point = document.getElementById("point");
 var point_div = document.getElementById("point-div");
 var display_div = document.getElementById("display");
 
-var maxpoint = 249;
+var maxpoint = 298;
 var count;
 var map;
 var mapH = 15;
 var mapW = 20;
 var brick = "╬╩╦╣╠╝╚╗╔║═";
 var output;
+
+
+
 
 function Pacman() {
 	this.pos_x, 
@@ -19,7 +22,6 @@ function Pacman() {
 	this.dy,
 	this.time,
 	this.speed = 200,
-	
 	this.move = function() {
 		map[this.pos_x][this.pos_y] = ' ';
 		this.pos_x += this.dx;
@@ -32,7 +34,6 @@ function Pacman() {
 		map[this.pos_x][this.pos_y] = '☺';
 		display();
 	},
-	
 	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
 		this.pos_x = _pos_x;
 		this.pos_y = _pos_y;
@@ -40,14 +41,12 @@ function Pacman() {
 		this.dy = _dy;
 		map[this.pos_x][this.pos_y] = '☺';
 	},
-
 	this.start = function() {
 		var _this = this;
 		this.time = setInterval(function(){
 			_this.loop();
 		}, _this.speed);
 	},
-
 	this.loop = function() {
 		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
 			this.move();
@@ -55,6 +54,9 @@ function Pacman() {
 		check();
 	}
 }
+
+
+
 
 function Ghost() {
 	this.pos_x, 
@@ -64,7 +66,6 @@ function Ghost() {
 	this.foot,
 	this.time,
 	this.speed = 100,
-
 	this.move = function() {
 		map[this.pos_x][this.pos_y] = this.foot;
 		this.pos_x += this.dx;
@@ -73,7 +74,6 @@ function Ghost() {
 		map[this.pos_x][this.pos_y] = '☻';
 		display();
 	},
-	
 	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
 		this.pos_x = _pos_x;
 		this.pos_y = _pos_y;
@@ -82,14 +82,12 @@ function Ghost() {
 		this.foot = '◦';
 		map[this.pos_x][this.pos_y] = '☻';
 	},
-
 	this.start = function() {
 		var _this = this;
 		this.time = setInterval(function(){
 			_this.loop();
 		}, _this.speed);
 	},
-
 	this.loop = function() {
 		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
 			this.move();
@@ -125,36 +123,11 @@ var pacman = new Pacman();
 var ghost1 = new Ghost();
 var ghost2 = new Ghost();
 
-function clearTime() {
-	clearInterval(pacman.time);
-	clearInterval(ghost1.time);
-	clearInterval(ghost2.time);
-}
-
-function resetGame() {
-	count = 0;
-	map = [
-		['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-		['║','◦','═','═','═','═','═','╗','◦','║','◦','╔','═','◦','◦','◦','◦','║','◦','║'],
-		['║','◦','◦','◦','◦','◦','Ѽ','║','◦','║','◦','║','◦','◦','═','═','═','╝','◦','║'],
-		['║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
-		['╠','═','═','═','═','═','═','╝','◦','║','◦','║','◦','◦','═','═','═','═','◦','║'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
-		['║','◦','═','═','═','═','═','═','═','╝','◦','╚','═','◦','◦','═','═','═','═','╣'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-		['║','◦','═','═','═','═','═','═','═','═','◦','═','═','◦','╔','═','═','═','═','╣'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','║'],
-		['║','◦','╔','═','═','═','═','═','═','═','◦','═','═','◦','║','Ѽ','◦','◦','◦','║'],
-		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','╚','═','═','═','◦','║'],
-		['║','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-		['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','═','═','═','═','═','╝']	
-	];
-	output = '';
-	clearTime();
-}
-
 help();
+mainGif();
+
+
+
 
 function start() {
 	resetGame();
@@ -174,6 +147,47 @@ function start() {
 	ghost2.start();
 }
 
+function resetGame() {
+	count = 0;
+	map = [
+		['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','═','═','═','═','═','╗','◦','║','◦','╔','═','◦','◦','◦','◦','║','◦','║'],
+		['║','◦','◦','◦','◦','◦','Ѽ','║','◦','║','◦','║','◦','◦','═','═','═','╝','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
+		['╠','═','═','═','═','═','═','╝','◦','║','◦','║','◦','◦','═','═','═','═','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','═','═','═','═','═','═','═','╝','◦','╚','═','◦','◦','═','═','═','═','╣'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','Ѽ','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','═','═','═','═','═','═','═','═','◦','═','═','◦','╔','═','═','═','═','╣'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','║'],
+		['║','◦','╔','═','═','═','═','═','═','═','◦','═','═','◦','║','Ѽ','◦','◦','◦','║'],
+		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','╚','═','═','═','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','═','═','═','═','═','╝']	
+	];
+	output = '';
+	clearTime();
+}
+
+function clearTime() {
+	clearInterval(pacman.time);
+	clearInterval(ghost1.time);
+	clearInterval(ghost2.time);
+}
+
+function display() {
+	output = '';
+	for (var i = 0; i < mapH; i++) {
+		for (var j = 0; j < mapW; j++) {
+			output += map[i][j];
+		}
+		output += '<br>';
+	}	
+	nam.innerHTML = output;
+	point.innerHTML = count;
+}
+
 function check() {
 	function checkPos(a, b) {
 		if (a.pos_x == b.pos_x && a.pos_y == b.pos_y) {
@@ -182,7 +196,6 @@ function check() {
 			return 0;
 		}
 	}
-
 	if (checkPos(ghost1, ghost2)) {
 		if (ghost1.foot == '☻') {
 			ghost1.foot = ghost2.foot;
@@ -191,7 +204,6 @@ function check() {
 			ghost2.foot = ghost1.foot;
 		}
 	}
-
 	if (checkPos(pacman, ghost1) || checkPos(pacman, ghost2)) {
 		clearTime();
 		map[pacman.pos_x][pacman.pos_y] = '۩';
@@ -202,7 +214,6 @@ function check() {
 							'     Press START\n\n\n';
 		}, 1000);
 	}
-
 	if (count == maxpoint) {
 		clearTime();
 		blink('blue');
@@ -216,13 +227,79 @@ function check() {
 						"---------------------- \n" +
 						"Press START to play again";
 			alert(text);
-
 		}, 1000);
 		setTimeout(function() {
 			nam.innerHTML = '\n\n\n\n\n       <strong>YOU WIN</strong>\n\n' +
 							'     Press START\n\n\n';
 		}, 1000);
 	}
+}
+
+
+
+document.addEventListener("keydown", (event) => {
+	var _dx;
+	var _dy;
+    switch (event.keyCode) {
+    	case 39:
+    		_dx = 0;
+    		_dy = 1;
+    		break;
+    	case 37:
+    		_dx = 0;
+    		_dy = -1;
+    		break;
+    	case 38:
+    		_dx = -1;
+    		_dy = 0;
+    		break;
+    	case 40:
+    		_dx = 1;
+   			_dy = 0;
+   			break;
+    }
+    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
+    	pacman.dx = _dx;
+    	pacman.dy = _dy;
+    }
+});
+
+function tap(key) {
+	var _dx;
+	var _dy;
+    switch (key) {
+      	case 'right':
+    		_dx = 0;
+    		_dy = 1;
+    		break;
+      	case 'left':
+    		_dx = 0;
+    		_dy = -1;
+    		break;
+      	case 'up':
+    		_dx = -1;
+    		_dy = 0;
+    		break;
+      	case 'down':
+    		_dx = 1;
+   			_dy = 0;
+   			break;
+    }
+    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
+    	pacman.dx = _dx;
+    	pacman.dy = _dy;
+    }
+}
+
+
+function help() {
+	var howto = " HOW TO PLAY: \n" +
+				" * Desktop: use ARROW KEY on the key board to move \n" +
+				" * Mobile:  use BUTTON on screen to move \n\n" +
+				" RULE: \n" +
+				" * Eat all foods to win \n" +
+				" * Avoid Ghosts \n";
+	alert(howto);
 }
 
 
@@ -238,83 +315,62 @@ function blink(color) {
 	}
 }
 
-
-
-function display() {
-	output = '';
-	for (var i = 0; i < mapH; i++) {
-		for (var j = 0; j < mapW; j++) {
-			output += map[i][j];
+function mainGif() {
+	var i = 0;
+	var time = setInterval(function() {
+		if (i%4 == 0) {
+			main.innerHTML = '\n\n' +
+				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
+				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
+				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
+				'    ▒▒▒▒▒      ▄████▄       \n' +
+				'   ▒ ▀▒ ▀▒    ████▀███      \n' +
+				'   ▒▒▒▒▒▒▒   ▐████████▌ █   █\n' +
+				'   ▒▒▒▒▒▒▒    ████████      \n' +
+				'   ▒ ▒ ▒ ▒     ▀████▀       \n\n' +
+				'     Press <strong>START</strong> to play\n';	
 		}
-		output += '<br>';
-	}	
-	nam.innerHTML = output;
-	point.innerHTML = count;
+		else if (i%4 == 1) {
+			main.innerHTML = '\n\n' +
+				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
+				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
+				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
+				'     ▒▒▒▒▒     ▄████▄       \n' +
+				'    ▒ ▄▒ ▄▒   ████▀███      \n' +
+				'    ▒▒▒▒▒▒▒  ▐████████▌█   █\n' +
+				'    ▒▒▒▒▒▒▒   ████████      \n' +
+				'    ▒ ▒ ▒ ▒    ▀████▀       \n\n' +
+				'     Press <strong>START</strong> to play\n';	
+		}
+		else if (i%4 == 2) {
+			main.innerHTML = '\n\n' +
+				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
+				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
+				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
+				'      ▒▒▒▒▒    ▄████▄       \n' +
+				'     ▒▄ ▒▄ ▒  ███▄█▀        \n' +
+				'     ▒▒▒▒▒▒▒ ▐████    █   █ \n' +
+				'     ▒▒▒▒▒▒▒  █████▄        \n' +
+				'     ▒ ▒ ▒ ▒   ▀████▀       \n\n' +
+				'     Press START to play\n';	
+		}
+		else {
+			main.innerHTML = '\n\n' +
+				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
+				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
+				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
+				'     ▒▒▒▒▒     ▄████▄       \n' +
+				'    ▒▀ ▒▀ ▒   ███▄█▀        \n' +
+				'    ▒▒▒▒▒▒▒  ▐████   █   █   █\n' +
+				'    ▒▒▒▒▒▒▒   █████▄        \n' +
+				'    ▒ ▒ ▒ ▒    ▀████▀       \n\n' +
+				'     Press START to play\n';	
+		}
+		i++;
+	}, 400);
 }
 
-document.addEventListener("keydown", (event) => {
-	var _dx;
-	var _dy;
-    switch (event.keyCode) {
-      case 39:
-    	_dx = 0;
-    	_dy = 1;
-    	break;
-      case 37:
-    	_dx = 0;
-    	_dy = -1;
-    	break;
-      case 38:
-    	_dx = -1;
-    	_dy = 0;
-    	break;
-      case 40:
-    	_dx = 1;
-   		_dy = 0;
-   		break;
-    }
 
-    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
-    	pacman.dx = _dx;
-    	pacman.dy = _dy;
-    }
+function boost() {
 
-});
-
-function tap(key) {
-	var _dx;
-	var _dy;
-    switch (key) {
-      case 'right':
-    	_dx = 0;
-    	_dy = 1;
-    	break;
-      case 'left':
-    	_dx = 0;
-    	_dy = -1;
-    	break;
-      case 'up':
-    	_dx = -1;
-    	_dy = 0;
-    	break;
-      case 'down':
-    	_dx = 1;
-   		_dy = 0;
-   		break;
-    }
-
-    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
-    	pacman.dx = _dx;
-    	pacman.dy = _dy;
-    }
-}
-
-function help() {
-	var howto = " HOW TO PLAY: \n" +
-				" * Desktop: use ARROW KEY on the key board to move \n" +
-				" * Mobile:  use BUTTON on screen to move \n\n" +
-				" RULE: \n" +
-				" * Eat all foods to win \n" +
-				" * Avoid Ghosts \n";
-	alert(howto);
 }

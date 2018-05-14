@@ -9,19 +9,24 @@ html, body {
 	font-family: "Courier New", Courier, monospace !important;
 }
 
+body {
+	background: #5d007d;
+	background: linear-gradient(#4b0064a8,#490062e8), url("gplaypattern.png");
+}
+
 .container {
 	padding-top: 30px;
     max-width: 600px;
     margin: auto;
     height: 100%;
     box-sizing: border-box;
-    background-color: #5d007d;
 }
 
 .display {
 	letter-spacing: 4px;
 	font-size: 19px;
 	background-color: #9bbc0f;
+	background: linear-gradient(#809e00a6,#9bbc0fbb), url("p5.png");
     color: #1e4b1d;
     display: block;
     box-shadow: 0px 0px 10px #000 inset;
@@ -29,6 +34,9 @@ html, body {
     margin: 0 auto;
     width: 305px;
     height: 357px;
+
+    border-radius: 13px;
+    border: 5px inset #71487f;
 }
 
 .main {
@@ -85,7 +93,16 @@ html, body {
 	border-width: 6px;
 	background-color: #bfbfbf;
 	font-size: 30px;
-	color: #5e5e5e;
+	color: #7d7d7d;
+	border-radius: 36px;
+}
+
+button:active {
+	border-style: inset;
+}
+
+button:focus {
+	outline:0;
 }
 
 #start-button {
@@ -103,11 +120,13 @@ html, body {
 }
 
 .blue {
-	color: #aeecff;
+	color: #ffffff;
+    background: #0037d8;
 }
 
 .red {
-	color: red;
+	color: #a50000;
+	background: #b5b5b5;
 }
 
 #point-div {
@@ -117,4 +136,17 @@ html, body {
 
 pre {
 	font-family: "Courier New", Courier, monospace !important;
+}
+
+@media (min-width: 768px) {
+	.display {
+	    letter-spacing: 7px;
+	    font-size: 28px;
+	    width: 471px;
+		height: 510px;
+	}
+
+	#point-div {
+		letter-spacing: 0;
+	}
 }
