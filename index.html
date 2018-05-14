@@ -39,8 +39,52 @@
 			<div id="point-div" class="hide">
 				<span>POINT:&nbsp</span><span id="point">0</span> <br>
 			</div>
-		</div>
+			<div id="help" class="window-popup hide">
+				<strong>HOW TO WIN</strong><br>
+				<strong>---</strong><br>
+				* Eat ALL food <br>
+				* Avoid Ghosts <br><br>
 
+				<strong>CONTROLS</strong><br>
+				<strong>---</strong><br>
+				* Desktop: Use ARROW KEY <br>
+				* Mobile: Use BUTTON <br>
+				<em>! PACMAN stop when hit walls</em><br><br>
+
+				<strong>GET HIGH SCORE</strong><br>
+				<strong>---</strong><br>
+				* Normal food: <strong>10</strong> pts <br>
+				* Mystic fruit: <strong>100</strong> pts <br>
+				* Kill ghost: <strong>500</strong> pts <br><br>
+
+				<strong>MYSTIC FRUIT</strong><br>
+				<strong>---</strong><br>
+				<em>! Random effect</em><br>
+				* Boost/Slow PACMAN or Ghost's speed <br>
+				* <strong>SUPER MODE</strong>: <br>
+				-- Boost your speed, slow Ghosts <br>
+				-- You can eat Ghost for 5 sec <br>
+			</div>
+			<div id="credit" class="window-popup hide">
+				<h3>PACMAN - WEBGAME</h3>
+				<p>
+					=> <a href="https://github.com/namdaoduy/pacman">Repo</a><br>
+					- A remaked classic PACMAN game <br>
+					- Pure HTML/CSS/JS <br><br>
+					Our Team: <br>
+					* <strong>namdaoduy</strong><br>
+					* <strong>SpQuyt</strong><br><br>
+					- Our desire: make more <strong>FUN</strong> and <strong>CREATIVE</strong> 
+					game on web so anyone can play. <strong>ANYTIME!</strong> <br>
+					- Follow our GitHub for more project! <br>
+					* <a href="https://github.com/namdaoduy" target="_blank">namdaoduy</a><br>
+					* <a href="https://github.com/SpQuyt" target="_blank">Spquyt</a><br>
+					<button onclick="toggleCredit()">Cancel</button>
+
+				</p>
+			</div>
+		</div>
+		
 		<div class="button-container">
 			<span class="col-4"><button id="start-button" onclick="start()">START</button></span>
 			<span class="col-4"><button id="up-button" onclick="tap('up')">▲</button></span>

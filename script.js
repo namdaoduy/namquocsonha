@@ -142,11 +142,7 @@ var pacman = new Pacman();
 var ghost1 = new Ghost();
 var ghost2 = new Ghost();
 
-help();
 mainGif();
-
-
-
 
 function start() {
 	resetGame();
@@ -259,17 +255,7 @@ function check() {
 	if (count_food == maxfood) {
 		clearTime();
 		blink('blue');
-		setTimeout(function() {
-			var text = 	"YOU WIN! IMPOSSIBLE!!! \n" 	+
-						"---------------------- \n" 	+
-						"A web game by NAMDAODUY and SPQUYT, pure javascript \n" +
-						"Check my github for my lastest project: \n" +
-						"namdaoduy: https://github.com/namdaoduy \n" +
-						"SpQuyt: https://github.com/SpQuyt \n" +
-						"---------------------- \n" +
-						"Press START to play again";
-			alert(text);
-		}, 1000);
+		setTimeout(toggleCredit, 1000);
 		setTimeout(function() {
 			nam.innerHTML = '\n\n\n\n\n       <strong>YOU WIN</strong>\n\n' +
 							'     Press START\n\n\n';
@@ -335,13 +321,11 @@ function tap(key) {
 
 
 function help() {
-	var howto = " HOW TO PLAY: \n" +
-				" * Desktop: use ARROW KEY on the key board to move \n" +
-				" * Mobile:  use BUTTON on screen to move \n\n" +
-				" RULE: \n" +
-				" * Eat all foods to win \n" +
-				" * Avoid Ghosts \n";
-	alert(howto);
+	document.getElementById("help").classList.toggle("hide");
+}
+
+function toggleCredit() {
+	document.getElementById("credit").classList.toggle("hide");
 }
 
 

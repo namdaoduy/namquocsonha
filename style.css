@@ -20,6 +20,7 @@ body {
     margin: auto;
     height: 100%;
     box-sizing: border-box;
+    position: relative;
 }
 
 .display {
@@ -50,7 +51,7 @@ body {
 }
 
 .hide {
-	display: none;
+	display: none !important;
 }
 
 .button-container {
@@ -143,6 +144,36 @@ pre {
 	font-family: "Courier New", Courier, monospace !important;
 }
 
+.window-popup {
+	display: block;
+	width: 305px;
+    height: 348px;
+    background-color: #9bbc0f;
+	background: linear-gradient(#809e00a6,#9bbc0fbb), url("p5.png");
+    position: absolute;
+    top: 40px;
+    overflow: scroll;
+    border: 5px double #000000;
+    border-radius:  5px;
+    padding: 10px;
+    box-sizing: border-box;
+    letter-spacing: 0px;
+}
+
+.window-popup h3 {
+	display: block;
+	margin: 5px auto;
+	width: fit-content;
+}
+.window-popup p {
+	font-size: 14px;
+}
+.window-popup button {
+	display: block;
+	margin: 13px auto;
+	background: #b7b7b7;
+}
+
 @media (min-width: 768px) and (min-height: 727px) {
 	.display {
 	    letter-spacing: 7px;
@@ -153,5 +184,10 @@ pre {
 
 	#point-div {
 		letter-spacing: 0;
+	}
+
+	.window-popup {
+		width: 471px;
+		height: 510px;
 	}
 }
