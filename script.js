@@ -255,7 +255,7 @@ function check() {
 	if (count_food == maxfood) {
 		clearTime();
 		blink('blue');
-		setTimeout(toggleCredit(), 1000);
+		setTimeout(toggleCredit, 1000);
 		setTimeout(function() {
 			nam.innerHTML = '\n\n\n\n\n       <strong>YOU WIN</strong>\n\n' +
 							'     Press START\n\n\n';
