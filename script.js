@@ -4,7 +4,7 @@ var point = document.getElementById("point");
 var point_div = document.getElementById("point-div");
 var display_div = document.getElementById("display");
 
-var maxfood = 154;
+var maxfood = 151;
 var count_food;
 var count_point;
 var map;
