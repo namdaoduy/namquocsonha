@@ -125,8 +125,13 @@ button:focus {
 }
 
 .red {
-	color: #a50000;
-	background: #b5b5b5;
+	color: #ffffff;
+    background: #960000;
+}
+
+.gold {
+	color: #f9ff00;
+    background: #000000;
 }
 
 #point-div {
