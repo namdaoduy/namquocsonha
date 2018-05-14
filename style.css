@@ -33,7 +33,7 @@ body {
     padding: 5px;
     margin: 0 auto;
     width: 305px;
-    height: 357px;
+    height: 348px;
 
     border-radius: 13px;
     border: 5px inset #71487f;
@@ -138,7 +138,7 @@ pre {
 	font-family: "Courier New", Courier, monospace !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (min-height: 727px) {
 	.display {
 	    letter-spacing: 7px;
 	    font-size: 28px;
