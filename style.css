@@ -10,6 +10,7 @@ html, body {
 }
 
 body {
+	touch-action: manipulation;
 	background: #5d007d;
 	background: linear-gradient(#4b0064a8,#490062e8), url("image/gplaypattern.png");
 }
