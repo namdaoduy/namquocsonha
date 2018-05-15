@@ -1,9 +1,15 @@
+
+// Get elements
+// ---------------------------------------------------------- //
 var nam = document.getElementById("play");
 var main = document.getElementById("main");
 var point = document.getElementById("point");
 var point_div = document.getElementById("point-div");
 var display_div = document.getElementById("display");
 
+
+// Define variables
+// ---------------------------------------------------------- //
 var maxfood = 151;
 var count_food;
 var count_point;
@@ -13,9 +19,16 @@ var mapW = 20;
 var brick = "╬╩╦╣╠╝╚╗╔║═";
 var output;
 var super_mode = 0;
+var dot_icon = '◦';
+var fruit_icon = 'Ѽ';
+var ghost_icon = '☻';
+var pacman_icon = '☺';
 
 
-
+// Define objects and prototypes
+// ---------------------------------------------------------- //
+var dot = { icon: dot_icon }
+var fruit = { icon: fruit_icon }
 
 function Pacman() {
 	this.pos_x, 
@@ -24,6 +37,7 @@ function Pacman() {
 	this.dy,
 	this.time,
 	this.speed,
+	this.icon = '☺',
 	this.resetAll = function() {
 		this.speed = 200;
 	},
@@ -31,24 +45,47 @@ function Pacman() {
 		map[this.pos_x][this.pos_y] = ' ';
 		this.pos_x += this.dx;
 		this.pos_y += this.dy;
-		if (map[this.pos_x][this.pos_y] == '◦') {
-			count_food++;
-			count_point += 10;
-		} else if (map[this.pos_x][this.pos_y] == 'Ѽ') {
-			count_food++;
-			count_point += 100;
-			blink("blue");
-			bigFruit();
+		if (map[this.pos_x][this.pos_y] == dot.icon) {
+			this.eat(dot);
+		} 
+		else if (map[this.pos_x][this.pos_y] == fruit.icon) {
+			this.eat(fruit);
 		}
-		map[this.pos_x][this.pos_y] = '☺';
+		map[this.pos_x][this.pos_y] = this.icon;
 		display();
+	},
+	this.eat = function(target) {
+		switch (target.icon) {
+			case dot.icon:
+				count_food++;
+				count_point += 10;
+				break;
+			case fruit.icon:
+				count_food++;
+				count_point += 100;
+				blink("blue");
+				bigFruit();
+				break;
+			case '☻':
+				if (target.foot == dot.icon) {
+					this.eat(dot);
+				}
+				else if (target.foot == fruit.icon) {
+					this.eat(fruit);
+				}
+				clearInterval(target.time);
+				target.dead = 1;
+				target.pos_x = NaN;
+				target.pos_y = NaN;
+				count_point += 500;
+		}
 	},
 	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
 		this.pos_x = _pos_x;
 		this.pos_y = _pos_y;
 		this.dx = _dx;
 		this.dy = _dy;
-		map[this.pos_x][this.pos_y] = '☺';
+		map[this.pos_x][this.pos_y] = this.icon;
 	},
 	this.start = function() {
 		var _this = this;
@@ -64,15 +101,13 @@ function Pacman() {
 	}
 }
 
-
-
-
 function Ghost() {
 	this.pos_x, 
 	this.pos_y,
 	this.dx,
 	this.dy,
 	this.foot,
+	this.icon = '☻';
 	this.time,
 	this.speed,
 	this.dead = 0,
@@ -88,7 +123,7 @@ function Ghost() {
 		this.pos_x += this.dx;
 		this.pos_y += this.dy;
 		this.foot = map[this.pos_x][this.pos_y];
-		map[this.pos_x][this.pos_y] = '☻';
+		map[this.pos_x][this.pos_y] = this.icon;
 		display();
 	},
 	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
@@ -97,7 +132,7 @@ function Ghost() {
 		this.dx = _dx;
 		this.dy = _dy;
 		this.foot = '◦';
-		map[this.pos_x][this.pos_y] = '☻';
+		map[this.pos_x][this.pos_y] = this.icon;
 	},
 	this.start = function() {
 		if (this.dead == 0) {
@@ -137,12 +172,18 @@ function Ghost() {
 	}
 }
 
-
 var pacman = new Pacman();
 var ghost1 = new Ghost();
 var ghost2 = new Ghost();
 
+
+// Call functions
+// ---------------------------------------------------------- //
 mainGif();
+
+
+// Define functions and events
+// ---------------------------------------------------------- //
 
 function start() {
 	resetGame();
@@ -152,7 +193,7 @@ function start() {
 	ghost2.resetAll();
 
 	pacman.spawn(1,1,0,-1);
-	ghost1.spawn(13,8,0,1);
+	ghost1.spawn(13,1,-1,0);
 	ghost2.spawn(13,18,0,-1);
 
 	nam.classList.toggle('hide');
@@ -210,124 +251,109 @@ function display() {
 
 function check() {
 	function checkPos(a, b) {
-		if (a.pos_x == b.pos_x && a.pos_y == b.pos_y) {
+		if (a.pos_x == b.pos_x && a.pos_y == b.pos_y)
 			return 1;
-		} else {
+		else
 			return 0;
+	}
+	function checkGhosts(a, b) {
+		if (checkPos(a, b)) {
+			if (a.foot == a.icon)
+				a.foot = b.foot;
+			else
+				b.foot = a.foot;
 		}
 	}
-	if (checkPos(ghost1, ghost2)) {
-		if (ghost1.foot == '☻') {
-			ghost1.foot = ghost2.foot;
-		}
-		else {
-			ghost2.foot = ghost1.foot;
-		}
-	}
-	if (checkPos(pacman, ghost1) || checkPos(pacman, ghost2)) {
-		if (super_mode == 1) {
-			map[pacman.pos_x][pacman.pos_y] = '☺';
-			count_point += 500;
-			if (checkPos(pacman, ghost1)) {
-				clearInterval(ghost1.time);
-				ghost1.dead = 1;
-				ghost1.pos_x = NaN;
-				ghost1.pos_y = NaN;
-			} else {
-				clearInterval(ghost2.time);
-				ghost2.dead = 1;
-				ghost2.pos_x = NaN;
-				ghost2.pos_y = NaN;
+	function checkPacman(_pacman, _ghost) {
+		if (checkPos(_pacman, _ghost)) {
+			if (super_mode == 1) {
+				map[_pacman.pos_x][_pacman.pos_y] = _pacman.icon;
+				_pacman.eat(_ghost);
+			}
+			else {
+				clearTime();
+				map[_pacman.pos_x][_pacman.pos_y] = '۩';
+				display();
+				blink('red');
+				setTimeout(function() {
+					nam.innerHTML = '\n\n\n\n\n      <strong>GAME OVER</strong>\n\n' +
+									'     Press <strong>START</strong>\n\n\n';
+				}, 1000);
 			}
 		}
-		else {
+	}
+	function checkWin() {
+			if (count_food == maxfood) {
 			clearTime();
-			map[pacman.pos_x][pacman.pos_y] = '۩';
-			display();
-			blink('red');
+			blink('blue');
+			setTimeout(toggleCredit, 1000);
 			setTimeout(function() {
-				nam.innerHTML = '\n\n\n\n\n      <strong>GAME OVER</strong>\n\n' +
-								'     Press START\n\n\n';
+				nam.innerHTML = '\n\n\n       <strong>YOU WIN</strong>\n\n' +
+								'    Incredible!!! \n' +
+								' Calm down, I have a\n' +
+								' lot more stages for \n' +
+								'      you soon!\n' +
+								'   Keep in touch!\n\n' +
+								'     Press <strong>START</strong>\n\n';
 			}, 1000);
 		}
-		
 	}
-	if (count_food == maxfood) {
+
+	checkGhosts(ghost1, ghost2);
+	checkPacman(pacman, ghost1);
+	checkPacman(pacman, ghost2);
+	checkWin();
+}
+
+function bigFruit() {
+	var rand = Math.floor((Math.random() * 4) + 1);
+	switch (rand) {
+		case 1:
+			boostSpeed(ghost1, 4);
+			break;
+		case 2:
+			boostSpeed(pacman, 2);
+			break;
+		case 3:
+			boostSpeed(pacman, 0.5);
+			break;
+		case 4:
+			superPacman();
+			break;
+	}
+}
+
+function boostSpeed(target, multi) {
+	target.speed = Math.floor(target.speed / multi);
+	clearInterval(target.time);
+	target.start();
+}
+
+function superPacman() {
+	clearTime();
+	change("gold");
+	pacman.speed = 150;
+	ghost1.speed = 800;
+	ghost2.speed = 800;
+	super_mode = 1;
+	pacman.start();
+	ghost1.start();
+	ghost2.start();
+	setTimeout(function() {
+		change("gold");
 		clearTime();
-		blink('blue');
-		setTimeout(toggleCredit, 1000);
-		setTimeout(function() {
-			nam.innerHTML = '\n\n\n\n\n       <strong>YOU WIN</strong>\n\n' +
-							'     Press START\n\n\n';
-		}, 1000);
-	}
+		super_mode = 0;
+		pacman.resetAll();
+		ghost1.resetSpeed();
+		ghost2.resetSpeed();
+		pacman.start();
+		ghost1.start();
+		ghost2.start();
+	}, 5000);
 }
 
-
-
-document.addEventListener("keydown", (event) => {
-	var _dx;
-	var _dy;
-    switch (event.keyCode) {
-    	case 39:
-    		_dx = 0;
-    		_dy = 1;
-    		break;
-    	case 37:
-    		_dx = 0;
-    		_dy = -1;
-    		break;
-    	case 38:
-    		_dx = -1;
-    		_dy = 0;
-    		break;
-    	case 40:
-    		_dx = 1;
-   			_dy = 0;
-   			break;
-    }
-    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
-    	pacman.dx = _dx;
-    	pacman.dy = _dy;
-    }
-});
-
-function tap(key) {
-	var _dx;
-	var _dy;
-    switch (key) {
-      	case 'right':
-    		_dx = 0;
-    		_dy = 1;
-    		break;
-      	case 'left':
-    		_dx = 0;
-    		_dy = -1;
-    		break;
-      	case 'up':
-    		_dx = -1;
-    		_dy = 0;
-    		break;
-      	case 'down':
-    		_dx = 1;
-   			_dy = 0;
-   			break;
-    }
-    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
-    	pacman.dx = _dx;
-    	pacman.dy = _dy;
-    }
-}
-
-
-function help() {
-	document.getElementById("help").classList.toggle("hide");
-}
-
-function toggleCredit() {
-	document.getElementById("credit").classList.toggle("hide");
-}
-
+// For display
+// ---------------------------------------------------------- //
 
 function blink(color) {
 	var i = 0;
@@ -408,50 +434,78 @@ function mainGif() {
 	}, 400);
 }
 
+function help() {
+	document.getElementById("help").classList.toggle("hide");
+}
 
-function bigFruit() {
-	var rand = Math.floor((Math.random() * 4) + 1);
-	switch (rand) {
-		case 1:
-			boostSpeed(ghost1, 4);
-			break;
-		case 2:
-			boostSpeed(pacman, 2);
-			break;
-		case 3:
-			boostSpeed(pacman, 0.5);
-			break;
-		case 4:
-			superPacman();
-			break;
+function toggleCredit() {
+	document.getElementById("credit").classList.toggle("hide");
+}
+
+// Controls
+// ---------------------------------------------------------- //
+
+document.addEventListener("keydown", (event) => {
+	if (event.keyCode == 13) {
+		start();
+		return;
 	}
+	var _dx;
+	var _dy;
+    switch (event.keyCode) {
+    	case 39:
+    		_dx = 0;
+    		_dy = 1;
+    		break;
+    	case 37:
+    		_dx = 0;
+    		_dy = -1;
+    		break;
+    	case 38:
+    		_dx = -1;
+    		_dy = 0;
+    		break;
+    	case 40:
+    		_dx = 1;
+   			_dy = 0;
+   			break;
+    }
+    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
+    	pacman.dx = _dx;
+    	pacman.dy = _dy;
+    }
+});
+
+function tap(key) {
+	var _dx;
+	var _dy;
+    switch (key) {
+      	case 'right':
+    		_dx = 0;
+    		_dy = 1;
+    		break;
+      	case 'left':
+    		_dx = 0;
+    		_dy = -1;
+    		break;
+      	case 'up':
+    		_dx = -1;
+    		_dy = 0;
+    		break;
+      	case 'down':
+    		_dx = 1;
+   			_dy = 0;
+   			break;
+    }
+    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
+    	pacman.dx = _dx;
+    	pacman.dy = _dy;
+    }
 }
 
-function boostSpeed(target, multi) {
-	target.speed = Math.floor(target.speed / multi);
-	clearInterval(target.time);
-	target.start();
-}
 
-function superPacman() {
-	clearTime();
-	change("gold");
-	pacman.speed = 150;
-	ghost1.speed = 800;
-	ghost2.speed = 800;
-	super_mode = 1;
-	pacman.start();
-	ghost1.start();
-	ghost2.start();
-	setTimeout(function() {
-		change("gold");
-		clearTime();
-		super_mode = 0;
-		pacman.resetAll();
-		ghost1.resetSpeed();
-		ghost2.resetSpeed();
-		pacman.start();
-		ghost1.start();
-		ghost2.start();
-	}, 5000);
-}
+
+
+
+
+
