@@ -111,6 +111,9 @@ function Pacman() {
 				target.pos_y = NaN;
 				count_point += 500;
 				playSound(sound_ghost);
+				setTimeout(function() {
+					target.revive(1,1);
+				}, 15000);
 		}
 	},
 	this.resetAll = function() {
@@ -180,9 +183,20 @@ function Ghost() {
 		map[this.pos_x][this.pos_y] = this.icon;
 		display();
 	},
+	this.revive = function(x, y) {
+		this.dead = 0;
+		this.foot = ' ';
+		map[x][y] = this.icon;
+		var _this = this;
+		setTimeout(function(){
+			_this.pos_x = x;
+			_this.pos_y = y;
+			_this.start();
+		}, 1000);
+	},
 	this.resetSpeed = function() {
 		this.speed = 200;
-	}
+	},
 	this.resetAll = function() {
 		this.resetSpeed();
 		this.dead = 0;
