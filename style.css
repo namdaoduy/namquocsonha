@@ -11,7 +11,7 @@ html, body {
 
 body {
 	background: #5d007d;
-	background: linear-gradient(#4b0064a8,#490062e8), url("gplaypattern.png");
+	background: linear-gradient(#4b0064a8,#490062e8), url("image/gplaypattern.png");
 }
 
 .container {
@@ -27,7 +27,7 @@ body {
 	letter-spacing: 4px;
 	font-size: 19px;
 	background-color: #9bbc0f;
-	background: linear-gradient(#809e00a6,#9bbc0fbb), url("p5.png");
+	background: linear-gradient(#809e00a6,#9bbc0fbb), url("image/p5.png");
     color: #1e4b1d;
     display: block;
     box-shadow: 0px 0px 10px #000 inset;
@@ -149,7 +149,7 @@ pre {
 	width: 305px;
     height: 348px;
     background-color: #9bbc0f;
-	background: linear-gradient(#809e00a6,#9bbc0fbb), url("p5.png");
+	background: linear-gradient(#809e00a6,#9bbc0fbb), url("image/p5.png");
     position: absolute;
     top: 40px;
     overflow: scroll;
@@ -172,6 +172,32 @@ pre {
 	display: block;
 	margin: 13px auto;
 	background: #b7b7b7;
+}
+
+.window-popup label {
+	font-size: 15px;
+	display: block;
+	width: fit-content;
+    margin: auto;
+}
+.window-popup label input {
+	width: 26px;
+	height: 26px;
+	margin-left: 20px;
+}
+#setting {
+	padding-top: 103px;
+}
+#setting h3 {
+	float: left;
+}
+#setting button {
+	width: 170px;
+}
+
+#help button {
+	float: right;
+	margin: 0;
 }
 
 @media (min-width: 768px) and (min-height: 727px) {

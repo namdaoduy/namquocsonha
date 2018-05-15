@@ -6,6 +6,9 @@ var main = document.getElementById("main");
 var point = document.getElementById("point");
 var point_div = document.getElementById("point-div");
 var display_div = document.getElementById("display");
+var setting_div = document.getElementById("setting");
+var help_div = document.getElementById("help");
+var credit_div = document.getElementById("credit");
 
 
 // Define variables
@@ -13,16 +16,26 @@ var display_div = document.getElementById("display");
 var maxfood = 151;
 var count_food;
 var count_point;
+
 var map;
 var mapH = 15;
 var mapW = 20;
 var brick = "╬╩╦╣╠╝╚╗╔║═";
 var output;
+
 var super_mode = 0;
+
 var dot_icon = '◦';
 var fruit_icon = 'Ѽ';
 var ghost_icon = '☻';
 var pacman_icon = '☺';
+
+var sound_mode = "ON";
+var sound_opening = new Audio("sound/sound_opening.mp3");
+var sound_dot = new Audio("sound/sound_dot.mp3");
+var sound_fruit = new Audio("sound/sound_fruit.mp3");
+var sound_dead = new Audio("sound/sound_dead.mp3");
+var sound_ghost = new Audio("sound/sound_ghost.mp3");
 
 
 // Define objects and prototypes
@@ -59,10 +72,12 @@ function Pacman() {
 			case dot.icon:
 				count_food++;
 				count_point += 10;
+				playSound(sound_dot);
 				break;
 			case fruit.icon:
 				count_food++;
 				count_point += 100;
+				playSound(sound_fruit);
 				blink("blue");
 				bigFruit();
 				break;
@@ -78,6 +93,7 @@ function Pacman() {
 				target.pos_x = NaN;
 				target.pos_y = NaN;
 				count_point += 500;
+				playSound(sound_ghost);
 		}
 	},
 	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
@@ -186,6 +202,7 @@ mainGif();
 // ---------------------------------------------------------- //
 
 function start() {
+	playSound(sound_opening);
 	resetGame();
 
 	pacman.resetAll();
@@ -273,6 +290,7 @@ function check() {
 			else {
 				clearTime();
 				map[_pacman.pos_x][_pacman.pos_y] = '۩';
+				playSound(sound_dead);
 				display();
 				blink('red');
 				setTimeout(function() {
@@ -284,17 +302,18 @@ function check() {
 	}
 	function checkWin() {
 			if (count_food == maxfood) {
-			clearTime();
-			blink('blue');
-			setTimeout(toggleCredit, 1000);
-			setTimeout(function() {
-				nam.innerHTML = '\n\n\n       <strong>YOU WIN</strong>\n\n' +
-								'    Incredible!!! \n' +
-								' Calm down, I have a\n' +
-								' lot more stages for \n' +
-								'      you soon!\n' +
-								'   Keep in touch!\n\n' +
-								'     Press <strong>START</strong>\n\n';
+				playSound(sound_opening);
+				clearTime();
+				blink('blue');
+				setTimeout(toggleCredit, 1000);
+				setTimeout(function() {
+					nam.innerHTML = '\n\n\n       <strong>YOU WIN</strong>\n\n' +
+									'    Incredible!!! \n' +
+									' Calm down, I have a\n' +
+									' lot more stages for \n' +
+									'      you soon!\n' +
+									'   Keep in touch!\n\n' +
+									'     Press <strong>START</strong>\n\n';
 			}, 1000);
 		}
 	}
@@ -350,6 +369,12 @@ function superPacman() {
 		ghost1.start();
 		ghost2.start();
 	}, 5000);
+}
+
+function playSound(name) {
+	if (sound_mode == 'ON') {
+		name.play();
+	}
 }
 
 // For display
@@ -434,12 +459,28 @@ function mainGif() {
 	}, 400);
 }
 
-function help() {
-	document.getElementById("help").classList.toggle("hide");
+// Settings
+// ---------------------------------------------------------- //
+
+function setting() {
+	setting_div.classList.toggle("hide");
+	help_div.classList.add("hide");
+	credit_div.classList.add("hide");
+}
+
+function toggleHelp() {
+	help_div.classList.toggle("hide");
 }
 
 function toggleCredit() {
-	document.getElementById("credit").classList.toggle("hide");
+	credit_div.classList.toggle("hide");
+}
+
+function soundSetting(flag) {
+	if (flag.checked == true)
+		sound_mode = 'ON';
+	else
+		sound_mode = 'OFF';
 }
 
 // Controls
@@ -502,8 +543,6 @@ function tap(key) {
     	pacman.dy = _dy;
     }
 }
-
-
 
 
 

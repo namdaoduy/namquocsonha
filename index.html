@@ -39,7 +39,30 @@
 			<div id="point-div" class="hide">
 				<strong><span>POINT:&nbsp</span><span id="point">0</span></strong><br>
 			</div>
+			<div id="setting" class="window-popup hide">
+				<label><h3>ENABLE SOUND</h3><input type='checkbox' onclick="soundSetting(this)" checked></label>
+				<button onclick="toggleHelp()">HELP</button>
+				<button onclick="toggleCredit()">CREDIT</button>
+			</div>
+			<div id="credit" class="window-popup hide">
+				<h3>PACMAN - WEBGAME</h3>
+				<p>
+					=> <a href="https://github.com/namdaoduy/pacman">Repository</a><br>
+					- A remaked classic PACMAN game <br>
+					- Pure HTML/CSS/JS <br><br>
+					Our Team: <br>
+					* <strong>namdaoduy</strong><br>
+					* <strong>SpQuyt</strong><br><br>
+					- Our desire: make more <strong>FUN</strong> and <strong>CREATIVE</strong> 
+					game on web so anyone can play. <strong>ANYTIME!</strong> <br>
+					- Follow our GitHub for more project! <br>
+					=> <a href="https://github.com/namdaoduy" target="_blank">namdaoduy's Github</a><br>
+					=> <a href="https://github.com/SpQuyt" target="_blank">Spquyt's GitHub</a><br>
+					<button onclick="toggleCredit()">Replay</button>
+				</p>
+			</div>
 			<div id="help" class="window-popup hide">
+				<button onclick="toggleHelp()">X</button>
 				<strong>HOW TO WIN</strong><br>
 				<strong>---</strong><br>
 				* Eat ALL food <br>
@@ -65,30 +88,12 @@
 				-- Boost your speed, slow Ghosts <br>
 				-- You can eat Ghost for 5 sec <br>
 			</div>
-			<div id="credit" class="window-popup hide">
-				<h3>PACMAN - WEBGAME</h3>
-				<p>
-					=> <a href="https://github.com/namdaoduy/pacman">Repository</a><br>
-					- A remaked classic PACMAN game <br>
-					- Pure HTML/CSS/JS <br><br>
-					Our Team: <br>
-					* <strong>namdaoduy</strong><br>
-					* <strong>SpQuyt</strong><br><br>
-					- Our desire: make more <strong>FUN</strong> and <strong>CREATIVE</strong> 
-					game on web so anyone can play. <strong>ANYTIME!</strong> <br>
-					- Follow our GitHub for more project! <br>
-					=> <a href="https://github.com/namdaoduy" target="_blank">namdaoduy's Github</a><br>
-					=> <a href="https://github.com/SpQuyt" target="_blank">Spquyt's GitHub</a><br>
-					<button onclick="toggleCredit()">Replay</button>
-
-				</p>
-			</div>
 		</div>
 		
 		<div class="button-container">
 			<span class="col-4"><button id="start-button" onclick="start()">START</button></span>
 			<span class="col-4"><button id="up-button" onclick="tap('up')">▲</button></span>
-			<span class="col-4"><button id="help-button" onclick="help()">HELP</button></span>
+			<span class="col-4"><button id="help-button" onclick="setting()">SETTING</button></span>
 			<span class="col-4"><button id="left-button" onclick="tap('left')">◄</button></span>
 			<span class="col-4"><button id="down-button" onclick="tap('down')">▼</button></span>
 			<span class="col-4"><button id="right-button" onclick="tap('right')">►</button></span>
