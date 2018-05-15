@@ -9,6 +9,7 @@ var display_div = document.getElementById("display");
 var setting_div = document.getElementById("setting");
 var help_div = document.getElementById("help");
 var credit_div = document.getElementById("credit");
+var super_div = document.getElementById("super-mode");
 
 
 // Define variables
@@ -50,9 +51,25 @@ function Pacman() {
 	this.dy,
 	this.time,
 	this.speed,
-	this.icon = '☺',
-	this.resetAll = function() {
-		this.speed = 200;
+	this.icon = pacman_icon,
+	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
+		this.pos_x = _pos_x;
+		this.pos_y = _pos_y;
+		this.dx = _dx;
+		this.dy = _dy;
+		map[this.pos_x][this.pos_y] = this.icon;
+	},
+	this.start = function() {
+		var _this = this;
+		this.time = setInterval(function(){
+			_this.loop();
+		}, _this.speed);
+	},
+	this.loop = function() {
+		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
+			this.move();
+		}
+		check();
 	},
 	this.move = function() {
 		map[this.pos_x][this.pos_y] = ' ';
@@ -81,7 +98,7 @@ function Pacman() {
 				blink("blue");
 				bigFruit();
 				break;
-			case '☻':
+			case ghost_icon:
 				if (target.foot == dot.icon) {
 					this.eat(dot);
 				}
@@ -96,25 +113,9 @@ function Pacman() {
 				playSound(sound_ghost);
 		}
 	},
-	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
-		this.pos_x = _pos_x;
-		this.pos_y = _pos_y;
-		this.dx = _dx;
-		this.dy = _dy;
-		map[this.pos_x][this.pos_y] = this.icon;
-	},
-	this.start = function() {
-		var _this = this;
-		this.time = setInterval(function(){
-			_this.loop();
-		}, _this.speed);
-	},
-	this.loop = function() {
-		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
-			this.move();
-		}
-		check();
-	}
+	this.resetAll = function() {
+		this.speed = 200;
+	}	
 }
 
 function Ghost() {
@@ -123,25 +124,10 @@ function Ghost() {
 	this.dx,
 	this.dy,
 	this.foot,
-	this.icon = '☻';
+	this.icon = ghost_icon;
 	this.time,
 	this.speed,
 	this.dead = 0,
-	this.resetAll = function() {
-		this.resetSpeed();
-		this.dead = 0;
-	},
-	this.resetSpeed = function() {
-		this.speed = 200;
-	}
-	this.move = function() {
-		map[this.pos_x][this.pos_y] = this.foot;
-		this.pos_x += this.dx;
-		this.pos_y += this.dy;
-		this.foot = map[this.pos_x][this.pos_y];
-		map[this.pos_x][this.pos_y] = this.icon;
-		display();
-	},
 	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
 		this.pos_x = _pos_x;
 		this.pos_y = _pos_y;
@@ -185,6 +171,21 @@ function Ghost() {
     		this.loop();
 		}
 		check();
+	},
+	this.move = function() {
+		map[this.pos_x][this.pos_y] = this.foot;
+		this.pos_x += this.dx;
+		this.pos_y += this.dy;
+		this.foot = map[this.pos_x][this.pos_y];
+		map[this.pos_x][this.pos_y] = this.icon;
+		display();
+	},
+	this.resetSpeed = function() {
+		this.speed = 200;
+	}
+	this.resetAll = function() {
+		this.resetSpeed();
+		this.dead = 0;
 	}
 }
 
@@ -308,12 +309,9 @@ function check() {
 				blink('blue');
 				setTimeout(toggleCredit, 1000);
 				setTimeout(function() {
-					nam.innerHTML = '\n\n\n       <strong>YOU WIN</strong>\n\n' +
-									'    Incredible!!! \n' +
-									' Calm down, I have a\n' +
-									' lot more stages for \n' +
-									'      you soon!\n' +
-									'   Keep in touch!\n\n' +
+					nam.innerHTML = '\n\n\n       <strong>YOU WIN</strong>\n' +
+									'<p>Incredible!!! \n' +
+									'Calm down, I have a lot more stages for you soon! Keep in touch!</p>\n' +
 									'     Press <strong>START</strong>\n\n';
 			}, 1000);
 		}
@@ -356,11 +354,17 @@ function superPacman() {
 	ghost1.speed = 800;
 	ghost2.speed = 800;
 	super_mode = 1;
-	pacman.start();
-	ghost1.start();
-	ghost2.start();
+	super_div.classList.toggle("hide");
+	setTimeout(function() {
+		pacman.start();
+		ghost1.start();
+		ghost2.start();
+		super_div.classList.toggle("hide");
+	}, 1500);
 	setTimeout(function() {
 		change("gold");
+	}, 5000);
+	setTimeout(function() {
 		clearTime();
 		super_mode = 0;
 		pacman.resetAll();
@@ -369,7 +373,7 @@ function superPacman() {
 		pacman.start();
 		ghost1.start();
 		ghost2.start();
-	}, 5000);
+	}, 6000);
 }
 
 function playSound(name) {
@@ -395,11 +399,11 @@ function blink(color) {
 
 function change(color) {
 	var j = 0;
-	var time = setInterval(changeClass, 100);
+	var time = setInterval(changeClass, 200);
 	function changeClass() {
 		display_div.classList.toggle(color);
 		j++;
-		if (j == 3) {
+		if (j == 5) {
 			clearInterval(time);
 		}
 	}

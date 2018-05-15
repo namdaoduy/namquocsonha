@@ -51,6 +51,13 @@ body {
     white-space: pre !important;
 }
 
+.play p {
+	width: 100%;
+    white-space: pre-wrap;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
 .hide {
 	display: none !important;
 }
@@ -147,6 +154,25 @@ pre {
 	font-family: "Courier New", Courier, monospace !important;
 }
 
+.super-mode {
+	color: #fff;
+	background-color: #33310085;
+	font-size: 30px;
+	width: 305px;
+    height: 348px;
+    position: absolute;
+    top: 40px;
+    letter-spacing: 0px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.super-mode h3 {
+	width: fit-content;
+	margin: 142px auto;
+	text-shadow: 0px 0px 40px;
+}
+
 .window-popup {
 	display: block;
 	width: 305px;
@@ -178,6 +204,7 @@ pre {
 }
 
 .window-popup label {
+	line-height: 1;
 	font-size: 15px;
 	display: block;
 	width: fit-content;
@@ -215,8 +242,33 @@ pre {
 		letter-spacing: 0;
 	}
 
+	.super-mode {
+		width: 471px;
+		height: 510px;
+	}
+	.super-mode h3 {
+		margin-top: 212px;
+		font-size: 52px;
+	}
+
 	.window-popup {
 		width: 471px;
 		height: 510px;
+		font-size: 21px;
+	}
+	.window-popup p {
+		font-size: 21px;
+	}
+	.window-popup h3 {
+		font-size: 35px;
+	}
+	.window-popup label input {
+    	width: 32px;
+   		height: 40px;
+	}
+	#setting button {
+		width: 306px;
+	    height: 50px;
+	    margin: 20px auto;
 	}
 }
