@@ -216,6 +216,7 @@ function start() {
 	nam.classList.toggle('hide');
 	main.classList.toggle('hide');
 	point_div.classList.toggle('hide');
+	setting_div.classList.add("hide");
 
 	display();
 
