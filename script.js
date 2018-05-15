@@ -43,6 +43,9 @@ var sound_ghost = new Audio("sound/sound_ghost.mp3");
 // ---------------------------------------------------------- //
 var dot = { icon: dot_icon }
 var fruit = { icon: fruit_icon }
+var pacman;
+var ghost1;
+var ghost2;
 
 function Pacman() {
 	this.pos_x, 
@@ -203,9 +206,9 @@ function Ghost() {
 	}
 }
 
-var pacman = new Pacman();
-var ghost1 = new Ghost();
-var ghost2 = new Ghost();
+pacman = new Pacman();
+ghost1 = new Ghost();
+ghost2 = new Ghost();
 
 
 // Call functions
