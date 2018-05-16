@@ -134,6 +134,9 @@ function Ghost() {
 	this.time,
 	this.speed,
 	this.dead = 0,
+	this.record,
+	this.visited_map,
+	this.result_map,
 	this.spawn = function(_pos_x, _pos_y, _dx, _dy) {
 		this.pos_x = _pos_x;
 		this.pos_y = _pos_y;
@@ -151,6 +154,7 @@ function Ghost() {
 		}
 	},
 	this.loop = function() {
+		this.genTrace();
 		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
 			this.move();
 		}
@@ -203,8 +207,101 @@ function Ghost() {
 	this.resetAll = function() {
 		this.resetSpeed();
 		this.dead = 0;
+	},
+	this.countVisited = function() {
+		var count = 0;
+		for (var i = 0; i < mapH; i++) {
+			for (var j = 0; j < mapW; j++) {
+				if (this.visited_map[i][j] == 1) {
+					count++;
+				}
+			}
+		}
+		return count;
+	},
+	this.trace = function(target, x, y) {
+		if (target.pos_x == x && target.pos_y == y) {
+			this.visited_map[x][y] = 1;
+			var count = this.countVisited();
+			if (count <= this.record) {
+				for (var i = 0; i < mapH; i++) {
+					for (var j = 0; j < mapW; j++) {
+						this.result_map[i][j] = this.visited_map[i][j];
+					}
+				}
+				this.record = count;
+			}
+			this.visited_map[x][y] = 0;
+		}
+		else if (this.visited_map[x][y] == 1) {
+			return;
+		}
+		else if (x >= mapH-1 || x <= 0 || y >= mapW-1 || y <= 0) {
+			return;
+		}
+		else if (brick.indexOf(map[x][y]) >= 0) {
+			return;
+		}
+		else if (this.countVisited() > this.record) {
+			return;
+		}
+		else {
+			this.visited_map[x][y] = 1;
+			this.trace(target, x-1, y+0);
+			this.trace(target, x+0, y-1);
+			this.trace(target, x+0, y+1);
+			this.trace(target, x+1, y+0);
+			this.visited_map[x][y] = 0;
+		}
+	},
+	this.genTrace = function() {
+		this.record = 8;
+		for (var i = 0; i < mapH; i++) {
+			for (var j = 0; j < mapW; j++) {
+				this.result_map[i][j] = 0;
+				this.visited_map[i][j] = 0;
+			}
+		}
+
+		this.trace(pacman, this.pos_x, this.pos_y);
+		if (this.result_map[this.pos_x+1][this.pos_y+0] == 1){
+			this.dx = 1;
+			this.dy = 0;
+		}
+		else if (this.result_map[this.pos_x-1][this.pos_y+0] == 1){
+			this.dx = -1;
+			this.dy = 0;
+		}
+		else if (this.result_map[this.pos_x+0][this.pos_y+1] == 1){
+			this.dx = 0;
+			this.dy = 1;
+		}
+		else if (this.result_map[this.pos_x+0][this.pos_y-1] == 1){
+			this.dx = 0;
+			this.dy = -1;
+		}
+	},
+	this.initMap = function() {
+		this.visited_map = [];
+		for (var i = 0; i < mapH; i++) {
+			this.visited_map[i] = [];
+			for (var j = 0; j < mapW; j++) {
+				this.visited_map[i][j] = 0;
+			}
+		}
+		this.result_map = [];
+		for (var i = 0; i < mapH; i++) {
+			this.result_map[i] = [];
+			for (var j = 0; j < mapW; j++) {
+				this.result_map[i][j] = 0;
+			}
+		}
 	}
 }
+
+
+
+
 
 pacman = new Pacman();
 ghost1 = new Ghost();
@@ -230,6 +327,9 @@ function start() {
 	pacman.spawn(1,1,0,-1);
 	ghost1.spawn(13,1,-1,0);
 	ghost2.spawn(13,18,0,-1);
+
+	ghost1.initMap();
+	ghost2.initMap();
 
 	nam.classList.toggle('hide');
 	main.classList.toggle('hide');
