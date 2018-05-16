@@ -24,6 +24,9 @@ var mapW = 20;
 var brick = "╬╩╦╣╠╝╚╗╔║═";
 var output;
 
+var _dx;
+var _dy;
+
 var super_mode = 0;
 
 var dot_icon = '◦';
@@ -69,11 +72,18 @@ function Pacman() {
 		}, _this.speed);
 	},
 	this.loop = function() {
+		this.changeDir();
 		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
 			this.move();
 		}
 		check();
 	},
+	this.changeDir = function() {
+		if (brick.indexOf(map[this.pos_x + _dx][this.pos_y + _dy]) < 0) {
+	    	this.dx = _dx;
+	    	this.dy = _dy;
+	    }
+	}
 	this.move = function() {
 		map[this.pos_x][this.pos_y] = ' ';
 		this.pos_x += this.dx;
@@ -323,6 +333,8 @@ function start() {
 	pacman.resetAll();
 	ghost1.resetAll();
 	ghost2.resetAll();
+	_dx = -1;
+	_dy = 0;
 
 	pacman.spawn(1,1,0,-1);
 	ghost1.spawn(13,1,-1,0);
@@ -609,12 +621,6 @@ function soundSetting(flag) {
 // ---------------------------------------------------------- //
 
 document.addEventListener("keydown", (event) => {
-	if (event.keyCode == 13) {
-		start();
-		return;
-	}
-	var _dx;
-	var _dy;
     switch (event.keyCode) {
     	case 39:
     		_dx = 0;
@@ -632,16 +638,13 @@ document.addEventListener("keydown", (event) => {
     		_dx = 1;
    			_dy = 0;
    			break;
-    }
-    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
-    	pacman.dx = _dx;
-    	pacman.dy = _dy;
+   		case 13:
+   			start();
+			return;
     }
 });
 
 function tap(key) {
-	var _dx;
-	var _dy;
     switch (key) {
       	case 'right':
     		_dx = 0;
@@ -660,7 +663,10 @@ function tap(key) {
    			_dy = 0;
    			break;
     }
-    if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
+}
+
+function changeDir() {
+	if (brick.indexOf(map[pacman.pos_x + _dx][pacman.pos_y + _dy]) < 0) {
     	pacman.dx = _dx;
     	pacman.dy = _dy;
     }
