@@ -21,8 +21,6 @@
 	<div class="container">
 		<div id="display" class="display">
 			<pre id="main" class="main">
-
-
  █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █
  ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█
  █   █ █ ▀████ █   █ █ █ █  █
@@ -33,8 +31,10 @@
      ▒▒▒▒▒▒▒  █████▄     
      ▒ ▒ ▒ ▒   ▀████▀    
 
-     Press <strong>START</strong> to play
-			</pre>
+     Press <strong>START</strong> to play</pre>
+			<label id="name-label">
+				<strong>NAME</strong><input type="input" maxlength="15" placeholder="Kimi no na wa" id="name-input">
+			</label>
 			<pre id="play" class="play hide"></pre>
 			<div id="super-mode" class="super-mode hide"><h3>- SUPER MODE -</h3></div>
 			<div id="point-div" class="hide">
@@ -42,8 +42,19 @@
 			</div>
 			<div id="setting" class="window-popup hide">
 				<label><h3>ENABLE SOUND</h3><input type='checkbox' onclick="soundSetting(this)" checked></label>
+				<button onclick="togglePlayMode()">PLAY MODE</button>
 				<button onclick="toggleHelp()">HELP</button>
 				<button onclick="toggleCredit()">CREDIT</button>
+			</div>
+			<div id="play-mode" class="window-popup hide">
+				<h3>PLAY MODE</h3>
+				<div style="margin: 80px 0;">
+					<button onclick="changeMode('prev')" style="float: left">◄</button>
+					<h3><label id="mode">HARDCORE</label></h3>
+					<button onclick="changeMode('next')" style="float: right">►</button>
+
+				</div>
+				<p id="mode-des">You tried so hard, and got so farrr</p>
 			</div>
 			<div id="credit" class="window-popup hide">
 				<h3>PACMAN - WEBGAME</h3>
@@ -80,6 +91,12 @@
 				* Normal food: <strong>10</strong> pts <br>
 				* Mystic fruit: <strong>100</strong> pts <br>
 				* Kill ghost: <strong>500</strong> pts <br><br>
+
+				<strong>PLAY MODE</strong><br>
+				<strong>---</strong><br>
+				* <strong>EEZZEE</strong>: Slow ghosts <br>
+				* <strong>HARDCORE</strong>: Ghost faster and SMARTER! 2 x points <br>
+				* <strong>WATAFUK</strong>: Just play and feel the <strong>WTF!</strong> 3 x points<br><br>
 
 				<strong>MYSTIC FRUIT</strong><br>
 				<strong>---</strong><br>

@@ -7,6 +7,8 @@ var point = document.getElementById("point");
 var point_div = document.getElementById("point-div");
 var display_div = document.getElementById("display");
 var setting_div = document.getElementById("setting");
+var play_mode_div = document.getElementById("play-mode");
+var mode_name = document.getElementById("mode");
 var help_div = document.getElementById("help");
 var credit_div = document.getElementById("credit");
 var super_div = document.getElementById("super-mode");
@@ -17,6 +19,7 @@ var super_div = document.getElementById("super-mode");
 var maxfood = 151;
 var count_food;
 var count_point;
+var x_point = 1;
 
 var map;
 var mapH = 15;
@@ -24,10 +27,17 @@ var mapW = 20;
 var brick = "╬╩╦╣╠╝╚╗╔║═";
 var output;
 
+var intervals = [];
+var timeouts = [];
+
 var _dx;
 var _dy;
+var p_default_spd;
+var g_default_spd;
 
+var detect_range = 8;
 var super_mode = 0;
+var play_mode = 'EEZZEE';
 
 var dot_icon = '◦';
 var fruit_icon = 'Ѽ';
@@ -70,6 +80,7 @@ function Pacman() {
 		this.time = setInterval(function(){
 			_this.loop();
 		}, _this.speed);
+		intervals.push(this.time);
 	},
 	this.loop = function() {
 		this.changeDir();
@@ -101,12 +112,12 @@ function Pacman() {
 		switch (target.icon) {
 			case dot.icon:
 				count_food++;
-				count_point += 10;
+				count_point += 10 * x_point;
 				playSound(sound_dot);
 				break;
 			case fruit.icon:
 				count_food++;
-				count_point += 100;
+				count_point += 100 * x_point;
 				playSound(sound_fruit);
 				blink("blue");
 				bigFruit();
@@ -122,15 +133,15 @@ function Pacman() {
 				target.dead = 1;
 				target.pos_x = NaN;
 				target.pos_y = NaN;
-				count_point += 500;
+				count_point += 500 * x_point;
 				playSound(sound_ghost);
-				setTimeout(function() {
+				timeouts.push(setTimeout(function() {
 					target.revive(1,1);
-				}, 15000);
+				}, 15000));
 		}
 	},
 	this.resetAll = function() {
-		this.speed = 200;
+		this.speed = p_default_spd;
 	}	
 }
 
@@ -160,11 +171,12 @@ function Ghost() {
 			var _this = this;
 			this.time = setInterval(function(){
 				_this.loop();
-			}, _this.speed);	
+			}, _this.speed);
+			intervals.push(this.time);	
 		}
 	},
 	this.loop = function() {
-		this.genTrace();
+		this.detect();
 		if (brick.indexOf(map[this.pos_x + this.dx][this.pos_y + this.dy]) < 0){
 			this.move();
 		}
@@ -205,14 +217,14 @@ function Ghost() {
 		this.foot = ' ';
 		map[x][y] = this.icon;
 		var _this = this;
-		setTimeout(function(){
+		timeouts.push(setTimeout(function(){
 			_this.pos_x = x;
 			_this.pos_y = y;
 			_this.start();
-		}, 1000);
+		}, 1000));
 	},
 	this.resetSpeed = function() {
-		this.speed = 200;
+		this.speed = g_default_spd;
 	},
 	this.resetAll = function() {
 		this.resetSpeed();
@@ -264,8 +276,8 @@ function Ghost() {
 			this.visited_map[x][y] = 0;
 		}
 	},
-	this.genTrace = function() {
-		this.record = 8;
+	this.detect = function() {
+		this.record = detect_range;
 		for (var i = 0; i < mapH; i++) {
 			for (var j = 0; j < mapW; j++) {
 				this.result_map[i][j] = 0;
@@ -328,7 +340,9 @@ mainGif();
 
 function start() {
 	playSound(sound_opening);
+	
 	resetGame();
+	setMode();
 
 	pacman.resetAll();
 	ghost1.resetAll();
@@ -345,8 +359,12 @@ function start() {
 
 	nam.classList.toggle('hide');
 	main.classList.toggle('hide');
+	document.getElementById("name-label").classList.toggle('hide');
 	point_div.classList.toggle('hide');
 	setting_div.classList.add("hide");
+	help_div.classList.add("hide");
+	credit_div.classList.add("hide");
+	play_mode_div.classList.add("hide");
 
 	display();
 
@@ -380,9 +398,33 @@ function resetGame() {
 }
 
 function clearTime() {
-	clearInterval(pacman.time);
-	clearInterval(ghost1.time);
-	clearInterval(ghost2.time);
+	intervals.forEach(clearInterval);
+	timeouts.forEach(clearTimeout);
+	intervals = [];
+	timeouts = [];
+}
+
+function setMode() {
+	switch (play_mode) {
+		case 'EEZZEE':
+			p_default_spd = 200;
+			g_default_spd = 220;
+			detect_range = 5;
+			x_point = 1;
+			break;
+		case 'HARDCORE':
+			p_default_spd = 200;
+			g_default_spd = 200;
+			detect_range = 8;
+			x_point = 2;
+			break;
+		case 'WATAFUK':
+			p_default_spd = 160;
+			g_default_spd = 80;
+			detect_range = 10;
+			x_point = 3;
+			break;	
+	}
 }
 
 function display() {
@@ -462,7 +504,9 @@ function bigFruit() {
 			boostSpeed(pacman, 2);
 			break;
 		case 3:
-			boostSpeed(pacman, 0.5);
+			boostSpeed(pacman, 2);
+			boostSpeed(ghost1, 2);
+			boostSpeed(ghost2, 2);
 			break;
 		case 4:
 			superPacman();
@@ -479,21 +523,21 @@ function boostSpeed(target, multi) {
 function superPacman() {
 	clearTime();
 	change("gold");
-	pacman.speed = 150;
-	ghost1.speed = 800;
-	ghost2.speed = 800;
+	pacman.speed = 100;
+	ghost1.speed = 700;
+	ghost2.speed = 700;
 	super_mode = 1;
 	super_div.classList.toggle("hide");
-	setTimeout(function() {
+	timeouts.push(setTimeout(function() {
 		pacman.start();
 		ghost1.start();
 		ghost2.start();
 		super_div.classList.toggle("hide");
-	}, 1500);
+	}, 1500));
 	setTimeout(function() {
 		change("gold");
 	}, 5000);
-	setTimeout(function() {
+	timeouts.push(setTimeout(function() {
 		clearTime();
 		super_mode = 0;
 		pacman.resetAll();
@@ -502,7 +546,7 @@ function superPacman() {
 		pacman.start();
 		ghost1.start();
 		ghost2.start();
-	}, 6000);
+	}, 6000));
 }
 
 function playSound(name) {
@@ -542,7 +586,7 @@ function mainGif() {
 	var i = 0;
 	var time = setInterval(function() {
 		if (i%4 == 0) {
-			main.innerHTML = '\n\n' +
+			main.innerHTML = '' +
 				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
 				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
 				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
@@ -554,7 +598,7 @@ function mainGif() {
 				'     Press <strong>START</strong> to play\n';	
 		}
 		else if (i%4 == 1) {
-			main.innerHTML = '\n\n' +
+			main.innerHTML = '' +
 				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
 				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
 				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
@@ -566,7 +610,7 @@ function mainGif() {
 				'     Press <strong>START</strong> to play\n';	
 		}
 		else if (i%4 == 2) {
-			main.innerHTML = '\n\n' +
+			main.innerHTML = '' +
 				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
 				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
 				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
@@ -578,7 +622,7 @@ function mainGif() {
 				'     Press START to play\n';	
 		}
 		else {
-			main.innerHTML = '\n\n' +
+			main.innerHTML = '' +
 				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
 				' ███ █▄█ ███▄  █ ▀ █ ███ █ ▀█\n' +
 				' █   █ █ ▀████ █   █ █ █ █  █\n\n' +
@@ -600,6 +644,11 @@ function setting() {
 	setting_div.classList.toggle("hide");
 	help_div.classList.add("hide");
 	credit_div.classList.add("hide");
+	play_mode_div.classList.add("hide");
+}
+
+function togglePlayMode() {
+	play_mode_div.classList.toggle("hide");
 }
 
 function toggleHelp() {
@@ -615,6 +664,42 @@ function soundSetting(flag) {
 		sound_mode = 'ON';
 	else
 		sound_mode = 'OFF';
+}
+
+function changeMode(change) {
+	switch (mode_name.innerHTML) {
+		case 'EEZZEE':
+			if (change == 'prev')
+				play_mode = 'WATAFUK';
+			else
+				play_mode = 'HARDCORE';
+			break;
+		case 'HARDCORE':
+			if (change == 'prev')
+				play_mode = 'EEZZEE';
+			else
+				play_mode = 'WATAFUK';
+			break;
+		case 'WATAFUK':
+			if (change == 'prev')
+				play_mode = 'HARDCORE';
+			else
+				play_mode = 'EEZZEE';
+			break;
+	}
+	var des =  document.getElementById("mode-des");
+	switch (play_mode) {
+		case 'EEZZEE':
+			des.innerHTML = "Easy peasy lemon squeezy!";
+			break;
+		case 'HARDCORE':
+			des.innerHTML = "You tried so hard, and got so farrr";
+			break;
+		case 'WATAFUK':
+			des.innerHTML = "\"I dunno watt I am duinnn???\"";
+			break;
+	}
+	mode_name.innerHTML = play_mode;
 }
 
 // Controls

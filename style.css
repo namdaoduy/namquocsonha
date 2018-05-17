@@ -15,6 +15,11 @@ body {
 	background: linear-gradient(#4b0064a8,#490062e8), url("image/gplaypattern.png");
 }
 
+::placeholder {
+    color: #899b75;
+    opacity: 1;
+}
+
 .container {
 	padding-top: 30px;
     max-width: 600px;
@@ -130,6 +135,26 @@ button:focus {
 	font-size: 10px;
 }
 
+#name-label {
+	display: block;
+    width: fit-content;
+    letter-spacing: 0px;
+    font-size: 16px;
+    margin: auto;
+}
+
+#name-label input {
+	padding: 0 10px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    background: #4e702a;
+    border-radius: 6px;
+    width: 146px;
+    height: 25px;
+    color: #fff;
+    font-weight: bold;
+}
+
 .blue {
 	color: #ffffff;
     background: #0037d8;
@@ -216,13 +241,38 @@ pre {
 	margin-left: 20px;
 }
 #setting {
-	padding-top: 103px;
+	padding-top: 90px;
 }
 #setting h3 {
 	float: left;
 }
 #setting button {
 	width: 170px;
+}
+
+#play-mode label {
+	font-size: 40px;
+	display: inline-block;
+	float: left;
+}
+
+#play-mode button {
+	display: inline-block;
+	height: 40px;
+	margin: 0;
+	background: none;
+	border: none;
+	font-size: 30px;
+}
+
+#play-mode p {
+	text-align: center;
+	width: fit-content;
+    max-width: 180px;
+    margin: auto;
+    margin-top: 160px;
+    display: block;
+    font-size: 17px;
 }
 
 #help button {
@@ -266,9 +316,22 @@ pre {
     	width: 32px;
    		height: 40px;
 	}
+
 	#setting button {
 		width: 306px;
 	    height: 50px;
 	    margin: 20px auto;
+	}
+
+	#play-mode label {
+		font-size: 58px;
+	}
+	#play-mode button {
+		font-size: 50px;
+	}
+	#play-mode p {
+		max-width: 300px;
+	    margin-top: 200px;
+	    font-size: 25px;
 	}
 }
