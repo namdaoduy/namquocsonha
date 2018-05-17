@@ -37,7 +37,7 @@ var g_default_spd;
 
 var detect_range = 8;
 var super_mode = 0;
-var play_mode = 'EEZZEE';
+var play_mode = 'HARDCORE';
 
 var dot_icon = '◦';
 var fruit_icon = 'Ѽ';
@@ -137,7 +137,7 @@ function Pacman() {
 				playSound(sound_ghost);
 				timeouts.push(setTimeout(function() {
 					target.revive(1,1);
-				}, 15000));
+				}, 5000));
 		}
 	},
 	this.resetAll = function() {
@@ -151,7 +151,7 @@ function Ghost() {
 	this.dx,
 	this.dy,
 	this.foot,
-	this.icon = ghost_icon;
+	this.icon = ghost_icon,
 	this.time,
 	this.speed,
 	this.dead = 0,
@@ -404,6 +404,12 @@ function clearTime() {
 	timeouts = [];
 }
 
+function clearPlayerTime() {
+	clearInterval(pacman.time);
+	clearInterval(ghost1.time);
+	clearInterval(ghost2.time);
+}
+
 function setMode() {
 	switch (play_mode) {
 		case 'EEZZEE':
@@ -521,7 +527,7 @@ function boostSpeed(target, multi) {
 }
 
 function superPacman() {
-	clearTime();
+	clearPlayerTime();
 	change("gold");
 	pacman.speed = 100;
 	ghost1.speed = 700;
@@ -538,7 +544,7 @@ function superPacman() {
 		change("gold");
 	}, 5000);
 	timeouts.push(setTimeout(function() {
-		clearTime();
+		clearPlayerTime();
 		super_mode = 0;
 		pacman.resetAll();
 		ghost1.resetSpeed();
