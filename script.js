@@ -137,7 +137,7 @@ function Pacman() {
 				playSound(sound_ghost);
 				timeouts.push(setTimeout(function() {
 					target.revive(1,1);
-				}, 5000));
+				}, 10000));
 		}
 	},
 	this.resetAll = function() {
