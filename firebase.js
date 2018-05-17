@@ -28,21 +28,3 @@ function User() {
 			.set({score: _this.score, mode: _this.mode});
 	}
 }
-var nam = new User();
-nam.name = "nam";
-nam.time = Date.now();
-nam.updateUser();
-
-var data = 1;
-
-function getHighScore() {
-	database.ref('highscore').once('value').then(function(snapshot) {
-		data = snapshot.val();
-	}, function(error) {
-		alert("something");
-	});
-
-}
-getHighScore();
-
-alert(data);
