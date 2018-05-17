@@ -372,7 +372,7 @@ var WATAFUK = new Mode();
 
 EEZZEE.construct('EEZZEE', HARDCORE, WATAFUK, 200, 220, 5, 1,
 	'Easy peasy lemon squeezy!',
-	'Beat EEZZEE mode? Try WATAFUK mode!',
+	'Beat <strong>EEZZEE</strong> mode? Try <strong>HARDCORE</strong> or <strong>WATAFUK</strong> mode!',
 	'Come on! This is the EASIEST MODE!');
 HARDCORE.construct('HARDCORE', WATAFUK, EEZZEE, 200, 200, 8, 2,
 	'You tried so hard, and got so farrr...',
@@ -517,7 +517,7 @@ function check() {
 				display();
 				blink('red');
 				setTimeout(function() {
-					nam.innerHTML = '\n\n      <strong>GAME OVER</strong>\n' +
+					nam.innerHTML = '<h2>GAME OVER</h2>' +
 									'<p>' + play_mode.loss + '</p>' +
 									'<p>---</p>' +
 									'<p><strong>' + username + '</strong></p>' +
@@ -533,7 +533,7 @@ function check() {
 				blink('blue');
 				setTimeout(toggleCredit, 1000);
 				setTimeout(function() {
-					nam.innerHTML = '\n\n       <strong>YOU WIN</strong>\n' +
+					nam.innerHTML = '<h2>YOU WIN</h2>' +
 									'<p>' + play_mode.win + '</p>\n' +
 									'     Press <strong>START</strong>\n\n' +
 									'   MODE: <strong>' + play_mode.mode + '</strong>';
