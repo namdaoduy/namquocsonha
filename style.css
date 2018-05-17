@@ -57,8 +57,9 @@ body {
 }
 
 .play p {
-	width: 100%;
+	width: 80%;
     white-space: pre-wrap;
+    margin: 10px auto;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -172,7 +173,7 @@ button:focus {
 
 #point-div {
 	margin: auto;
-	width: 40%;
+	width: 50%;
 }
 
 pre {

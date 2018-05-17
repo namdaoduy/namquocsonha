@@ -12,6 +12,7 @@ var mode_name = document.getElementById("mode");
 var help_div = document.getElementById("help");
 var credit_div = document.getElementById("credit");
 var super_div = document.getElementById("super-mode");
+var name_input = document.getElementById("name-input");
 
 
 // Define variables
@@ -37,7 +38,6 @@ var g_default_spd;
 
 var detect_range = 8;
 var super_mode = 0;
-var play_mode = 'HARDCORE';
 
 var dot_icon = '◦';
 var fruit_icon = 'Ѽ';
@@ -51,11 +51,15 @@ var sound_fruit = new Audio("sound/sound_fruit.mp3");
 var sound_dead = new Audio("sound/sound_dead.mp3");
 var sound_ghost = new Audio("sound/sound_ghost.mp3");
 
+var username;
 
 // Define objects and prototypes
 // ---------------------------------------------------------- //
 var dot = { icon: dot_icon }
 var fruit = { icon: fruit_icon }
+
+// Pacman prototype
+// -------------------------- //
 var pacman;
 var ghost1;
 var ghost2;
@@ -145,6 +149,8 @@ function Pacman() {
 	}	
 }
 
+// Ghost prototype
+// -------------------------- //
 function Ghost() {
 	this.pos_x, 
 	this.pos_y,
@@ -322,12 +328,62 @@ function Ghost() {
 }
 
 
-
-
-
 pacman = new Pacman();
 ghost1 = new Ghost();
 ghost2 = new Ghost();
+
+
+// Mode prototype
+// -------------------------- //
+function Mode() {
+	this.mode,
+	this.next,
+	this.prev,
+	this.p_default_spd,
+	this.g_default_spd,
+	this.detect_range,
+	this.x_point,
+	this.des,
+	this.win,
+	this.loss,
+	this.construct = function(_mode, _next, _prev, _p, _g, _d, _x, _des, _win, _loss) {
+		this.mode = _mode;
+		this.next = _next;
+		this.prev = _prev;
+		this.p = _p,
+		this.g = _g,
+		this.d = _d,
+		this.x = _x,
+		this.des = _des;
+		this.win = _win;
+		this.loss = _loss;
+	},
+	this.set = function() {
+		p_default_spd = this.p;
+		g_default_spd = this.g;
+		detect_range = this.d;
+		x_point = this.x;
+	}
+}
+
+var EEZZEE = new Mode();
+var HARDCORE = new Mode();
+var WATAFUK = new Mode();
+
+EEZZEE.construct('EEZZEE', HARDCORE, WATAFUK, 200, 220, 5, 1,
+	'Easy peasy lemon squeezy!',
+	'Beat EEZZEE mode? Try WATAFUK mode!',
+	'Come on! This is the EASIEST MODE!');
+HARDCORE.construct('HARDCORE', WATAFUK, EEZZEE, 200, 200, 8, 2,
+	'You tried so hard, and got so farrr...',
+	'You have SKILLS! Don\'t worry, we have WATAFUK mode for ya!',
+	'Don\'t be upset. Try <strong>WATAFUK</strong> mode in <strong>SETTING</strong> and come back here. You will feel better!');
+WATAFUK.construct('WATAFUK', EEZZEE, HARDCORE, 160, 80, 10, 3,
+	'\"I dunno WATAFUK I am duinnn now!\"',
+	'WHAT??? You\'ve beat WATAFUK MODE??? Capture screen and send us for reward!',
+	'Try again boiii! Beat this mode for a REAL REWARD!');
+
+var play_mode = HARDCORE;
 
 
 // Call functions
@@ -339,32 +395,21 @@ mainGif();
 // ---------------------------------------------------------- //
 
 function start() {
+	username = (name_input.value).toUpperCase();
+	if (!username) {
+		alert("I know u have a NAME! Or friends call you 'BOIII'???");
+		name_input.value = "BOIII";
+		return;
+	}
 	playSound(sound_opening);
-	
+
+	username = (name_input.value).toUpperCase();
+
+	play_mode.set();
+
 	resetGame();
-	setMode();
 
-	pacman.resetAll();
-	ghost1.resetAll();
-	ghost2.resetAll();
-	_dx = -1;
-	_dy = 0;
-
-	pacman.spawn(1,1,0,-1);
-	ghost1.spawn(13,1,-1,0);
-	ghost2.spawn(13,18,0,-1);
-
-	ghost1.initMap();
-	ghost2.initMap();
-
-	nam.classList.toggle('hide');
-	main.classList.toggle('hide');
-	document.getElementById("name-label").classList.toggle('hide');
-	point_div.classList.toggle('hide');
-	setting_div.classList.add("hide");
-	help_div.classList.add("hide");
-	credit_div.classList.add("hide");
-	play_mode_div.classList.add("hide");
+	hideWindows();
 
 	display();
 
@@ -376,6 +421,8 @@ function start() {
 function resetGame() {
 	count_food = 0;
 	count_point = 0;
+	super_mode = 0;
+	output = '';
 	map = [
 		['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
 		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
@@ -393,8 +440,17 @@ function resetGame() {
 		['║','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
 		['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','═','═','═','═','═','╝']	
 	];
-	output = '';
 	clearTime();
+	pacman.resetAll();
+	ghost1.resetAll();
+	ghost2.resetAll();
+	_dx = -1;
+	_dy = 0;
+	pacman.spawn(1,1,0,-1);
+	ghost1.spawn(13,1,-1,0);
+	ghost2.spawn(13,18,0,-1);
+	ghost1.initMap();
+	ghost2.initMap();
 }
 
 function clearTime() {
@@ -410,27 +466,15 @@ function clearPlayerTime() {
 	clearInterval(ghost2.time);
 }
 
-function setMode() {
-	switch (play_mode) {
-		case 'EEZZEE':
-			p_default_spd = 200;
-			g_default_spd = 220;
-			detect_range = 5;
-			x_point = 1;
-			break;
-		case 'HARDCORE':
-			p_default_spd = 200;
-			g_default_spd = 200;
-			detect_range = 8;
-			x_point = 2;
-			break;
-		case 'WATAFUK':
-			p_default_spd = 160;
-			g_default_spd = 80;
-			detect_range = 10;
-			x_point = 3;
-			break;	
-	}
+function hideWindows() {
+	nam.classList.toggle('hide');
+	main.classList.toggle('hide');
+	document.getElementById("name-label").classList.toggle('hide');
+	point_div.classList.toggle('hide');
+	setting_div.classList.add("hide");
+	help_div.classList.add("hide");
+	credit_div.classList.add("hide");
+	play_mode_div.classList.add("hide");
 }
 
 function display() {
@@ -473,8 +517,11 @@ function check() {
 				display();
 				blink('red');
 				setTimeout(function() {
-					nam.innerHTML = '\n\n\n\n\n      <strong>GAME OVER</strong>\n\n' +
-									'     Press <strong>START</strong>\n\n\n';
+					nam.innerHTML = '\n\n      <strong>GAME OVER</strong>\n' +
+									'<p>' + play_mode.loss + '</p>' +
+									'<p>---</p>' +
+									'<p><strong>' + username + '</strong></p>' +
+									'   MODE: <strong>' + play_mode.mode + '</strong>';
 				}, 1000);
 			}
 		}
@@ -486,10 +533,10 @@ function check() {
 				blink('blue');
 				setTimeout(toggleCredit, 1000);
 				setTimeout(function() {
-					nam.innerHTML = '\n\n\n       <strong>YOU WIN</strong>\n' +
-									'<p>Incredible!!! \n' +
-									'Calm down, I have a lot more stages for you soon! Keep in touch!</p>\n' +
-									'     Press <strong>START</strong>\n\n';
+					nam.innerHTML = '\n\n       <strong>YOU WIN</strong>\n' +
+									'<p>' + play_mode.win + '</p>\n' +
+									'     Press <strong>START</strong>\n\n' +
+									'   MODE: <strong>' + play_mode.mode + '</strong>';
 			}, 1000);
 		}
 	}
@@ -651,18 +698,22 @@ function setting() {
 	help_div.classList.add("hide");
 	credit_div.classList.add("hide");
 	play_mode_div.classList.add("hide");
+	playSound(sound_dot);
 }
 
 function togglePlayMode() {
 	play_mode_div.classList.toggle("hide");
+	playSound(sound_dot);
 }
 
 function toggleHelp() {
 	help_div.classList.toggle("hide");
+	playSound(sound_dot);
 }
 
 function toggleCredit() {
 	credit_div.classList.toggle("hide");
+	playSound(sound_dot);
 }
 
 function soundSetting(flag) {
@@ -670,42 +721,20 @@ function soundSetting(flag) {
 		sound_mode = 'ON';
 	else
 		sound_mode = 'OFF';
+	playSound(sound_dot);
 }
 
 function changeMode(change) {
-	switch (mode_name.innerHTML) {
-		case 'EEZZEE':
-			if (change == 'prev')
-				play_mode = 'WATAFUK';
-			else
-				play_mode = 'HARDCORE';
-			break;
-		case 'HARDCORE':
-			if (change == 'prev')
-				play_mode = 'EEZZEE';
-			else
-				play_mode = 'WATAFUK';
-			break;
-		case 'WATAFUK':
-			if (change == 'prev')
-				play_mode = 'HARDCORE';
-			else
-				play_mode = 'EEZZEE';
-			break;
+	if (change == 'prev') {
+		play_mode = play_mode.prev;
+	}
+	else {
+		play_mode = play_mode.next;
 	}
 	var des =  document.getElementById("mode-des");
-	switch (play_mode) {
-		case 'EEZZEE':
-			des.innerHTML = "Easy peasy lemon squeezy!";
-			break;
-		case 'HARDCORE':
-			des.innerHTML = "You tried so hard, and got so farrr";
-			break;
-		case 'WATAFUK':
-			des.innerHTML = "\"I dunno watt I am duinnn???\"";
-			break;
-	}
-	mode_name.innerHTML = play_mode;
+	des.innerHTML = play_mode.des;
+	mode_name.innerHTML = play_mode.mode;
+	playSound(sound_dot);
 }
 
 // Controls
