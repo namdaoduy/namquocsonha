@@ -598,7 +598,7 @@ function check() {
 }
 
 function bigFruit() {
-	var rand = Math.floor((Math.random() * 6) + 1);
+	var rand = Math.floor((Math.random() * 8) + 1);
 	switch (rand) {
 		case 1:
 		case 2:
