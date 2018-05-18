@@ -186,6 +186,7 @@ function check() {
 }
 
 function nani() {
+	user.nani();
 	for (var i in button)
 		button[i].disabled = true;
 	nani_div.classList.remove("hide");

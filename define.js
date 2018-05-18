@@ -98,6 +98,12 @@ function User() {
 		database.ref('user/' + _this.name).child(_this.time)
 			.set({score: _this.score, mode: _this.mode});
 	}
+	this.nani = function() {
+		this.time = Date.now();
+		var _this = this;
+		database.ref('nani').child(_this.time)
+			.set({name: _this.name});
+	}
 }
 
 var user = new User();
