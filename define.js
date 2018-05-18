@@ -22,7 +22,7 @@ var nani_div = document.getElementById("nani");
 
 // Define variables
 // ---------------------------------------------------------- //
-var maxfood = 151;
+var maxfood = 150;
 var count_food;
 var count_point;
 var x_point = 1;
