@@ -49,7 +49,8 @@
 				<strong>NAME</strong><input type="input" maxlength="15" placeholder="Kimi no na wa?" id="name-input">
 			</label>
 			<pre id="play" class="play hide"></pre>
-			<div id="super-mode" class="super-mode hide"><h3>- SUPER MODE -</h3></div>
+			<div id="super-mode" class="overlay-div hide"><h3>- SUPER MODE -</h3></div>
+			<div id="reverse-mode" class="overlay-div hide"><h3>- REVERSE MODE -</h3></div>
 			<div id="point-div" class="hide">
 				<span>POINT:&nbsp</span><strong><span id="point">0</span></strong><br>
 			</div>
@@ -59,17 +60,6 @@
 				<button onclick="toggleHelp()">HELP</button>
 				<button onclick="displayHighScore()">HIGH SCORE</button>
 				<button onclick="toggleCredit()">CREDIT</button>
-			</div>
-			<div id="highscore" class="window-popup hide">
-				<button onclick="toggleHighScore()">X</button>
-				<h3>HIGH SCORE</h3>
-				<table>
-					<thead>
-						<tr><th>NAME</th><th>MODE</th><th>SCORE</th></tr>
-					</thead>
-					<tbody id="high-score-body">
-					</tbody>
-				</table>
 			</div>
 			<div id="play-mode" class="window-popup hide">
 				<h3>PLAY MODE</h3>
@@ -87,17 +77,28 @@
 				<p>
 					=> <a href="https://github.com/namdaoduy/pacman" target="_blank">Repository</a><br>
 					- A remaked classic PACMAN game <br>
-					- Pure HTML/CSS/JS <br><br>
-					Our Team: <br>
-					* <strong>namdaoduy</strong><br>
-					* <strong>SpQuyt</strong><br><br>
+					- Pure HTML/CSS/JS <br>
+					- Google Firebase for Database<br>
+					- GHOST auto detect PACMAN algorithms by <strong>SpQuyt</strong><br><br>
+					Our Team: <strong>namdaoduy</strong> and <strong>SpQuyt</strong><br><br>
 					- Our desire: make more <strong>FUN</strong> and <strong>CREATIVE</strong> 
 					game on web so anyone can play. <strong>ANYTIME!</strong> <br>
 					- Follow our GitHub for more project! <br>
 					=> <a href="https://github.com/namdaoduy" target="_blank">namdaoduy's Github</a><br>
 					=> <a href="https://github.com/SpQuyt" target="_blank">Spquyt's GitHub</a><br>
-					<button onclick="toggleCredit()">Replay</button>
+					<button onclick="toggleCredit()">Back</button>
 				</p>
+			</div>
+			<div id="highscore" class="window-popup hide">
+				<button onclick="toggleHighScore()">X</button>
+				<h3>HIGH SCORE</h3>
+				<table>
+					<thead>
+						<tr><th>NAME</th><th>MODE</th><th>SCORE</th></tr>
+					</thead>
+					<tbody id="high-score-body">
+					</tbody>
+				</table>
 			</div>
 			<div id="help" class="window-popup hide">
 				<button onclick="toggleHelp()">X</button>
@@ -131,6 +132,8 @@
 				* <strong>SUPER MODE</strong>: <br>
 				-- Boost your speed, slow Ghosts <br>
 				-- You can eat Ghost for 5 sec <br>
+				* <strong>REVERSE MODE</strong>: <br>
+				-- You move to the INVERSE direction for 5sec! <br>
 			</div>
 		</div>
 		

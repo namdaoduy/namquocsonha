@@ -195,7 +195,7 @@ pre {
 	font-family: "Courier New", Courier, monospace !important;
 }
 
-.super-mode {
+.overlay-div {
 	color: #fff;
 	background-color: #33310085;
 	font-size: 30px;
@@ -208,7 +208,7 @@ pre {
     box-sizing: border-box;
 }
 
-.super-mode h3 {
+.overlay-div h3 {
 	width: fit-content;
 	margin: 142px auto;
 	text-shadow: 0px 0px 40px;
@@ -317,11 +317,11 @@ pre {
 		letter-spacing: 0;
 	}
 
-	.super-mode {
+	.overlay-div {
 		width: 471px;
 		height: 510px;
 	}
-	.super-mode h3 {
+	.overlay-div h3 {
 		margin-top: 212px;
 		font-size: 52px;
 	}

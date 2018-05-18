@@ -11,10 +11,12 @@ var play_mode_div = document.getElementById("play-mode");
 var mode_name = document.getElementById("mode");
 var help_div = document.getElementById("help");
 var highscore_div = document.getElementById("highscore");
+var high_score_body = document.getElementById("high-score-body");
 var credit_div = document.getElementById("credit");
 var super_div = document.getElementById("super-mode");
+var reverse_div = document.getElementById("reverse-mode");
 var name_input = document.getElementById("name-input");
-var high_score_body = document.getElementById("high-score-body");
+
 
 
 // Define variables
@@ -40,6 +42,7 @@ var g_default_spd;
 
 var detect_range = 8;
 var super_mode = 0;
+var reverse_mode = 0;
 
 var dot_icon = '◦';
 var fruit_icon = 'Ѽ';
@@ -159,7 +162,6 @@ function Pacman() {
 				count_food++;
 				count_point += 100 * x_point;
 				playSound(sound_fruit);
-				blink("blue");
 				bigFruit();
 				break;
 			case ghost_icon:
@@ -407,11 +409,11 @@ var WATAFUK = new Mode();
 
 EEZZEE.construct('EEZZEE', HARDCORE, WATAFUK, 200, 220, 5, 1,
 	'Easy peasy lemon squeezy!',
-	'Beat <strong>EEZZEE</strong> mode? Try <strong>HARDCORE</strong> or <strong>WATAFUK</strong> mode!',
+	'Beat <strong>EEZZEE</strong> mode? Try <strong>HARDCORE</strong> or <strong>WATAFUK</strong> mode for higher score!',
 	'Come on! This is the EASIEST MODE!');
 HARDCORE.construct('HARDCORE', WATAFUK, EEZZEE, 200, 200, 8, 2,
 	'You tried so hard, and got so farrr...',
-	'You have SKILLS! Don\'t worry, we have WATAFUK mode for ya!',
+	'You have SKILLS! Wanna be in <strong>HIGH SCORE BOARD</strong>?. Don\'t worry, we have <strong>WATAFUK</strong> mode for ya!',
 	'Don\'t be upset. Try <strong>WATAFUK</strong> mode in <strong>SETTING</strong> and come back here. You will feel better!');
 WATAFUK.construct('WATAFUK', EEZZEE, HARDCORE, 160, 80, 10, 3,
 	'\"I dunno WATAFUK I am duinnn now!\"',
@@ -457,6 +459,7 @@ function resetGame() {
 	count_food = 0;
 	count_point = 0;
 	super_mode = 0;
+	reverse_mode = 0;
 	output = '';
 	map = [
 		['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
@@ -578,7 +581,7 @@ function check() {
 				setTimeout(function() {
 					toggleCredit();
 					displayHighScore();
-				} , 1000);
+				} , 2000);
 				setTimeout(function() {
 					nam.innerHTML = '<h2>' + title + '</h2>' +
 									'<p>' + play_mode.win + '</p>\n' +
@@ -595,21 +598,37 @@ function check() {
 }
 
 function bigFruit() {
-	var rand = Math.floor((Math.random() * 4) + 1);
+	var rand = Math.floor((Math.random() * 6) + 1);
 	switch (rand) {
 		case 1:
-			boostSpeed(ghost1, 4);
-			break;
 		case 2:
-			boostSpeed(pacman, 2);
+			superPacman();
 			break;
 		case 3:
+			boostSpeed(ghost1, 4);
+			blink("red");
+			break;
+		case 4:
+			boostSpeed(pacman, 1.8);
+			blink("blue");
+			break;
+		case 5:
 			boostSpeed(pacman, 2);
 			boostSpeed(ghost1, 2);
 			boostSpeed(ghost2, 2);
+			blink("blue");
 			break;
-		case 4:
-			superPacman();
+		case 6:
+			boostSpeed(ghost1, 0.8);
+			boostSpeed(ghost2, 0.8);
+			blink("blue");
+			break;
+		case 7:
+			boostSpeed(pacman, 0.5);
+			blink("red");
+			break;
+		case 8:
+			reverseMode();
 			break;
 	}
 }
@@ -632,8 +651,10 @@ function superPacman() {
 		pacman.start();
 		ghost1.start();
 		ghost2.start();
-		super_div.classList.toggle("hide");
 	}, 1500));
+	setTimeout(function() {
+		super_div.classList.toggle("hide");
+	}, 1500);
 	setTimeout(function() {
 		change("gold");
 	}, 5000);
@@ -647,6 +668,19 @@ function superPacman() {
 		ghost1.start();
 		ghost2.start();
 	}, 6000));
+}
+
+function reverseMode() {
+	reverse_mode = 1;
+	reverse_div.classList.toggle("hide");
+	change("red");
+	setTimeout(function() {
+		reverse_div.classList.toggle("hide");
+	}, 1500);
+	setTimeout(function() {
+		change("red");
+		reverse_mode = 0
+	}, 5000);
 }
 
 function playSound(name) {
@@ -834,6 +868,10 @@ document.addEventListener("keydown", (event) => {
    			start();
 			return;
     }
+    if (reverse_mode == 1) {
+    	_dx = -_dx;
+    	_dy = -_dy;
+    }
 });
 
 function tap(key) {
@@ -854,6 +892,10 @@ function tap(key) {
     		_dx = 1;
    			_dy = 0;
    			break;
+    }
+    if (reverse_mode == 1) {
+    	_dx = -_dx;
+    	_dy = -_dy;
     }
 }
 
