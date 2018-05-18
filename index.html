@@ -14,7 +14,20 @@
 	  	gtag('config', 'UA-115861538-2');
 	</script>
 	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
-	<script src="firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAOBFuhqnRmGFJypVORkltN0ZwBmtj9eXY",
+			authDomain: "pacman-webgame.firebaseapp.com",
+			databaseURL: "https://pacman-webgame.firebaseio.com",
+			projectId: "pacman-webgame",
+			storageBucket: "pacman-webgame.appspot.com",
+			messagingSenderId: "544268261623"
+		};
+		firebase.initializeApp(config);
+
+		var database = firebase.database();
+	</script>
 	<title>PACMAN - SpQuyt ft. namdaoduy</title>
 </head>
 <body>
@@ -44,7 +57,19 @@
 				<label><h3>ENABLE SOUND</h3><input type='checkbox' onclick="soundSetting(this)" checked></label>
 				<button onclick="togglePlayMode()">PLAY MODE</button>
 				<button onclick="toggleHelp()">HELP</button>
+				<button onclick="displayHighScore()">HIGH SCORE</button>
 				<button onclick="toggleCredit()">CREDIT</button>
+			</div>
+			<div id="highscore" class="window-popup hide">
+				<button onclick="toggleHighScore()">X</button>
+				<h3>HIGH SCORE</h3>
+				<table>
+					<thead>
+						<tr><th>NAME</th><th>MODE</th><th>SCORE</th></tr>
+					</thead>
+					<tbody id="high-score-body">
+					</tbody>
+				</table>
 			</div>
 			<div id="play-mode" class="window-popup hide">
 				<h3>PLAY MODE</h3>
@@ -55,6 +80,7 @@
 
 				</div>
 				<p id="mode-des">You tried so hard, and got so farrr...</p>
+				<h4>Press <strong>START</strong> to play</h4>
 			</div>
 			<div id="credit" class="window-popup hide">
 				<h3>PACMAN - WEBGAME</h3>
@@ -106,21 +132,6 @@
 				-- Boost your speed, slow Ghosts <br>
 				-- You can eat Ghost for 5 sec <br>
 			</div>
-			<div id="highscore" class="window-popup hide">
-				<h3>HIGH SCORE</h3>
-				<table>
-					<thead>
-						<tr><th>NAME</th><th>MODE</th><th>SCORE</th></tr>
-					</thead>
-					<tbody>
-						<tr><td>MANDII</td><td>WATAFUK</td><td>9999</td></tr>
-						<tr><td>MANDII</td><td>WATAFUK</td><td>9999</td></tr>
-						<tr><td>MANDII</td><td>WATAFUK</td><td>9999</td></tr>
-						<tr><td>MANDII</td><td>WATAFUK</td><td>9999</td></tr>
-						<tr><td>MANDII</td><td>WATAFUK</td><td>9999</td></tr>
-					</tbody>
-				</table>
-			</div>
 		</div>
 		
 		<div class="button-container">
@@ -134,5 +145,6 @@
 	</div>
 
 	<script src="script.js"></script>
+	<script src="firebase.js"></script>
 </body>
 </html>

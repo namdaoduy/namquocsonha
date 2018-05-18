@@ -10,9 +10,11 @@ var setting_div = document.getElementById("setting");
 var play_mode_div = document.getElementById("play-mode");
 var mode_name = document.getElementById("mode");
 var help_div = document.getElementById("help");
+var highscore_div = document.getElementById("highscore");
 var credit_div = document.getElementById("credit");
 var super_div = document.getElementById("super-mode");
 var name_input = document.getElementById("name-input");
+var high_score_body = document.getElementById("high-score-body");
 
 
 // Define variables
@@ -51,19 +53,53 @@ var sound_fruit = new Audio("sound/sound_fruit.mp3");
 var sound_dead = new Audio("sound/sound_dead.mp3");
 var sound_ghost = new Audio("sound/sound_ghost.mp3");
 
-var username;
+var highscore = {};
+
 
 // Define objects and prototypes
 // ---------------------------------------------------------- //
 var dot = { icon: dot_icon }
 var fruit = { icon: fruit_icon }
-
-// Pacman prototype
-// -------------------------- //
 var pacman;
 var ghost1;
 var ghost2;
 
+
+// User prototype-------------------------- //
+function User() {
+	this.name,
+	this.score,
+	this.mode,
+	this.time,
+	this.updateUser = function() {
+		this.time = Date.now();
+		var _this = this;
+		database.ref('allusername').update({['/' + _this.name] : _this.time});
+	},
+	this.writeHighscore = function() {
+		this.score = count_point;
+		this.mode = play_mode.mode;
+		this.time = Date.now();
+		var _this = this;
+		database.ref('highscore/' + _this.score).child(_this.time)
+			.set({name: _this.name, mode: _this.mode, score: _this.score});
+		database.ref('user/' + _this.name).child(_this.time)
+			.set({score: _this.score, mode: _this.mode});
+	},
+	this.updateWin = function() {
+		this.score = count_point;
+		this.mode = play_mode.mode;
+		this.time = Date.now();
+		var _this = this;
+		database.ref('user/' + _this.name).child(_this.time)
+			.set({score: _this.score, mode: _this.mode});
+	}
+}
+
+var user = new User();
+
+
+// Pacman prototype-------------------------- //
 function Pacman() {
 	this.pos_x, 
 	this.pos_y,
@@ -149,8 +185,8 @@ function Pacman() {
 	}	
 }
 
-// Ghost prototype
-// -------------------------- //
+
+// Ghost prototype-------------------------- //
 function Ghost() {
 	this.pos_x, 
 	this.pos_y,
@@ -333,8 +369,7 @@ ghost1 = new Ghost();
 ghost2 = new Ghost();
 
 
-// Mode prototype
-// -------------------------- //
+// Mode prototype-------------------------- //
 function Mode() {
 	this.mode,
 	this.next,
@@ -381,7 +416,7 @@ HARDCORE.construct('HARDCORE', WATAFUK, EEZZEE, 200, 200, 8, 2,
 WATAFUK.construct('WATAFUK', EEZZEE, HARDCORE, 160, 80, 10, 3,
 	'\"I dunno WATAFUK I am duinnn now!\"',
 	'WHAT??? You\'ve beat WATAFUK MODE??? Capture screen and send us for reward!',
-	'Try again boiii! Beat this mode for a REAL REWARD!');
+	'Try again boiii! Beat this mode for a REAL REWARD!');//
 
 var play_mode = HARDCORE;
 
@@ -395,15 +430,15 @@ mainGif();
 // ---------------------------------------------------------- //
 
 function start() {
-	username = (name_input.value).toUpperCase();
-	if (!username) {
-		alert("I know u have a NAME! Or friends call you 'BOIII'???");
+	user.name = (name_input.value).toUpperCase();
+	if (!user.name) {
+		alert("I know u have a NAME! \nOr friends call you \"BOIII\"???");
 		name_input.value = "BOIII";
 		return;
 	}
-	playSound(sound_opening);
+	user.updateUser();
 
-	username = (name_input.value).toUpperCase();
+	playSound(sound_opening);
 
 	play_mode.set();
 
@@ -472,6 +507,7 @@ function hideWindows() {
 	document.getElementById("name-label").classList.toggle('hide');
 	point_div.classList.toggle('hide');
 	setting_div.classList.add("hide");
+	highscore_div.classList.add("hide");
 	help_div.classList.add("hide");
 	credit_div.classList.add("hide");
 	play_mode_div.classList.add("hide");
@@ -520,7 +556,7 @@ function check() {
 					nam.innerHTML = '<h2>GAME OVER</h2>' +
 									'<p>' + play_mode.loss + '</p>' +
 									'<p>---</p>' +
-									'<p><strong>' + username + '</strong></p>' +
+									'<p><strong>' + user.name + '</strong></p>' +
 									'   MODE: <strong>' + play_mode.mode + '</strong>';
 				}, 1000);
 			}
@@ -528,14 +564,25 @@ function check() {
 	}
 	function checkWin() {
 			if (count_food == maxfood) {
+				var title = 'YOU WIN';
+				if (count_point >= 7000) {
+					user.writeHighscore();
+					title = 'NEW HIGH SCORE';
+				}
+				else {
+					user.updateWin();
+				}
 				playSound(sound_opening);
 				clearTime();
 				blink('blue');
-				setTimeout(toggleCredit, 1000);
 				setTimeout(function() {
-					nam.innerHTML = '<h2>YOU WIN</h2>' +
+					toggleCredit();
+					displayHighScore();
+				} , 1000);
+				setTimeout(function() {
+					nam.innerHTML = '<h2>' + title + '</h2>' +
 									'<p>' + play_mode.win + '</p>\n' +
-									'     Press <strong>START</strong>\n\n' +
+									'<p><strong>' + user.name + '</strong></p>' +
 									'   MODE: <strong>' + play_mode.mode + '</strong>';
 			}, 1000);
 		}
@@ -695,6 +742,7 @@ function mainGif() {
 
 function setting() {
 	setting_div.classList.toggle("hide");
+	highscore_div.classList.add("hide");
 	help_div.classList.add("hide");
 	credit_div.classList.add("hide");
 	play_mode_div.classList.add("hide");
@@ -709,6 +757,30 @@ function togglePlayMode() {
 function toggleHelp() {
 	help_div.classList.toggle("hide");
 	playSound(sound_dot);
+}
+
+function toggleHighScore() {
+	highscore_div.classList.toggle("hide");
+	playSound(sound_dot);
+}
+
+function displayHighScore() {
+	highscore_div.classList.remove("hide");
+	playSound(sound_dot);
+
+	var table = '';
+
+	getHighScore().then(function() {
+		for (var score in highscore) {
+			for (var time in highscore[score]) {
+				var _name = highscore[score][time].name;
+				var _mode = highscore[score][time].mode;
+				var _score = highscore[score][time].score;
+				table = '<tr><td>' + _name + '</td><td>' + _mode + '</td><td>' + _score + '</td></tr>' + table;
+			}
+		}
+		high_score_body.innerHTML = table;
+	});
 }
 
 function toggleCredit() {
@@ -791,8 +863,6 @@ function changeDir() {
     	pacman.dy = _dy;
     }
 }
-
-
 
 
 
