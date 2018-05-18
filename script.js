@@ -14,6 +14,7 @@ function start() {
 		name_input.value = "BOIII";
 		return;
 	}
+	start_button.setAttribute("onclick", "backToMenu()");
 	user.updateUser();
 
 	playSound(sound_opening);
@@ -29,6 +30,14 @@ function start() {
 	pacman.start();
 	ghost1.start();
 	ghost2.start();
+}
+
+function backToMenu() {
+	hideWindows();
+	clearTime();
+	mainGif();
+	count_point = 0;
+	start_button.setAttribute("onclick", "start()");
 }
 
 function resetGame() {
@@ -330,7 +339,7 @@ function change(color) {
 
 function mainGif() {
 	var i = 0;
-	var time = setInterval(function() {
+	intervals.push(setInterval(function() {
 		if (i%4 == 0) {
 			main.innerHTML = '' +
 				' █▀█ ███ ▄███▀ █▄ ▄█ █▀█ █▄ █\n' +
@@ -380,7 +389,7 @@ function mainGif() {
 				'     Press START to play\n';	
 		}
 		i++;
-	}, 400);
+	}, 400));
 }
 
 // Settings

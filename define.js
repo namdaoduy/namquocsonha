@@ -18,6 +18,7 @@ var reverse_div = document.getElementById("reverse-mode");
 var name_input = document.getElementById("name-input");
 var button = document.getElementsByTagName("button");
 var nani_div = document.getElementById("nani");
+var start_button = document.getElementById("start-button");
 
 
 // Define variables
@@ -45,7 +46,7 @@ var detect_range = 8;
 var super_mode = 0;
 var reverse_mode = 0;
 
-var cur_stage = 2;
+var cur_stage = 1;
 
 var dot_icon = '◦';
 var fruit_icon = 'Ѽ';
