@@ -1,7 +1,6 @@
 @font-face {
     font-family: Cour;
-    src: url("font/cour.ttf");
-}
+    src: url("font/cour.ttf"); }
 
 html, body {
 	margin: 0;
@@ -9,29 +8,24 @@ html, body {
 	width: 100%;
 	min-height: 590px;
 	display: block;
-	font-family: "Courier New", Cour, Courier, monospace !important;
-}
+	font-family: "Courier New", Cour, Courier, monospace !important; }
 
 body {
 	touch-action: manipulation;
 	background: #5d007d;
-	background: linear-gradient(#4b0064a8,#490062e8), url("image/gplaypattern.png");
-}
+	background: linear-gradient(#4b0064a8,#490062e8), url("image/gplaypattern.png"); }
 
 th {
-   border-bottom: 1px solid black
-}
+   border-bottom: 1px solid black; }
 
 table {
 	width: 100%;
 	text-align: center;
-	font-size: 15px;
-}
+	font-size: 15px; }
 
 ::placeholder {
     color: #899b75;
-    opacity: 1;
-}
+    opacity: 1; }
 
 .container {
 	padding-top: 30px;
@@ -39,8 +33,7 @@ table {
     margin: auto;
     height: 100%;
     box-sizing: border-box;
-    position: relative;
-}
+    position: relative; }
 
 .display {
 	letter-spacing: 4px;
@@ -56,49 +49,41 @@ table {
     height: 348px;
 
     border-radius: 13px;
-    border: 5px inset #71487f;
-}
+    border: 5px inset #71487f; }
 
 .main {
 	letter-spacing: -1.3px;
-    white-space: pre !important;
-}
+    white-space: pre !important; }
 
 .play {
 	margin: 0;
-    white-space: pre !important;
-}
+    white-space: pre !important; }
 
 .play p {
 	width: 80%;
     white-space: pre-wrap;
     margin: 10px auto;
     letter-spacing: 1px;
-    text-align: center;
-}
+    text-align: center; }
 
 .play h2 {
 	width: fit-content;
-    margin: 30px auto;
-}
+    margin: 30px auto; }
 
 .hide {
-	display: none !important;
-}
+	display: none !important; }
 
 .button-container {
 	margin: auto;
 	margin-top: 20px;
-	width: 90%;
-}
+	width: 90%; }
 
 .col-4 {
 	width: 33.333333%;
 	margin: 0;
 	display: inline-block;
 	float: left;
-	height: 70px;
-}
+	height: 70px; }
 
 button {
 	/*Copy chrome user agent stylesheet*/
@@ -117,8 +102,7 @@ button {
     border-style: outset;
     border-color: buttonface;
     border-image: initial;
-    padding: 1px 6px;
-}
+    padding: 1px 6px; }
 
 .col-4 button {
     width: 100%;
@@ -129,38 +113,32 @@ button {
 	background-color: #b5b5b5;
 	font-size: 30px;
 	color: #FFFFFF;
-	border-radius: 36px;
-}
+	border-radius: 36px; }
 
 button:active {
-	border-style: inset;
-}
+	border-style: inset; }
 
 button:focus {
-	outline:0;
-}
+	outline:0; }
 
 #start-button {
 	height: 60%;
 	width: 60%;
 	margin-left: 0;
-	font-size: 10px;
-}
+	font-size: 10px; }
 
 #help-button {
 	height: 60%;
 	width: 60%;
 	margin-right: 0;
-	font-size: 10px;
-}
+	font-size: 10px; }
 
 #name-label {
 	display: block;
     width: fit-content;
     letter-spacing: 0px;
     font-size: 16px;
-    margin: auto;
-}
+    margin: auto; }
 
 #name-label input {
 	padding: 0 10px;
@@ -171,32 +149,26 @@ button:focus {
     width: 146px;
     height: 25px;
     color: #fff;
-    font-weight: bold;
-}
+    font-weight: bold; }
 
 .blue {
 	color: #ffffff;
-    background: #0037d8;
-}
+    background: #0037d8; }
 
 .red {
 	color: #ffffff;
-    background: #960000;
-}
+    background: #960000; }
 
 .gold {
 	color: #f9ff00;
-    background: #000000;
-}
+    background: #000000; }
 
 #point-div {
 	margin: auto;
-	width: 50%;
-}
+	width: 50%; }
 
 pre {
-	font-family: "Courier New", Cour, Courier, monospace !important;
-}
+	font-family: "Courier New", Cour, Courier, monospace !important; }
 
 .overlay-div {
 	color: #fff;
@@ -208,14 +180,12 @@ pre {
     top: 40px;
     letter-spacing: 0px;
     text-align: center;
-    box-sizing: border-box;
-}
+    box-sizing: border-box; }
 
 .overlay-div h3 {
 	width: fit-content;
 	margin: 142px auto;
-	text-shadow: 0px 0px 40px;
-}
+	text-shadow: 0px 0px 40px; }
 
 .window-popup {
 	display: block;
@@ -230,60 +200,47 @@ pre {
     border-radius:  5px;
     padding: 10px;
     box-sizing: border-box;
-    letter-spacing: 0px;
-}
+    letter-spacing: 0px; }
 
 .window-popup h3 {
 	display: block;
 	margin: 5px auto;
-	width: fit-content;
-}
+	width: fit-content; }
 .window-popup p {
-	font-size: 14px;
-}
+	font-size: 14px; }
 .window-popup button {
 	display: block;
 	margin: 13px auto;
-	background: #b7b7b7;
-}
-
+	background: #b7b7b7; }
 .window-popup label {
 	line-height: 1;
 	font-size: 15px;
 	display: block;
 	width: fit-content;
-    margin: auto;
-}
+    margin: auto; }
 .window-popup label input {
 	width: 26px;
 	height: 26px;
-	margin-left: 20px;
-}
+	margin-left: 20px; }
+
 #setting {
-	padding-top: 62px;
-}
+	padding-top: 62px; }
 #setting h3 {
-	float: left;
-}
+	float: left; }
 #setting button {
-	width: 170px;
-}
+	width: 170px; }
 
 #play-mode label {
 	font-size: 40px;
 	display: inline-block;
-	float: left;
-}
-
+	float: left; }
 #play-mode button {
 	display: inline-block;
 	height: 40px;
 	margin: 0;
 	background: none;
 	border: none;
-	font-size: 30px;
-}
-
+	font-size: 30px; }
 #play-mode p {
 	text-align: center;
 	width: fit-content;
@@ -291,21 +248,33 @@ pre {
     margin: auto;
     margin-top: 160px;
     display: block;
-    font-size: 17px;
-}
-
+    font-size: 17px; }
 #play-mode h4 {
 	font-size: 18px;
     bottom: 5px;
     position: absolute;
     font-weight: normal;
     width: 95%;
-    text-align: center;
-}
+    text-align: center; }
 
 #help button, #highscore button {
 	float: right;
-	margin: 0;
+	margin: 0; }
+
+#nani {
+	overflow: hidden;
+}
+
+#nani div {
+	white-space: pre !important;
+	width: fit-content;
+	position: absolute;
+	bottom: 120px;
+}
+
+#nani h3 {
+	max-width: 60%;
+	text-align: center;
 }
 
 @media (min-width: 768px) and (min-height: 727px) {
@@ -313,53 +282,41 @@ pre {
 	    letter-spacing: 7px;
 	    font-size: 28px;
 	    width: 471px;
-		height: 510px;
-	}
+		height: 510px; }
 
 	#point-div {
-		letter-spacing: 0;
-	}
+		letter-spacing: 0; }
 
 	.overlay-div {
 		width: 471px;
-		height: 510px;
-	}
+		height: 510px; }
 	.overlay-div h3 {
 		margin-top: 212px;
-		font-size: 52px;
-	}
+		font-size: 52px; }
 
 	.window-popup {
 		width: 471px;
 		height: 510px;
-		font-size: 21px;
-	}
+		font-size: 21px; }
 	.window-popup p {
-		font-size: 21px;
-	}
+		font-size: 21px; }
 	.window-popup h3 {
-		font-size: 35px;
-	}
+		font-size: 35px; }
 	.window-popup label input {
     	width: 32px;
-   		height: 40px;
-	}
+   		height: 40px; }
 
 	#setting button {
 		width: 306px;
 	    height: 50px;
-	    margin: 20px auto;
-	}
+	    margin: 20px auto; }
 
 	#play-mode label {
-		font-size: 58px;
-	}
+		font-size: 58px; }
 	#play-mode button {
-		font-size: 50px;
-	}
+		font-size: 50px; }
 	#play-mode p {
 		max-width: 300px;
 	    margin-top: 200px;
-	    font-size: 25px;
-	}
-}
+	    font-size: 25px; }
+ }
