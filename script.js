@@ -33,36 +33,23 @@ function start() {
 
 function resetGame() {
 	count_food = 0;
-	count_point = 0;
+	if (cur_stage == 1) {
+		count_point = 0;
+	}
+	maxfood = stage[cur_stage].maxfood;
 	super_mode = 0;
 	reverse_mode = 0;
 	output = '';
-	map = [
-		['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-		['║','◦','═','═','═','═','═','╗','◦','║','◦','╔','═','◦','◦','◦','◦','║','◦','║'],
-		['║','◦','◦','◦','◦','◦','Ѽ','║','◦','║','◦','║','◦','◦','═','═','═','╝','◦','║'],
-		['║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
-		['╠','═','═','═','═','═','═','╝','◦','║','◦','║','◦','◦','═','═','═','═','◦','║'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
-		['║','◦','═','═','═','═','═','═','═','╝','◦','║','◦','═','═','═','═','═','═','╣'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','Ѽ','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-		['║','◦','═','═','═','═','═','═','═','═','◦','═','═','◦','╔','═','═','═','═','╣'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','║'],
-		['║','◦','╔','═','═','═','═','═','═','═','◦','═','═','◦','║','Ѽ','◦','◦','◦','║'],
-		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','╚','═','═','═','◦','║'],
-		['║','◦','◦','◦','◦','◦','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
-		['╚','═','═','═','═','═','═','╩','═','═','═','═','═','═','═','═','═','═','═','╝']	
-	];
+	map = stage[cur_stage].getMap();
 	clearTime();
 	pacman.resetAll();
 	ghost1.resetAll();
 	ghost2.resetAll();
 	_dx = -1;
 	_dy = 0;
-	pacman.spawn(1,1,0,-1);
-	ghost1.spawn(13,1,-1,0);
-	ghost2.spawn(13,18,0,-1);
+	pacman.spawn(stage[cur_stage].pos1);
+	ghost1.spawn(stage[cur_stage].pos2);
+	ghost2.spawn(stage[cur_stage].pos3);
 	ghost1.initMap();
 	ghost2.initMap();
 }
@@ -127,6 +114,7 @@ function check() {
 			}
 			else {
 				clearTime();
+				cur_stage = 1;
 				map[_pacman.pos_x][_pacman.pos_y] = '۩';
 				if (Math.floor(Math.random() * 25) == 1) {
 					nani();
@@ -163,6 +151,7 @@ function check() {
 				else {
 					user.updateWin();
 				}
+				cur_stage++;
 				playSound(sound_opening);
 				clearTime();
 				blink('blue');
@@ -527,4 +516,26 @@ function changeDir() {
 }
 
 
+// Else
+// ---------------------------------------------------------- //
 
+function loadSound() {
+	playSound(sound_opening);
+	playSound(sound_dot);
+	playSound(sound_fruit);
+	playSound(sound_dead);
+	playSound(sound_ghost);
+	playSound(sound_nani);
+	sound_opening.pause();
+	sound_opening.currentTime = 0;
+	sound_dot.pause();
+	sound_dot.currentTime = 0;
+	sound_fruit.pause();
+	sound_fruit.currentTime = 0;
+	sound_dead.pause();
+	sound_dead.currentTime = 0;
+	sound_ghost.pause();
+	sound_ghost.currentTime = 0;
+	sound_nani.pause();
+	sound_nani.currentTime = 0;
+}
