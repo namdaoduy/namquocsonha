@@ -9,8 +9,7 @@ html, body {
 	width: 100%;
 	min-height: 590px;
 	display: block;
-	/*font-family: "Courier New", Courier, monospace !important;*/
-	font-family: Cour !important;
+	font-family: "Courier New", Cour, Courier, monospace !important;
 }
 
 body {
@@ -196,8 +195,7 @@ button:focus {
 }
 
 pre {
-	/*font-family: "Courier New", Courier, monospace !important;*/
-	font-family: Cour !important;
+	font-family: "Courier New", Cour, Courier, monospace !important;
 }
 
 .overlay-div {

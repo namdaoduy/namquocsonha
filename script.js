@@ -864,7 +864,7 @@ document.addEventListener("keydown", (event) => {
     		_dx = 1;
    			_dy = 0;
    			break;
-   		case 13:
+   		case 32:
    			start();
 			return;
     }
