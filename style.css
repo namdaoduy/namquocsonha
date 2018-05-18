@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: Cour;
+    src: url("font/cour.ttf");
+}
 
 html, body {
 	margin: 0;
@@ -6,7 +9,8 @@ html, body {
 	width: 100%;
 	min-height: 590px;
 	display: block;
-	font-family: "Courier New", Courier, monospace !important;
+	/*font-family: "Courier New", Courier, monospace !important;*/
+	font-family: Cour !important;
 }
 
 body {
@@ -192,7 +196,8 @@ button:focus {
 }
 
 pre {
-	font-family: "Courier New", Courier, monospace !important;
+	/*font-family: "Courier New", Courier, monospace !important;*/
+	font-family: Cour !important;
 }
 
 .overlay-div {
