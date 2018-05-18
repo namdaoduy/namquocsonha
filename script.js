@@ -230,7 +230,7 @@ function bigFruit() {
 			blink("red");
 			break;
 		case 4:
-			boostSpeed(pacman, 1.8);
+			boostSpeed(pacman, 2);
 			blink("blue");
 			break;
 		case 5:
