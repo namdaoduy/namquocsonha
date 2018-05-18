@@ -245,7 +245,7 @@ function bigFruit() {
 			blink("blue");
 			break;
 		case 7:
-			boostSpeed(pacman, 0.5);
+			boostSpeed(pacman, 0.8);
 			blink("red");
 			break;
 		case 8:
