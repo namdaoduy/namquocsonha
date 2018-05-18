@@ -864,9 +864,6 @@ document.addEventListener("keydown", (event) => {
     		_dx = 1;
    			_dy = 0;
    			break;
-   		case 32:
-   			start();
-			return;
     }
     if (reverse_mode == 1) {
     	_dx = -_dx;
