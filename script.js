@@ -16,17 +16,11 @@ function start() {
 	}
 	start_button.setAttribute("onclick", "backToMenu()");
 	user.updateUser();
-
 	playSound(sound_opening);
-
 	play_mode.set();
-
 	resetGame();
-
 	hideWindows();
-
 	display();
-
 	stage_num_div.classList.remove("hide");
 	setTimeout(function() {
 		stage_num_div.classList.add("hide");
@@ -39,7 +33,15 @@ function start() {
 }
 
 function backToMenu() {
-	hideWindows();
+	nam.classList.add('hide');
+	main.classList.remove('hide');
+	document.getElementById("name-label").classList.remove('hide');
+	point_div.classList.add('hide');
+	setting_div.classList.add("hide");
+	highscore_div.classList.add("hide");
+	help_div.classList.add("hide");
+	credit_div.classList.add("hide");
+	play_mode_div.classList.add("hide");
 	clearTime();
 	mainGif();
 	count_point = 0;
@@ -84,10 +86,10 @@ function clearPlayerTime() {
 }
 
 function hideWindows() {
-	nam.classList.toggle('hide');
-	main.classList.toggle('hide');
-	document.getElementById("name-label").classList.toggle('hide');
-	point_div.classList.toggle('hide');
+	nam.classList.remove('hide');
+	main.classList.add('hide');
+	document.getElementById("name-label").classList.add('hide');
+	point_div.classList.remove('hide');
 	setting_div.classList.add("hide");
 	highscore_div.classList.add("hide");
 	help_div.classList.add("hide");
@@ -235,25 +237,30 @@ function bigFruit() {
 			break;
 		case 3:
 			boostSpeed(ghost1, 4);
+			reStart();
 			blink("red");
 			break;
 		case 4:
 			boostSpeed(pacman, 2);
+			reStart();
 			blink("blue");
 			break;
 		case 5:
 			boostSpeed(pacman, 2);
 			boostSpeed(ghost1, 2);
 			boostSpeed(ghost2, 2);
+			reStart();
 			blink("blue");
 			break;
 		case 6:
 			boostSpeed(ghost1, 0.8);
 			boostSpeed(ghost2, 0.8);
+			reStart();
 			blink("blue");
 			break;
 		case 7:
 			boostSpeed(pacman, 0.8);
+			reStart();
 			blink("red");
 			break;
 		case 8:
@@ -269,6 +276,9 @@ function bigFruit() {
 
 function boostSpeed(target, multi) {
 	target.speed = Math.floor(target.speed / multi);
+}
+
+function reStart() {
 	clearPlayerTime();
 	timeouts.push(setTimeout(function() {
 		pacman.start();
