@@ -8,3 +8,11 @@ function getHighScore() {
 		alert(error);
 	});
 }
+
+function customMessage() {
+	return database.ref('custommess/' + user.name).once('value').then(function(snapshot) {
+		custommess = snapshot.val();
+	}, function(error) {
+		alert(error);
+	});
+}

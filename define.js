@@ -48,6 +48,9 @@ var reverse_mode = 0;
 
 var cur_stage = 1;
 
+var custommess;
+var custommess_flag = 1;
+
 var dot_icon = '◦';
 var fruit_icon = 'Ѽ';
 var ghost_icon = '☻';

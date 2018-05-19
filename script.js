@@ -14,6 +14,7 @@ function start() {
 		name_input.value = "BOIII";
 		return;
 	}
+	loadCustomMess();
 	start_button.setAttribute("onclick", "backToMenu()");
 	user.updateUser();
 	playSound(sound_opening);
@@ -614,4 +615,18 @@ function loadSound() {
 	sound_ghost.currentTime = 0;
 	sound_nani.pause();
 	sound_nani.currentTime = 0;
+}
+
+function loadCustomMess() {
+	if (custommess_flag == 1) {
+		customMessage().then(function() {
+			EEZZEE.win = custommess.win;
+			HARDCORE.win = custommess.win;
+			WATAFUK.win = custommess.win;
+			EEZZEE.loss = custommess.loss;
+			HARDCORE.loss = custommess.loss;
+			WATAFUK.loss = custommess.loss;
+		});
+		custommess_flag = 0;
+	}
 }
