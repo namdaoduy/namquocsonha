@@ -13,12 +13,12 @@ var help_div = document.getElementById("help");
 var highscore_div = document.getElementById("highscore");
 var high_score_body = document.getElementById("high-score-body");
 var credit_div = document.getElementById("credit");
-var super_div = document.getElementById("super-mode");
-var reverse_div = document.getElementById("reverse-mode");
+var fruit_div = document.getElementById("fruit-mode");
 var name_input = document.getElementById("name-input");
 var button = document.getElementsByTagName("button");
 var nani_div = document.getElementById("nani");
 var start_button = document.getElementById("start-button");
+var stage_num_div = document.getElementById("stage-num");
 
 
 // Define variables

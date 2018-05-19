@@ -27,9 +27,15 @@ function start() {
 
 	display();
 
-	pacman.start();
-	ghost1.start();
-	ghost2.start();
+	stage_num_div.classList.remove("hide");
+	setTimeout(function() {
+		stage_num_div.classList.add("hide");
+	}, 1500);
+	timeouts.push(setTimeout(function() {
+		pacman.start();
+		ghost1.start();
+		ghost2.start();
+	}, 2000));
 }
 
 function backToMenu() {
@@ -45,6 +51,7 @@ function resetGame() {
 	if (cur_stage == 1) {
 		count_point = 0;
 	}
+	document.querySelector('#stage-num h3').innerHTML = 'STAGE ' + cur_stage;
 	maxfood = stage[cur_stage].maxfood;
 	super_mode = 0;
 	reverse_mode = 0;
@@ -161,6 +168,7 @@ function check() {
 					user.updateWin();
 				}
 				cur_stage++;
+				start_button.setAttribute("onclick", "start()");
 				playSound(sound_opening);
 				clearTime();
 				blink('blue');
@@ -193,11 +201,11 @@ function nani() {
 	setTimeout(function() {
 		var time = setInterval(function() {
 			gho.style.right = 500 - i + 'px';
-			i+=10;
+			i+=70;
 			if (i > 350) {
 				clearInterval(time);
 			}
-		}, 2);
+		}, 20);
 		playSound(sound_nani);
 	}, 3000);
 	
@@ -252,12 +260,21 @@ function bigFruit() {
 			reverseMode();
 			break;
 	}
+	fruitModeDisplay(rand);
+	fruit_div.classList.toggle("hide");
+	setTimeout(function() {
+		fruit_div.classList.toggle("hide");
+	}, 1500);
 }
 
 function boostSpeed(target, multi) {
 	target.speed = Math.floor(target.speed / multi);
-	clearInterval(target.time);
-	target.start();
+	clearPlayerTime();
+	timeouts.push(setTimeout(function() {
+		pacman.start();
+		ghost1.start();
+		ghost2.start();
+	}, 1500));
 }
 
 function superPacman() {
@@ -267,15 +284,11 @@ function superPacman() {
 	ghost1.speed = 700;
 	ghost2.speed = 700;
 	super_mode = 1;
-	super_div.classList.toggle("hide");
 	timeouts.push(setTimeout(function() {
 		pacman.start();
 		ghost1.start();
 		ghost2.start();
 	}, 1500));
-	setTimeout(function() {
-		super_div.classList.toggle("hide");
-	}, 1500);
 	setTimeout(function() {
 		change("gold");
 	}, 5000);
@@ -293,15 +306,17 @@ function superPacman() {
 
 function reverseMode() {
 	reverse_mode = 1;
-	reverse_div.classList.toggle("hide");
 	change("red");
-	setTimeout(function() {
-		reverse_div.classList.toggle("hide");
-	}, 1500);
+	clearPlayerTime();
+	timeouts.push(setTimeout(function() {
+		pacman.start();
+		ghost1.start();
+		ghost2.start();
+	}, 1500));
 	setTimeout(function() {
 		change("red");
 		reverse_mode = 0
-	}, 5000);
+	}, 6000);
 }
 
 function playSound(name) {
@@ -319,7 +334,7 @@ function blink(color) {
 	function changeClass() {
 		display_div.classList.toggle(color);
 		i++;
-		if (i == 8) {
+		if (i == 6) {
 			clearInterval(time);
 		}
 	}
@@ -390,6 +405,42 @@ function mainGif() {
 		}
 		i++;
 	}, 400));
+}
+
+function fruitModeDisplay(mode) {
+	var name = document.querySelector('#fruit-mode h3');
+	var des = document.querySelector('#fruit-mode h4');
+	switch (mode) {
+		case 1:
+		case 2:
+			name.innerHTML = '- SUPER MODE -';
+			des.innerHTML = 'EAT THE GHOST NOW';
+			break;
+		case 3:
+			name.innerHTML = 'GHOST FASTER';
+			des.innerHTML = 'RUN FROM IT';
+			break;
+		case 4:
+			name.innerHTML = 'BOOST';
+			des.innerHTML = 'FASTER PACMAN';
+			break;
+		case 5:
+			name.innerHTML = 'FLASHHH';
+			des.innerHTML = 'EVERY ONE FAST';
+			break;
+		case 6:
+			name.innerHTML = 'GHOST SLOWER';
+			des.innerHTML = 'BLEHHHH~';
+			break;
+		case 7:
+			name.innerHTML = 'PACMAN SLOWER';
+			des.innerHTML = 'THIS IS POISON!';
+			break;
+		case 8:
+			name.innerHTML = 'REVERSE MODE';
+			des.innerHTML = 'MOVE BACKWARD';
+			break;
+	}
 }
 
 // Settings
