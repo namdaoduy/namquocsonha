@@ -79,6 +79,7 @@ function User() {
 	this.score,
 	this.mode,
 	this.time,
+	this.stage,
 	this.updateUser = function() {
 		this.time = Date.now();
 		var _this = this;
@@ -88,19 +89,21 @@ function User() {
 		this.score = count_point;
 		this.mode = play_mode.mode;
 		this.time = Date.now();
+		this.stage = cur_stage;
 		var _this = this;
 		database.ref('highscore/' + _this.score).child(_this.time)
-			.set({name: _this.name, mode: _this.mode, score: _this.score});
+			.set({name: _this.name, mode: _this.mode, score: _this.score, stage: _this.stage});
 		database.ref('user/' + _this.name).child(_this.time)
-			.set({score: _this.score, mode: _this.mode});
+			.set({score: _this.score, mode: _this.mode, stage: _this.stage});
 	},
 	this.updateWin = function() {
 		this.score = count_point;
 		this.mode = play_mode.mode;
 		this.time = Date.now();
+		this.stage = cur_stage;
 		var _this = this;
 		database.ref('user/' + _this.name).child(_this.time)
-			.set({score: _this.score, mode: _this.mode});
+			.set({score: _this.score, mode: _this.mode, stage: _this.stage});
 	}
 	this.nani = function() {
 		this.time = Date.now();
@@ -506,7 +509,7 @@ stage[2].construct(157, 0,
 	{x: 1, y: 10, dx: -1, dy: 0});
 
 stage[3] = new Stage();
-stage[3].construct(136, 0, 
+stage[3].construct(134, 0, 
 	[
 		['╔','═','╦','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
 		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
@@ -515,15 +518,15 @@ stage[3].construct(136, 0,
 		['║','◦','║','◦','║','◦','╔','═','═','═','═','═','═','═','═','╗','◦','║','◦','║'],
 		['║','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║'],
 		['║','◦','◦','◦','║','◦','║','◦','═','═','═','═','═','╗','◦','║','◦','║','◦','║'],
-		['║','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','◦','◦','║'],
+		['║','◦','║','◦','║','◦','║','◦','Ѽ','◦','◦','◦','◦','║','◦','║','◦','║','◦','║'],
 		['║','◦','║','◦','║','◦','╚','═','═','═','═','═','═','╝','◦','║','◦','║','◦','║'],
 		['║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║'],
 		['║','◦','║','◦','╚','═','═','═','═','═','═','═','═','═','═','╝','◦','║','◦','║'],
 		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║'],
 		['║','◦','╚','═','═','═','═','═','═','═','◦','═','═','═','═','═','═','╝','◦','║'],
-		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','Ѽ','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','Ѽ','║'],
 		['╚','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╝']	
 	],
-	{x: 10, y: 9, dx: 0, dy: -1},
-	{x: 1, y: 9, dx: -1, dy: 0},
-	{x: 1, y: 10, dx: -1, dy: 0});
+	{x: 1, y: 1, dx: 0, dy: -1},
+	{x: 7, y: 12, dx: 0, dy: -1},
+	{x: 1, y: 18, dx: 1, dy: 0});
