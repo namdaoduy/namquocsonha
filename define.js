@@ -46,7 +46,7 @@ var detect_range = 8;
 var super_mode = 0;
 var reverse_mode = 0;
 
-var cur_stage = 1;
+var cur_stage = 5;
 
 var custommess;
 var custommess_flag = 1;
@@ -423,12 +423,12 @@ var WATAFUK = new Mode();
 
 EEZZEE.construct('EEZZEE', HARDCORE, WATAFUK, 200, 220, 5, 1,
 	'Easy peasy lemon squeezy!',
-	'Beat <strong>EEZZEE</strong> mode? Try <strong>HARDCORE</strong> or <strong>WATAFUK</strong> mode for higher score!',
+	'Press SETTING to try <strong>HARDCORE</strong> or <strong>WATAFUK</strong> mode!',
 	'WHAT! This is the <strong>EASIEST</strong> mode!');
 HARDCORE.construct('HARDCORE', WATAFUK, EEZZEE, 200, 200, 8, 2,
 	'You tried so hard, and got so farrr...',
-	'You have SKILLS! Wanna be in <strong>HIGH SCORE BOARD</strong>?. Try <strong>WATAFUK</strong> mode!',
-	'Don\'t be upset. Try <strong>WATAFUK</strong> mode in <strong>SETTING</strong> and come back here!');
+	'You have SKILLS! Try <strong>WATAFUK</strong> mode for <strong>x3 SCORE</strong>!',
+	'TOO HARD? Try <strong>WATAFUK</strong> mode in <strong>SETTING</strong>!');
 WATAFUK.construct('WATAFUK', EEZZEE, HARDCORE, 160, 80, 10, 3,
 	'\"I dunno WATAFUK I am duinnn now!\"',
 	'WHAT??? You\'ve beat WATAFUK MODE??? Capture screen and send us for reward!',
@@ -462,7 +462,6 @@ function Stage() {
 		return _map;
 	}
 }
-
 
 
 stage[1] = new Stage();
@@ -556,3 +555,26 @@ stage[4].construct(151, 0,
 	{x: 13, y: 9, dx: 1, dy: 0},
 	{x: 7, y: 9, dx: -1, dy: 0},
 	{x: 7, y: 10, dx: -1, dy: 0});
+
+stage[5] = new Stage();
+stage[5].construct(122, 0, 
+	[
+		['╔','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
+		['║','Ѽ','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','╔','═','═','╗','◦','◦','╔','═','═','═','╗','◦','╔','═','═','╗','◦','║'],
+		['║','◦','║','╔','╗','║','◦','◦','║','╔','═','╗','║','◦','║','╔','═','╝','◦','║'],
+		['║','◦','║','╚','╝','║','◦','◦','║','║','Ѽ','║','║','◦','║','║','◦','◦','◦','║'],
+		['║','◦','║','╔','═','╝','◦','◦','║','║','◦','║','║','◦','║','║','◦','◦','◦','║'],
+		['║','◦','║','║','◦','◦','◦','◦','║','║','◦','║','║','◦','║','╚','═','╗','◦','║'],
+		['║','◦','╚','╝','◦','◦','◦','◦','║','╚','─','╝','║','◦','╚','═','═','╝','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','◦','║','╔','─','╗','║','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','╔','═','═','═','╗','◦','║','║','◦','║','║','◦','╔','═','═','╗','◦','║'],
+		['║','◦','║','Ѽ','◦','◦','║','◦','║','║','◦','║','║','◦','║','Ѽ','◦','║','◦','║'],
+		['║','◦','║','◦','║','◦','║','◦','║','║','◦','║','║','◦','║','◦','◦','║','◦','║'],
+		['║','◦','╚','◦','╚','◦','╚','◦','╚','╝','◦','╚','╝','◦','╚','◦','◦','╚','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['╚','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╝']	
+	],
+	{x: 4, y: 16, dx: 0, dy: -1},
+	{x: 5, y: 10, dx: 1, dy: 0},
+	{x: 6, y: 10, dx: 1, dy: 0});

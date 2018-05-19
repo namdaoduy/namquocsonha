@@ -172,7 +172,7 @@ function check() {
 				else {
 					user.updateWin();
 				}
-				if (cur_stage < 4) {
+				if (cur_stage < 5) {
 					cur_stage++;
 				}
 				start_button.setAttribute("onclick", "start()");
@@ -187,7 +187,8 @@ function check() {
 					nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
 									'<h2>' + title + '</h2>' +
 									'<p>' + play_mode.win + '</p>' +
-									'<p><strong>START</strong> to play STAGE ' + cur_stage + '</p>' +
+									'<p><strong>START</strong> STAGE ' + cur_stage + ' ►►</p>' +
+									'<p>---</p>' +
 									'<p><strong>' + user.name + '</strong></p>' +
 									'<p style="margin-left:20%">MODE: <strong>' + play_mode.mode + '</strong></p>';
 			}, 1000);
