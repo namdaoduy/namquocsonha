@@ -46,7 +46,7 @@ var detect_range = 8;
 var super_mode = 0;
 var reverse_mode = 0;
 
-var cur_stage = 5;
+var cur_stage = 1;
 
 var custommess;
 var custommess_flag = 1;
