@@ -137,11 +137,12 @@ function check() {
 				if (Math.floor(Math.random() * 25) == 1) {
 					nani();
 					setTimeout(function() {
-						nam.innerHTML = '<h2>EASTER EGG</h2>' +
+						nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
+										'<h2>EASTER EGG</h2>' +
 										'<p><em>\"YOU\'RE ALREADY DEAD INSIDE!\"</em></p>' +
 										'<p>---</p>' +
 										'<p><strong>' + user.name + '</strong></p>' +
-										'   MODE: <strong>' + play_mode.mode + '</strong>';
+										'<p style="margin-left:20%">MODE: <strong>' + play_mode.mode + '</strong></p>';
 					}, 6700);
 				}
 				else {
@@ -149,11 +150,12 @@ function check() {
 					blink('red');
 					display();
 					setTimeout(function() {
-						nam.innerHTML = '<h2>GAME OVER</h2>' +
+						nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
+										'<h2>GAME OVER</h2>' +
 										'<p>' + play_mode.loss + '</p>' +
 										'<p>---</p>' +
 										'<p><strong>' + user.name + '</strong></p>' +
-										'   MODE: <strong>' + play_mode.mode + '</strong>';
+										'<p style="margin-left:20%">MODE: <strong>' + play_mode.mode + '</strong></p>';
 					}, 1000);
 				}
 			}
@@ -179,11 +181,11 @@ function check() {
 					displayHighScore();
 				} , 2000);
 				setTimeout(function() {
-					nam.innerHTML = '<h2>' + title + '</h2>' +
+					nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
+									'<h2>' + title + '</h2>' +
 									'<p>' + play_mode.win + '</p>' +
-									'<p>Press START to play <strong>STAGE ' + cur_stage + '</strong></p>\n' +
 									'<p><strong>' + user.name + '</strong></p>' +
-									'   MODE: <strong>' + play_mode.mode + '</strong>';
+									'<p style="margin-left:20%">MODE: <strong>' + play_mode.mode + '</strong></p>';
 			}, 1000);
 		}
 	}

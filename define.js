@@ -421,17 +421,17 @@ var WATAFUK = new Mode();
 EEZZEE.construct('EEZZEE', HARDCORE, WATAFUK, 200, 220, 5, 1,
 	'Easy peasy lemon squeezy!',
 	'Beat <strong>EEZZEE</strong> mode? Try <strong>HARDCORE</strong> or <strong>WATAFUK</strong> mode for higher score!',
-	'Come on! This is the EASIEST MODE!');
+	'WHAT! This is the <strong>EASIEST</strong> mode!');
 HARDCORE.construct('HARDCORE', WATAFUK, EEZZEE, 200, 200, 8, 2,
 	'You tried so hard, and got so farrr...',
 	'You have SKILLS! Wanna be in <strong>HIGH SCORE BOARD</strong>?. Try <strong>WATAFUK</strong> mode!',
-	'Don\'t be upset. Try <strong>WATAFUK</strong> mode in <strong>SETTING</strong> and come back here. You will feel better!');
+	'Don\'t be upset. Try <strong>WATAFUK</strong> mode in <strong>SETTING</strong> and come back here!');
 WATAFUK.construct('WATAFUK', EEZZEE, HARDCORE, 160, 80, 10, 3,
 	'\"I dunno WATAFUK I am duinnn now!\"',
 	'WHAT??? You\'ve beat WATAFUK MODE??? Capture screen and send us for reward!',
-	'Try again boiii! Beat this mode for a REAL REWARD!');
+	'Life is hard, you know...');
 
-var play_mode = HARDCORE;
+var play_mode = EEZZEE;
 
 
 // Stage prototype--------------------------
