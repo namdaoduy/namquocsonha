@@ -171,7 +171,9 @@ function check() {
 				else {
 					user.updateWin();
 				}
-				cur_stage++;
+				if (cur_stage < 4) {
+					cur_stage++;
+				}
 				start_button.setAttribute("onclick", "start()");
 				playSound(sound_opening);
 				clearTime();
