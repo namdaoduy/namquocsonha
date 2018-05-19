@@ -70,6 +70,7 @@ var fruit = { icon: fruit_icon }
 var pacman;
 var ghost1;
 var ghost2;
+var stage = new Array();
 
 
 // User prototype--------------------------
@@ -188,7 +189,7 @@ function Pacman() {
 				count_point += 500 * x_point;
 				playSound(sound_ghost);
 				timeouts.push(setTimeout(function() {
-					target.revive(1,1);
+					target.revive(stage[cur_stage].pos1);
 				}, 10000));
 		}
 	},
@@ -264,14 +265,14 @@ function Ghost() {
 		map[this.pos_x][this.pos_y] = this.icon;
 		display();
 	},
-	this.revive = function(x, y) {
+	this.revive = function(pos) {
 		this.dead = 0;
 		this.foot = ' ';
-		map[x][y] = this.icon;
+		map[pos.x][pos.y] = this.icon;
 		var _this = this;
 		timeouts.push(setTimeout(function(){
-			_this.pos_x = x;
-			_this.pos_y = y;
+			_this.pos_x = pos.x;
+			_this.pos_y = pos.y;
 			_this.start();
 		}, 1000));
 	},
@@ -420,12 +421,12 @@ EEZZEE.construct('EEZZEE', HARDCORE, WATAFUK, 200, 220, 5, 1,
 	'Come on! This is the EASIEST MODE!');
 HARDCORE.construct('HARDCORE', WATAFUK, EEZZEE, 200, 200, 8, 2,
 	'You tried so hard, and got so farrr...',
-	'You have SKILLS! Wanna be in <strong>HIGH SCORE BOARD</strong>?. Don\'t worry, we have <strong>WATAFUK</strong> mode for ya!',
+	'You have SKILLS! Wanna be in <strong>HIGH SCORE BOARD</strong>?. Try <strong>WATAFUK</strong> mode!',
 	'Don\'t be upset. Try <strong>WATAFUK</strong> mode in <strong>SETTING</strong> and come back here. You will feel better!');
 WATAFUK.construct('WATAFUK', EEZZEE, HARDCORE, 160, 80, 10, 3,
 	'\"I dunno WATAFUK I am duinnn now!\"',
 	'WHAT??? You\'ve beat WATAFUK MODE??? Capture screen and send us for reward!',
-	'Try again boiii! Beat this mode for a REAL REWARD!');//
+	'Try again boiii! Beat this mode for a REAL REWARD!');
 
 var play_mode = HARDCORE;
 
@@ -456,7 +457,7 @@ function Stage() {
 	}
 }
 
-var stage = new Array();
+
 
 stage[1] = new Stage();
 stage[1].construct(150, 0, 
@@ -497,6 +498,29 @@ stage[2].construct(157, 0,
 		['║','◦','◦','◦','◦','◦','◦','◦','║','◦','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
 		['║','◦','◦','◦','◦','◦','◦','◦','║','◦','◦','║','◦','◦','◦','◦','◦','◦','◦','║'],
 		['║','◦','═','═','═','═','═','═','╝','◦','◦','╚','═','═','═','═','═','═','◦','║'],
+		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['╚','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╝']	
+	],
+	{x: 10, y: 9, dx: 0, dy: -1},
+	{x: 1, y: 9, dx: -1, dy: 0},
+	{x: 1, y: 10, dx: -1, dy: 0});
+
+stage[3] = new Stage();
+stage[3].construct(136, 0, 
+	[
+		['╔','═','╦','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╗'],
+		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
+		['║','◦','║','◦','╔','═','═','═','═','═','═','◦','═','═','═','═','═','╗','◦','║'],
+		['║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║'],
+		['║','◦','║','◦','║','◦','╔','═','═','═','═','═','═','═','═','╗','◦','║','◦','║'],
+		['║','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║'],
+		['║','◦','◦','◦','║','◦','║','◦','═','═','═','═','═','╗','◦','║','◦','║','◦','║'],
+		['║','◦','║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','║','◦','║','◦','◦','◦','║'],
+		['║','◦','║','◦','║','◦','╚','═','═','═','═','═','═','╝','◦','║','◦','║','◦','║'],
+		['║','◦','║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║','◦','║'],
+		['║','◦','║','◦','╚','═','═','═','═','═','═','═','═','═','═','╝','◦','║','◦','║'],
+		['║','◦','║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║','◦','║'],
+		['║','◦','╚','═','═','═','═','═','═','═','◦','═','═','═','═','═','═','╝','◦','║'],
 		['║','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','◦','║'],
 		['╚','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','═','╝']	
 	],

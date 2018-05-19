@@ -180,7 +180,8 @@ function check() {
 				} , 2000);
 				setTimeout(function() {
 					nam.innerHTML = '<h2>' + title + '</h2>' +
-									'<p>' + play_mode.win + '</p>\n' +
+									'<p>' + play_mode.win + '</p>' +
+									'<p>Press START to play <strong>STAGE ' + cur_stage + '</strong></p>\n' +
 									'<p><strong>' + user.name + '</strong></p>' +
 									'   MODE: <strong>' + play_mode.mode + '</strong>';
 			}, 1000);
