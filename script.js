@@ -186,7 +186,7 @@ function check() {
 					nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
 									'<h2>' + title + '</h2>' +
 									'<p>' + play_mode.win + '</p>' +
-									'<p><strong>START</strong> to play STAGE ' + cur_stage +
+									'<p><strong>START</strong> to play STAGE ' + cur_stage + '</p>' +
 									'<p><strong>' + user.name + '</strong></p>' +
 									'<p style="margin-left:20%">MODE: <strong>' + play_mode.mode + '</strong></p>';
 			}, 1000);
