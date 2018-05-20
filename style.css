@@ -281,6 +281,13 @@ pre {
 	text-align: center;
 }
 
+#stage-list button {
+	float: left;
+    width: 48%;
+    height: 21%;
+    margin: 1%;
+}
+
 @media (min-width: 768px) and (min-height: 727px) {
 	.display {
 	    letter-spacing: 7px;

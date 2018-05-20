@@ -8,12 +8,6 @@ mainGif();
 // ---------------------------------------------------------- //
 
 function start() {
-	user.name = (name_input.value).toUpperCase();
-	if (!user.name) {
-		alert("I know u have a NAME! \nOr friends call you \"BOIII\"???");
-		name_input.value = "BOIII";
-		return;
-	}
 	loadCustomMess();
 	start_button.setAttribute("onclick", "backToMenu()");
 	user.updateUser();
@@ -43,10 +37,33 @@ function backToMenu() {
 	help_div.classList.add("hide");
 	credit_div.classList.add("hide");
 	play_mode_div.classList.add("hide");
+	stage_list_div.classList.add("hide");
 	clearTime();
 	mainGif();
 	count_point = 0;
-	start_button.setAttribute("onclick", "start()");
+	start_button.setAttribute("onclick", "stageList()");
+}
+
+function stageList() {
+	user.name = (name_input.value).toUpperCase();
+	if (!user.name) {
+		alert("I know u have a NAME! \nOr friends call you \"BOIII\"???");
+		name_input.value = "BOIII";
+		return;
+	}
+	stage_list_div.classList.toggle("hide");
+}
+
+function playStage(num) {
+	stage_list_div.classList.add("hide");
+	cur_stage = num;
+	start();
+}
+
+function unlockStage(num) {
+	var stage = document.getElementById("s" + num);
+	stage.innerHTML = "STAGE " + num;
+	stage.disabled = false;
 }
 
 function resetGame() {
@@ -96,6 +113,7 @@ function hideWindows() {
 	help_div.classList.add("hide");
 	credit_div.classList.add("hide");
 	play_mode_div.classList.add("hide");
+	stage_list_div.classList.add("hide");
 }
 
 function display() {
@@ -133,12 +151,13 @@ function check() {
 			}
 			else {
 				clearTime();
+				var temp = cur_stage;
 				cur_stage = 1;
 				map[_pacman.pos_x][_pacman.pos_y] = '۩';
 				if (Math.floor(Math.random() * 25) == 1) {
 					nani();
 					setTimeout(function() {
-						nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
+						nam.innerHTML = '<p><strong>STAGE ' + temp + '</strong></p>' +
 										'<h2>EASTER EGG</h2>' +
 										'<p><em>\"YOU\'RE ALREADY DEAD INSIDE!\"</em></p>' +
 										'<p>---</p>' +
@@ -151,7 +170,7 @@ function check() {
 					blink('red');
 					display();
 					setTimeout(function() {
-						nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
+						nam.innerHTML = '<p><strong>STAGE ' + temp + '</strong></p>' +
 										'<h2>GAME OVER</h2>' +
 										'<p>' + play_mode.loss + '</p>' +
 										'<p>---</p>' +
@@ -167,13 +186,15 @@ function check() {
 				var title = 'YOU WIN';
 				if (count_point >= 7000) {
 					user.writeHighscore();
-					title = 'NEW HIGH SCORE';
+					title = 'HIGH SCORE';
 				}
 				else {
 					user.updateWin();
 				}
+				var temp = cur_stage;
 				if (cur_stage < 5) {
 					cur_stage++;
+					unlockStage(cur_stage);
 				}
 				start_button.setAttribute("onclick", "start()");
 				playSound(sound_opening);
@@ -184,7 +205,7 @@ function check() {
 					displayHighScore();
 				} , 2000);
 				setTimeout(function() {
-					nam.innerHTML = '<p><strong>STAGE ' + cur_stage + '</strong></p>' +
+					nam.innerHTML = '<p><strong>STAGE ' + temp + '</strong></p>' +
 									'<h2>' + title + '</h2>' +
 									'<p>' + play_mode.win + '</p>' +
 									'<p><strong>START</strong> STAGE ' + cur_stage + ' ►►</p>' +
@@ -244,7 +265,7 @@ function bigFruit() {
 			superPacman();
 			break;
 		case 3:
-			boostSpeed(ghost1, 4);
+			boostSpeed(ghost1, 2);
 			reStart();
 			blink("red");
 			break;
@@ -254,9 +275,9 @@ function bigFruit() {
 			blink("blue");
 			break;
 		case 5:
-			boostSpeed(pacman, 2);
-			boostSpeed(ghost1, 2);
-			boostSpeed(ghost2, 2);
+			boostSpeed(pacman, 1.5);
+			boostSpeed(ghost1, 1.5);
+			boostSpeed(ghost2, 1.5);
 			reStart();
 			blink("blue");
 			break;

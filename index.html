@@ -59,6 +59,17 @@
 				<span>POINT:&nbsp</span><strong><span id="point">0</span></strong><br>
 			</div>
 			<div id="stage-num" class="overlay-div hide"><h3></h3></div>
+			<div id="stage-list" class="window-popup hide">
+				<h3>CHOOSE STAGE</h3>
+				<button id="s1" onclick="playStage(1)">STAGE 1</button>
+				<button id="s2" onclick="playStage(2)" disabled>🔒</button>
+				<button id="s3" onclick="playStage(3)" disabled>🔒</button>
+				<button id="s4" onclick="playStage(4)" disabled>🔒</button>
+				<button id="s4" onclick="playStage(5)" disabled>🔒</button>
+				<button id="s5" onclick="playStage(6)" disabled>🔒</button>
+				<button id="s5" onclick="playStage(7)" disabled>🔒</button>
+				<button id="s5" onclick="playStage(8)" disabled>🔒</button>
+			</div>
 			<div id="nani" class="window-popup hide">
 				<div id="nani-pac" style="right: 40px">
   ▄████▄
@@ -157,7 +168,7 @@
 		</div>
 		
 		<div class="button-container">
-			<span class="col-4"><button id="start-button" onclick="start()">START</button></span>
+			<span class="col-4"><button id="start-button" onclick="stageList()">START</button></span>
 			<span class="col-4"><button id="up-button" onclick="tap('up')">▲</button></span>
 			<span class="col-4"><button id="help-button" onclick="setting()">SETTING</button></span>
 			<span class="col-4"><button id="left-button" onclick="tap('left')">◄</button></span>

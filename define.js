@@ -19,6 +19,7 @@ var button = document.getElementsByTagName("button");
 var nani_div = document.getElementById("nani");
 var start_button = document.getElementById("start-button");
 var stage_num_div = document.getElementById("stage-num");
+var stage_list_div = document.getElementById("stage-list");
 
 
 // Define variables
