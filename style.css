@@ -8,11 +8,7 @@ html, body {
 	width: 100%;
 	min-height: 590px;
 	display: block;
-	font-family: "Courier New", Cour, Courier, monospace !important;
-	-webkit-user-select: none;
-  	-moz-user-select: none;
-  	-ms-user-select: none;
-  	user-select: none; }
+	font-family: "Courier New", Cour, Courier, monospace !important; }
 
 body {
 	touch-action: manipulation;
@@ -108,7 +104,12 @@ button {
     border-style: outset;
     border-color: buttonface;
     border-image: initial;
-    padding: 1px 6px; }
+    padding: 1px 6px; 
+
+	-webkit-user-select: none;
+  	-moz-user-select: none;
+  	-ms-user-select: none;
+  	user-select: none; }
 
 .col-4 button {
     width: 100%;
