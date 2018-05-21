@@ -8,7 +8,11 @@ html, body {
 	width: 100%;
 	min-height: 590px;
 	display: block;
-	font-family: "Courier New", Cour, Courier, monospace !important; }
+	font-family: "Courier New", Cour, Courier, monospace !important;
+	-webkit-user-select: none;
+  	-moz-user-select: none;
+  	-ms-user-select: none;
+  	user-select: none; }
 
 body {
 	touch-action: manipulation;
