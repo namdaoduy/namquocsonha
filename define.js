@@ -85,14 +85,14 @@ function User() {
 	this.time,
 	this.stage,
 	this.updateUser = function() {
-		this.time = Date.now();
+		this.time = timeNow();
 		var _this = this;
 		database.ref('allusername').update({['/' + _this.name] : _this.time});
 	},
 	this.writeHighscore = function() {
 		this.score = count_point;
 		this.mode = play_mode.mode;
-		this.time = Date.now();
+		this.time = timeNow();
 		this.stage = cur_stage;
 		var _this = this;
 		database.ref('highscore/' + _this.score).child(_this.time)
@@ -103,14 +103,14 @@ function User() {
 	this.updateWin = function() {
 		this.score = count_point;
 		this.mode = play_mode.mode;
-		this.time = Date.now();
+		this.time = timeNow();
 		this.stage = cur_stage;
 		var _this = this;
 		database.ref('user/' + _this.name).child(_this.time)
 			.set({score: _this.score, mode: _this.mode, stage: _this.stage});
 	}
 	this.nani = function() {
-		this.time = Date.now();
+		this.time = timeNow();
 		var _this = this;
 		database.ref('nani').child(_this.time)
 			.set({name: _this.name});
