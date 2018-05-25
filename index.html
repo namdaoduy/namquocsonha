@@ -10,29 +10,7 @@
 	<meta property="og:description" content="Need a funny game can play on ANY devices? Here is yours!" />
 	<link rel="stylesheet" type="text/css" href="normalize.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115861538-2"></script>
-	<script>
-	  	window.dataLayer = window.dataLayer || [];
-	  	function gtag(){dataLayer.push(arguments);}
-	  	gtag('js', new Date());
-	  	gtag('config', 'UA-115861538-2');
-	</script>
-	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
-	<script>
-		// Initialize Firebase
-		var config = {
-			apiKey: "AIzaSyAOBFuhqnRmGFJypVORkltN0ZwBmtj9eXY",
-			authDomain: "pacman-webgame.firebaseapp.com",
-			databaseURL: "https://pacman-webgame.firebaseio.com",
-			projectId: "pacman-webgame",
-			storageBucket: "pacman-webgame.appspot.com",
-			messagingSenderId: "544268261623"
-		};
-		firebase.initializeApp(config);
 
-		var database = firebase.database();
-	</script>
 	<title>PACMAN - SpQuyt ft. namdaoduy</title>
 </head>
 <body onclick="loadSound(); this.onclick = null;">
@@ -176,7 +154,29 @@
 			<span class="col-4"><button id="right-button" onclick="tap('right')">►</button></span>
 		</div>
 	</div>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115861538-2"></script>
+	<script>
+	  	window.dataLayer = window.dataLayer || [];
+	  	function gtag(){dataLayer.push(arguments);}
+	  	gtag('js', new Date());
+	  	gtag('config', 'UA-115861538-2');
+	</script>
+	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyAOBFuhqnRmGFJypVORkltN0ZwBmtj9eXY",
+			authDomain: "pacman-webgame.firebaseapp.com",
+			databaseURL: "https://pacman-webgame.firebaseio.com",
+			projectId: "pacman-webgame",
+			storageBucket: "pacman-webgame.appspot.com",
+			messagingSenderId: "544268261623"
+		};
+		firebase.initializeApp(config);
 
+		var database = firebase.database();
+	</script>
 	<script src="define.js"></script>
 	<script src="script.js"></script>
 	<script src="firebase.js"></script>
